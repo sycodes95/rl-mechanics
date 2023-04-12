@@ -1,0 +1,8 @@
+@font-face {
+  font-family: Sedgewick;
+  src: url(/src/fonts/SedgwickAveDisplay-Regular.ttf);
+}
+
+.font-sedgewick{
+  font-family: Sedgewick, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}

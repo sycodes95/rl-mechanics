@@ -1,0 +1,14 @@
+.font-black-outline{
+  text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, rgb(0, 0, 0) 1px 0 4px,
+  rgb(0, 0, 0) 1px 0 1px ; 
+}
+
+.bg-gradient{
+  background:linear-gradient(rgb(0, 0, 0), rgb(48, 48, 48))
+}
+
+.bg-waves{
+  background: url(../bg-patterns/45degree.webp);
+  background-repeat:repeat;
+  
+}

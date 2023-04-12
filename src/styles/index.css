@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Chakra;
+  src: url(/src/assets/fonts/ChakraPetch-Regular.ttf);
+}
+
+:root {
+  font-family: Chakra, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body{
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
