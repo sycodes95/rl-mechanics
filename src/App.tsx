@@ -1,20 +1,18 @@
 import './styles/App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/pages/header/header';
+import Register from './components/pages/register/register';
+
 
 function App() {
 
   return (
     <BrowserRouter>
-      <div className='min-h-screen bg-waves'>
-
+      <div className='flex flex-col min-h-screen bg-dot '>
         
         <Header/>
-        
-      
-
         <Routes>
-          <Route/>
+          <Route path='/register' element={<Register/>}/>
         </Routes>
       </div>
     </BrowserRouter>

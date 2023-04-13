@@ -1,14 +1,61 @@
+/* SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR */
+
+::-webkit-scrollbar{
+  width: 14px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
+  
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: rgb(177, 177, 177);
+  border-radius: 4px;
+}
+
+
+.scrollbar-color::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+
+.scrollbar-color::-webkit-scrollbar-track{
+  background-color: rgb(187, 187, 187);
+}
+
+
+/* FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT */
+
 .font-black-outline{
   text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, rgb(0, 0, 0) 1px 0 4px,
   rgb(0, 0, 0) 1px 0 1px ; 
+}
+
+/* BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND */
+
+
+.bg-dot{
+  background: url(../assets/bg-patterns/dot-grid.webp);
+  background-repeat:repeat;
 }
 
 .bg-gradient{
   background:linear-gradient(rgb(0, 0, 0), rgb(48, 48, 48))
 }
 
-.bg-waves{
-  background: url(../bg-patterns/45degree.webp);
-  background-repeat:repeat;
-  
+.bg-gradient-green-blue{
+  background:linear-gradient(rgb(0, 255, 145), rgb(0, 106, 33))
 }
+
+.bg-gradient-orange-yellow{
+  background:linear-gradient(rgb(246, 160, 0), rgb(254, 0, 0))
+}
+
+.bg-gradient-red-pink{
+  background:linear-gradient(rgba(255, 0, 0), rgba(255, 2, 234))
+}
+
+
