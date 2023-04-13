@@ -16,7 +16,6 @@ const withAuth = (Component: any) => {
       return <Component {...props} />;
     }
     
-    
   };
 
   return AuthComponent;

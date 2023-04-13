@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom"
 import withAuth from "../../hocs/withAuth"
 import rankOptions from "./rankOptions"
 import emailRegex from "./emailRegex"
-
+import { Oval } from "react-loader-spinner"
+import { ChangeEvent, FormEvent } from 'react';
 
 function Register () {
   const navigate = useNavigate()
+  const [isFetching, setIsFetching] = useState(false)
+  const [errorMsgs, setErrorMsgs] = useState<string[]>([])
   const [registerationData, setRegisterationData] = useState({
     user_email: "",
     user_password: "",
@@ -18,36 +21,62 @@ function Register () {
   })
 
   const handleInputChange = (e: any) => {
-    
+    setErrorMsgs([])
+    console.log(e);
     const { name, value } = e.target
     setRegisterationData({...registerationData, [name]: value})
   }
 
-  const handleRegisterSubmit = () => {
-    fetch(`${process.env.REACT_APP_API_HOST_URL}/users/register-post`, {
+  const handleRegisterSubmit = (e: any) => {
+   
+    e.preventDefault()
+    
+    setIsFetching(true)
+
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/users/register-post`, {
       method: 'POST',
       body: JSON.stringify(registerationData),
       headers: { 'Content-Type': 'application/json'}
     })
     .then(response => response.json())
     .then(data => {
-      
+      setIsFetching(false)
+      console.log(data);
       const user = data.user;
       const errors = data.errors;
+      
       if(data && user){
         setTimeout(()=>{
           navigate('/log-in')
-        },1500)
+        },1000)
       } 
-
+      
       if(data && errors) {
-        console.log(errors);
+        if(errors.code === '23505') setErrorMsgs([...errorMsgs, 'Email Already Exists']);
+
+        errors.forEach((err: {msg: string}) => {
+          if(err.msg === 'Passwords don\'t match' && !errorMsgs.includes('Passwords don\'t match')){
+            setErrorMsgs([...errorMsgs, 'Passwords don\'t match']);
+          } 
+        })
+        
       }
     })
     .catch(error => {
       console.error('Error:', error);
     });
   }
+
+  useEffect(()=>{
+    console.log(errorMsgs);
+  },[errorMsgs])
+
+  useEffect(()=>{
+    //reset error msgs when user changes data or click submit button
+    
+  },[registerationData, isFetching])
+
+
 
   return (
     <div className="relative w-full flex flex-grow justify-center items-center p-4 border border-gray-300">
@@ -65,13 +94,13 @@ function Register () {
 
           <input className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
           focus:outline-orange-400 transition-all duration-500" 
-          name="user_password" type="text" value={registerationData.user_password} placeholder="PASSWORD"
+          name="user_password" type="password" value={registerationData.user_password} placeholder="PASSWORD"
           required
           onChange={handleInputChange}/>
 
           <input className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
           focus:outline-orange-400 transition-all duration-500" 
-          name="user_confirm_password" type="text" value={registerationData.user_password} placeholder="CONFIRM PASSWORD"
+          name="user_confirm_password" type="password" value={registerationData.user_confirm_password} placeholder="CONFIRM PASSWORD"
           required
           onChange={handleInputChange}/>
 
@@ -88,7 +117,34 @@ function Register () {
             
           </select>
 
-          <button className="bg-gray-300 text-sm p-1 hover:bg-orange-300 transition-all">SUBMIT</button>
+          <button className="h-8 flex justify-center items-center bg-gray-300 text-sm p-1 hover:bg-orange-300 transition-all" onClick={handleRegisterSubmit}>
+            {
+            isFetching ?
+            <Oval
+            height={20}
+            width={20}
+            color="#000000"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel='oval-loading'
+            secondaryColor="#111111"
+            strokeWidth={6}
+            strokeWidthSecondary={6}
+            />
+            :
+            <span>SUBMIT</span>
+            }
+            
+          </button>
+          <div>
+          {
+          errorMsgs.length !== 0 &&
+          errorMsgs.map((msg:string, index:number)=>(
+            <p className="text-red-500" key={index}>{msg}</p>
+          ))
+          }
+          </div>
           
         </form>
       </div>
