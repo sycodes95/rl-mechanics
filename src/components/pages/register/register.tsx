@@ -1,20 +1,28 @@
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import withAuth from "../../hocs/withAuth"
-import rankOptions from "./rankOptions"
-import validEmail from "../../utils/validEmail"
-import validPassword from "../../utils/validPassword"
-import { Oval } from "react-loader-spinner"
+import { useEffect, useState} from "react";
+import { ReactSVG } from "react-svg";
+import { useNavigate } from "react-router-dom";
+import withAuth from "../../hocs/withAuth";
+import rankOptions from "./rankOptions";
+import validEmail from "../../utils/validEmail";
+import validPassword from "../../utils/validPassword";
+import { Oval } from "react-loader-spinner";
 import { ChangeEvent, FormEvent } from 'react';
 
+import twodown from "../../../assets/svgs/twodown.svg"
 
 function Register () {
-  const navigate = useNavigate()
-  const [isFetching, setIsFetching] = useState(false)
-  const [errorMsgs, setErrorMsgs] = useState<string[]>([])
-  const [emailFormatErr, setEmailFormatErr] = useState(false)
-  const [passwordLengthErr, setPasswordLengthErr] = useState(false)
-  const [registerSuccess, setRegisterSuccess] = useState(false)
+  const navigate = useNavigate();
+
+  const [isFetching, setIsFetching] = useState(false);
+
+  const [errorMsgs, setErrorMsgs] = useState<string[]>([]);
+
+  const [emailFormatErr, setEmailFormatErr] = useState(false);
+
+  const [passwordLengthErr, setPasswordLengthErr] = useState(false);
+
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+
   const [registerationData, setRegisterationData] = useState({
     user_email: "",
     user_password: "",
@@ -23,24 +31,29 @@ function Register () {
     user_last_name: "",
     user_rank: "",
     user_is_verified: false,
-  })
+  });
 
   const handleInputChange = (e: any) => {
+    //reset error msgs to empty array on any input change
     setErrorMsgs([])
+
     const { name, value } = e.target
+
     setRegisterationData({...registerationData, [name]: value})
-  }
+  };
 
   const handleRegisterSubmit = (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    setEmailFormatErr(()=> false)
-    setPasswordLengthErr(()=> false)
+    //reset email & password errors back to default value (false) when user submits form
+    setEmailFormatErr(false);
+    setPasswordLengthErr(false);
 
+    //Exit if email or password is invalid and set error flags
     if(!validEmail(registerationData.user_email)) return setEmailFormatErr(true)
     if(!validPassword(registerationData.user_password)) return setPasswordLengthErr(true)
 
-    setIsFetching(true)
+    setIsFetching(true);
 
     fetch(`${import.meta.env.VITE_API_HOST_URL}/users/register-post`, {
       method: 'POST',
@@ -49,17 +62,17 @@ function Register () {
     })
     .then(response => response.json())
     .then(data => {
-      setIsFetching(false)
+      setIsFetching(false);
       console.log(data);
       const user = data.user;
       const errors = data.errors;
       
       if(data && user){
-        setRegisterSuccess(true)
+        setRegisterSuccess(true);
         setTimeout(()=>{
           navigate('/log-in')
-        },1000)
-      } 
+        },1000);
+      };
       
       if(data && errors) {
         if(errors.code === '23505') setErrorMsgs([...errorMsgs, 'Email Already Exists *']);
@@ -74,44 +87,36 @@ function Register () {
     })
     .catch(error => {
       console.error('Error:', error);
-    })
-  }
-
-  useEffect(()=>{
-    console.log(errorMsgs);
-  },[errorMsgs])
-
-  useEffect(()=>{
-    //reset error msgs when user changes data or click submit button
-    
-  },[registerationData, isFetching])
-
-
+    });
+  };
 
   return (
-    <div className="relative w-full flex flex-grow justify-center items-center p-4 border border-gray-300">
+    <div className="relative w-full flex flex-grow justify-center items-center p-4 ">
       <div className="max-w-7xl flex justify-between">
         
       
         <form className="absolute sm:w-96 w-95pct top-1/3 -translate-x-1/2 -translate-y-1/3 p-6 flex flex-col gap-4 
-        shadow-lg shadow-gray-300 rounded-md bg-white">
+        rounded-md bg-jet-dark">
+          <div className="w-full flex justify-center">   
+            <ReactSVG className=" text-orange-400 fill-current"  src={twodown}/>
+            
+          </div>
+          <div className="text-4xl text-white text-center font-bold text-orange-400 rounded-md p-2">REGISTRATION</div>
           
-          <div className="text-2xl text-white text-center font-bold bg-orange-300 rounded-md p-2">REGISTERATION</div>
-          
-          <input className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
+          <input className="bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
           focus:outline-orange-400 transition-all duration-500" 
           name="user_email" type="text" value={registerationData.user_email} placeholder="EMAIL"
           required 
           onChange={handleInputChange}/>
 
-          <input className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
+          <input className="bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
           focus:outline-orange-400 transition-all duration-500" 
           name="user_password" type="password" value={registerationData.user_password} 
           placeholder="PASSWORD (MIN 8 CHARACTERS)" required
           
           onChange={handleInputChange}/>
           
-          <input className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
+          <input className="bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
           focus:outline-orange-400 transition-all duration-500" 
           name="user_confirm_password" type="password" value={registerationData.user_confirm_password} 
           placeholder="CONFIRM PASSWORD "
@@ -119,7 +124,7 @@ function Register () {
           onChange={handleInputChange}/>
 
           
-          <select className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
+          <select className="bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
           focus:outline-orange-400 transition-all duration-500" name="user_rank" value={registerationData.user_rank} 
           onChange={handleInputChange}>
             <option className="rounded-md" hidden>Highest Rank</option>
@@ -131,8 +136,8 @@ function Register () {
             
           </select>
 
-          <button className="h-8 flex justify-center items-center bg-gray-400 text-sm p-1 rounded-md
-          hover:bg-orange-300 transition-all" onClick={handleRegisterSubmit}>
+          <button className="h-8 flex justify-center items-center bg-gray-700 text-sm p-1 rounded-md
+          hover:bg-orange-400 transition-all" onClick={handleRegisterSubmit}>
             {
             isFetching &&
             <Oval

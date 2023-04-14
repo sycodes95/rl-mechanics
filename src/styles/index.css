@@ -7,10 +7,6 @@
   src: url(/src/assets/fonts/ChakraPetch-Regular.ttf);
 }
 
-@font-face {
-  font-family: Silkscreen;
-  src: url(/src/assets/fonts/Silkscreen-Regular.ttf);
-}
 
 :root {
   font-family: Chakra, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -18,6 +14,7 @@
 
 body{
   margin: 0;
+  background-color: rgb(37, 40, 48);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

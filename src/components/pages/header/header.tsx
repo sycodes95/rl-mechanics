@@ -1,27 +1,65 @@
 
 import '../../../styles/header.css'
-import rllogo from '../../../assets/images/rl-vector-black.png'
+
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import rllogo from '../../../assets/images/rl-vector-black.png'
+import triangleneon from '../../../assets/images/triangle-neon.png'
+import triangledouble from '../../../assets/images/triangle-double.png'
+
+import getUserFromToken from '../../utils/getUserFromToken';
 
 function Header() {
+
+  const [user_details, set_user_details] = useState<any>(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const getUserFromToken = () => {
+
+    const token = localStorage.getItem('rlmechanics_token')
+  
+    if(!token) return 
+  
+    if(token){
+  
+      fetch(`${import.meta.env.VITE_API_HOST_URL}/users/verify-token-get`, {
+        method: 'GET',
+        headers: { 'authorization': `Bearer ${token}` }
+      })
+      .then(response => response.json())
+      .then(data =>{
+        const userDetails =  data.user.user.rows[0]
+        delete userDetails.user_password
+        set_user_details(userDetails)
+      })
+      
+    }
+  }
+
   useEffect(()=> {
 
-    const token = JSON.parse(localStorage.getItem('rlmechanics_token') as string)
+    const token = localStorage.getItem('rlmechanics_token') as string
     console.log(token);
     token ? setIsLoggedIn(true) : setIsLoggedIn(false)
-
+    getUserFromToken()
+    
   },[])
+
+  useEffect(()=>{
+    console.log(user_details);
+  },[user_details])
   return(
-    <div className=' h-12 w-full p-4 flex justify-center items-center bg-white z-50'>
+    <div className=' h-12 w-full p-4 flex justify-center items-center bg-jet-dark-green z-50'>
 
       <div className='w-full max-w-7xl flex justify-between'>
 
-        <section className='flex items-center w-full'>
+        <section className='flex items-center w-full gap-x-2'>
 
-          <img className='h-8' src={rllogo} alt=''/>
-          <p className='sm:flex items-center hidden text-black text-3xl font-silkscreen'>RL MECHANICS</p>
+          <img className='h-8' src={triangleneon} alt=''/>
+          <p className='sm:flex items-center hidden text-white text-3xl font-silkscreen
+          font-black-outline'>
+            RL MECHANICS
+          </p>
 
         </section>
 
@@ -31,8 +69,14 @@ function Header() {
 
         <section className='flex justify-end items-center w-full gap-x-4'>
 
-          <Link to='/log-in' className='h-6 w-20 flex justify-center items-center 
-          bg-gray-600 bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
+          <Link to='/' className='h-6 w-20 flex justify-center items-center 
+          bg-slate-800 bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
+          hover:bg-opacity-75 transition-all'>
+            <p>MECHANICS</p>
+          </Link>
+
+          <Link to='/account' className='h-6 w-20 flex justify-center items-center 
+          bg-slate-800 bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
           hover:bg-opacity-75 transition-all'>
             <p>ACCOUNT</p>
           </Link>
@@ -41,6 +85,8 @@ function Header() {
           hover:bg-opacity-75 transition-all'>
             <p>♥ SUPPORT ME ♥</p>
           </button>
+
+          
            
         </section>
 

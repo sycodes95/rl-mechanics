@@ -1,3 +1,5 @@
+/* FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT */
+
 
 @font-face {
   font-family: Silkscreen;
@@ -6,6 +8,11 @@
 
 .font-silkscreen{
   font-family: Silkscreen, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.font-black-outline{
+  text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, rgb(0, 0, 0) 1px 0 4px,
+  rgb(0, 0, 0) 1px 0 1px ; 
 }
 
 
@@ -38,19 +45,29 @@
 }
 
 
-/* FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT FONT */
 
-.font-black-outline{
-  text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, rgb(0, 0, 0) 1px 0 4px,
-  rgb(0, 0, 0) 1px 0 1px ; 
-}
 
 /* BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND */
 
+.bg-jet-dark{
+  background-color: rgb(28, 29, 35);
+}
 
+.bg-jet-dark-green{
+  background-color: rgb(41, 91, 66);
+}
 .bg-dot{
   background: url(../assets/bg-patterns/dot-grid.webp);
   background-repeat:repeat;
+}
+
+.bg-bean{
+  background: url(../assets/bg-patterns/beanstalk.webp);
+  background-repeat:repeat;
+}
+
+.bg-jet-light{
+  background-color: rgb(37, 40, 48);
 }
 
 .bg-gradient{
