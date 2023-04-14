@@ -8,7 +8,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className='flex flex-col min-h-screen bg-dot '>
+      <div id='app' className='flex flex-col min-h-screen bg-dot '>
         
         <Header/>
         <Routes>

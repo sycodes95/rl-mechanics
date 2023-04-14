@@ -62,11 +62,11 @@ function Register () {
       } 
       
       if(data && errors) {
-        if(errors.code === '23505') setErrorMsgs([...errorMsgs, 'Email Already Exists']);
+        if(errors.code === '23505') setErrorMsgs([...errorMsgs, 'Email Already Exists *']);
 
         errors.forEach((err: {msg: string}) => {
           if(err.msg === 'Passwords don\'t match' && !errorMsgs.includes('Passwords don\'t match')){
-            setErrorMsgs([...errorMsgs, 'Passwords don\'t match']);
+            setErrorMsgs([...errorMsgs, 'Passwords don\'t match *']);
           } 
         })
         
@@ -161,20 +161,24 @@ function Register () {
           
           {
           emailFormatErr &&
-          <p className="h-4 text-red-500 text-xs">Incorrect email format.</p>
+          <p className="h-4 text-red-500 text-xs">Incorrect email format *</p>
           }
           {
           passwordLengthErr &&
-          <p className="text-red-500 text-xs">Password length must be minimum 8 characters.</p>
+          <p className="text-red-500 text-xs">Password length must be minimum 8 characters *</p>
           }
-          <div>
+          
           {
           errorMsgs.length !== 0 &&
+          <div>
+          {
           errorMsgs.map((msg:string, index:number)=>(
             <p className="text-red-500 text-xs" key={index}>{msg}</p>
           ))
           }
           </div>
+          }
+          
           
         </form>
       </div>
