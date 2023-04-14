@@ -14,14 +14,14 @@ function Header() {
 
   },[])
   return(
-    <div className=' h-12 w-full p-6 flex justify-center items-center bg-white z-50'>
+    <div className=' h-12 w-full p-4 flex justify-center items-center bg-white z-50'>
 
       <div className='w-full max-w-7xl flex justify-between'>
 
         <section className='flex items-center w-full'>
 
           <img className='h-8' src={rllogo} alt=''/>
-          <p className='text-black text-2xl '>RL MECHANICS</p>
+          <p className='sm:flex items-center hidden text-black text-3xl font-silkscreen'>RL MECHANICS</p>
 
         </section>
 
@@ -60,8 +60,8 @@ function Header() {
             <p>REGISTER</p>
           </Link>
 
-          <button className='h-6 flex items-center bg-gradient-red-pink bg-opacity-100 p-2 text-xs text-white rounded-lg
-          hover:bg-opacity-75 transition-all'>
+          <button className='h-6 hidden sm:flex items-center bg-gradient-red-pink bg-opacity-100 p-2 text-xs text-white rounded-lg
+          hover:bg-opacity-75 transition-all mw-768px-hidden'>
             <p>♥ SUPPORT ME ♥</p>
           </button>
             

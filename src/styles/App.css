@@ -1,3 +1,14 @@
+
+@font-face {
+  font-family: Silkscreen;
+  src: url(/src/assets/fonts/Silkscreen-Regular.ttf);
+}
+
+.font-silkscreen{
+  font-family: Silkscreen, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+
 /* SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR */
 
 ::-webkit-scrollbar{
@@ -56,6 +67,19 @@
 
 .bg-gradient-red-pink{
   background:linear-gradient(rgba(255, 0, 0), rgba(255, 2, 234))
+}
+
+/* HEIGHT WIDTH HEIGHT WIDTH HEIGHT WIDTH HEIGHT WIDTH HEIGHT WIDTH HEIGHT WIDTH HEIGHT WIDTH HEIGHT WIDTH */
+.w-95pct{
+  width: 95%;
+}
+
+/* MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA */
+
+@media (max-width: 768px) {
+  .mw-768px-hidden{
+    display: none;
+  }
 }
 
 

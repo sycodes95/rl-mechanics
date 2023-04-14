@@ -2,14 +2,19 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import withAuth from "../../hocs/withAuth"
 import rankOptions from "./rankOptions"
-import emailRegex from "./emailRegex"
+import validEmail from "../../utils/validEmail"
+import validPassword from "../../utils/validPassword"
 import { Oval } from "react-loader-spinner"
 import { ChangeEvent, FormEvent } from 'react';
+
 
 function Register () {
   const navigate = useNavigate()
   const [isFetching, setIsFetching] = useState(false)
   const [errorMsgs, setErrorMsgs] = useState<string[]>([])
+  const [emailFormatErr, setEmailFormatErr] = useState(false)
+  const [passwordLengthErr, setPasswordLengthErr] = useState(false)
+  const [registerSuccess, setRegisterSuccess] = useState(false)
   const [registerationData, setRegisterationData] = useState({
     user_email: "",
     user_password: "",
@@ -22,15 +27,19 @@ function Register () {
 
   const handleInputChange = (e: any) => {
     setErrorMsgs([])
-    console.log(e);
     const { name, value } = e.target
     setRegisterationData({...registerationData, [name]: value})
   }
 
   const handleRegisterSubmit = (e: any) => {
-   
     e.preventDefault()
-    
+
+    setEmailFormatErr(()=> false)
+    setPasswordLengthErr(()=> false)
+
+    if(!validEmail(registerationData.user_email)) return setEmailFormatErr(true)
+    if(!validPassword(registerationData.user_password)) return setPasswordLengthErr(true)
+
     setIsFetching(true)
 
     fetch(`${import.meta.env.VITE_API_HOST_URL}/users/register-post`, {
@@ -46,6 +55,7 @@ function Register () {
       const errors = data.errors;
       
       if(data && user){
+        setRegisterSuccess(true)
         setTimeout(()=>{
           navigate('/log-in')
         },1000)
@@ -64,7 +74,7 @@ function Register () {
     })
     .catch(error => {
       console.error('Error:', error);
-    });
+    })
   }
 
   useEffect(()=>{
@@ -81,10 +91,12 @@ function Register () {
   return (
     <div className="relative w-full flex flex-grow justify-center items-center p-4 border border-gray-300">
       <div className="max-w-7xl flex justify-between">
+        
       
-        <form className="absolute top-1/3 -translate-x-1/2 -translate-y-1/3 p-6 flex flex-col gap-4 
-        border border-gray-400 border-opacity-60 rounded-md bg-white">
-          <div className="text-2xl font-bold text-orange-400">REGISTERATION</div>
+        <form className="absolute sm:w-96 w-95pct top-1/3 -translate-x-1/2 -translate-y-1/3 p-6 flex flex-col gap-4 
+        shadow-lg shadow-gray-300 rounded-md bg-white">
+          
+          <div className="text-2xl text-white text-center font-bold bg-orange-300 rounded-md p-2">REGISTERATION</div>
           
           <input className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
           focus:outline-orange-400 transition-all duration-500" 
@@ -94,13 +106,15 @@ function Register () {
 
           <input className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
           focus:outline-orange-400 transition-all duration-500" 
-          name="user_password" type="password" value={registerationData.user_password} placeholder="PASSWORD"
-          required
+          name="user_password" type="password" value={registerationData.user_password} 
+          placeholder="PASSWORD (MIN 8 CHARACTERS)" required
+          
           onChange={handleInputChange}/>
-
+          
           <input className="text-black text-xs caret-black rounded-md p-2 outline-1 outline outline-gray-300  
           focus:outline-orange-400 transition-all duration-500" 
-          name="user_confirm_password" type="password" value={registerationData.user_confirm_password} placeholder="CONFIRM PASSWORD"
+          name="user_confirm_password" type="password" value={registerationData.user_confirm_password} 
+          placeholder="CONFIRM PASSWORD "
           required
           onChange={handleInputChange}/>
 
@@ -117,9 +131,10 @@ function Register () {
             
           </select>
 
-          <button className="h-8 flex justify-center items-center bg-gray-300 text-sm p-1 hover:bg-orange-300 transition-all" onClick={handleRegisterSubmit}>
+          <button className="h-8 flex justify-center items-center bg-gray-400 text-sm p-1 rounded-md
+          hover:bg-orange-300 transition-all" onClick={handleRegisterSubmit}>
             {
-            isFetching ?
+            isFetching &&
             <Oval
             height={20}
             width={20}
@@ -132,16 +147,31 @@ function Register () {
             strokeWidth={6}
             strokeWidthSecondary={6}
             />
-            :
-            <span>SUBMIT</span>
             }
-            
+            {
+            registerSuccess && 
+            <p className="font-bold text-green-400">SUCCESS!</p>
+            }
+
+            {
+            !isFetching && !registerSuccess &&
+            <p className="font-bold text-white">SUBMIT</p>
+            }
           </button>
+          
+          {
+          emailFormatErr &&
+          <p className="h-4 text-red-500 text-xs">Incorrect email format.</p>
+          }
+          {
+          passwordLengthErr &&
+          <p className="text-red-500 text-xs">Password length must be minimum 8 characters.</p>
+          }
           <div>
           {
           errorMsgs.length !== 0 &&
           errorMsgs.map((msg:string, index:number)=>(
-            <p className="text-red-500" key={index}>{msg}</p>
+            <p className="text-red-500 text-xs" key={index}>{msg}</p>
           ))
           }
           </div>

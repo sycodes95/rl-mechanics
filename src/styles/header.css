@@ -6,3 +6,11 @@
 .font-sedgewick{
   font-family: Sedgewick, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+
+
+@media (max-width: 768px) {
+  .mw-768px-hidden{
+    display: none;
+  }
+}
