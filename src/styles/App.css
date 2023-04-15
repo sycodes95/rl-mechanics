@@ -6,8 +6,17 @@
   src: url(/src/assets/fonts/Silkscreen-Regular.ttf);
 }
 
+@font-face {
+  font-family: Rajdhani;
+  src: url(/src/assets/fonts/Rajdhani-Regular.ttf);
+}
+
 .font-silkscreen{
   font-family: Silkscreen, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.font-rajdhani{
+  font-family: Rajdhani, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .font-black-outline{

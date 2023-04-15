@@ -10,6 +10,7 @@ import { Oval } from "react-loader-spinner";
 import twodown from "../../../assets/svgs/twodown.svg"
 
 function Register () {
+  
   const navigate = useNavigate();
 
   const [isFetching, setIsFetching] = useState(false);

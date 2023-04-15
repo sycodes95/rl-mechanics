@@ -53,7 +53,7 @@ function Login (){
           window.location.href = '/'
         },1000)
       } else {
-
+        setErrorMsgs([...errorMsgs, 'Invalid email or password'])
       }
       
     })

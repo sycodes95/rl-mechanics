@@ -4,8 +4,8 @@ import Header from './components/pages/header/header';
 import Register from './components/pages/register/register';
 import Login from './components/pages/login/login';
 import Mechanics from './components/pages/mechanics/mechanics';
-import Icon from '@mdi/react'; 
-import { mdiTriangleSmallDown, mdiAccountCircleOutline } from '@mdi/js';
+import Admin from './components/pages/admin/admin';
+
 function App() {
 
   return (
@@ -14,6 +14,7 @@ function App() {
         <Header/>
         <Routes>
           <Route path='/' element={<Mechanics/>}/>
+          <Route path='/admin' element={<Admin/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/log-in' element={<Login/>}/>
         </Routes>
