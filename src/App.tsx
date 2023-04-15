@@ -4,7 +4,8 @@ import Header from './components/pages/header/header';
 import Register from './components/pages/register/register';
 import Login from './components/pages/login/login';
 import Mechanics from './components/pages/mechanics/mechanics';
-
+import Icon from '@mdi/react'; 
+import { mdiTriangleSmallDown, mdiAccountCircleOutline } from '@mdi/js';
 function App() {
 
   return (

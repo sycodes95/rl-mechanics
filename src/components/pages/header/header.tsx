@@ -1,53 +1,32 @@
 
 import '../../../styles/header.css'
-
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import rllogo from '../../../assets/images/rl-vector-black.png'
+import { Link } from 'react-router-dom';
 import triangleneon from '../../../assets/images/triangle-neon.png'
-import triangledouble from '../../../assets/images/triangle-double.png'
-
 import getUserFromToken from '../../utils/getUserFromToken';
+import ProfileDropMenu from './profileDropMenu';
 
 function Header() {
 
-  const [user_details, set_user_details] = useState<any>(null)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user_details, set_user_details] = useState<object | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const getUserFromToken = () => {
-
-    const token = localStorage.getItem('rlmechanics_token')
   
-    if(!token) return 
-  
-    if(token){
-  
-      fetch(`${import.meta.env.VITE_API_HOST_URL}/users/verify-token-get`, {
-        method: 'GET',
-        headers: { 'authorization': `Bearer ${token}` }
-      })
-      .then(response => response.json())
-      .then(data =>{
-        const userDetails =  data.user.user.rows[0]
-        delete userDetails.user_password
-        set_user_details(userDetails)
-      })
-      
-    }
-  }
 
   useEffect(()=> {
 
-    const token = localStorage.getItem('rlmechanics_token') as string
-    console.log(token);
-    token ? setIsLoggedIn(true) : setIsLoggedIn(false)
-    getUserFromToken()
+    const token = localStorage.getItem('rlmechanics_token') as string;
+    token ? setIsLoggedIn(true) : setIsLoggedIn(false);
+   getUserFromToken()?.then(userDetails => set_user_details(userDetails))
     
-  },[])
+  },[]);
 
-  useEffect(()=>{
+  useEffect(()=> {
     console.log(user_details);
-  },[user_details])
+    
+  },[user_details]);
+
+
   return(
     <div className=' h-12 w-full p-4 flex justify-center items-center bg-jet-dark-green z-50'>
 
@@ -70,23 +49,17 @@ function Header() {
         <section className='flex justify-end items-center w-full gap-x-4'>
 
           <Link to='/' className='h-6 w-20 flex justify-center items-center 
-          bg-slate-800 bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
+          bg-orange-500 bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
           hover:bg-opacity-75 transition-all'>
             <p>MECHANICS</p>
-          </Link>
-
-          <Link to='/account' className='h-6 w-20 flex justify-center items-center 
-          bg-slate-800 bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
-          hover:bg-opacity-75 transition-all'>
-            <p>ACCOUNT</p>
           </Link>
 
           <button className='h-6 flex items-center bg-gradient-red-pink bg-opacity-100 p-2 text-xs text-white rounded-lg
           hover:bg-opacity-75 transition-all'>
             <p>♥ SUPPORT ME ♥</p>
           </button>
-
           
+          <ProfileDropMenu/>
            
         </section>
 

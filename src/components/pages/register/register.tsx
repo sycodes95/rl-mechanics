@@ -1,12 +1,11 @@
-import { useEffect, useState} from "react";
+import withAuth from "../../hocs/withAuth";
+import { useState} from "react";
 import { ReactSVG } from "react-svg";
 import { useNavigate } from "react-router-dom";
-import withAuth from "../../hocs/withAuth";
 import rankOptions from "./rankOptions";
 import validEmail from "../../utils/validEmail";
 import validPassword from "../../utils/validPassword";
 import { Oval } from "react-loader-spinner";
-import { ChangeEvent, FormEvent } from 'react';
 
 import twodown from "../../../assets/svgs/twodown.svg"
 
