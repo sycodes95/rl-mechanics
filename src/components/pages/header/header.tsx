@@ -15,7 +15,7 @@ interface user_details {
   user_is_admin: boolean;
   user_rank: string;
   user_created_At: string;
-  // Add any other properties you need here
+  
 }
 
 function Header() {

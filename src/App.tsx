@@ -4,7 +4,7 @@ import Header from './components/pages/header/header';
 import Register from './components/pages/register/register';
 import Login from './components/pages/login/login';
 import Mechanics from './components/pages/mechanics/mechanics';
-import Admin from './components/pages/admin/admin';
+import Admin from './components/pages/mechanicsAdmin/admin';
 
 function App() {
 
