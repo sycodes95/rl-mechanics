@@ -37,7 +37,7 @@ function Header() {
   },[user_details])
 
   return(
-    <div className=' h-12 w-full p-4 flex justify-center items-center bg-jet-dark z-50'>
+    <div className=' h-12 w-full p-4 flex justify-center items-center bg-jet-dark z-40'>
 
       <div className='w-full max-w-7xl flex justify-between'>
 
