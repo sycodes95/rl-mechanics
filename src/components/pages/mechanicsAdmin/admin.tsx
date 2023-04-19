@@ -7,9 +7,11 @@ import MechFilters from "./mechFilters";
 import AddMechanic from "./addMechanic";
 import MechSearch from "./mechSearch";
 
+import getMechanics from "../../utils/getMechanics";
+
 import withAuthAdmin from "../../hocs/withAuthAdmin";
 
-interface FilterData {
+export interface FilterData {
   mech_difficulty: { firstInput: number; secondInput: number };
   mech_importance: { firstInput: number; secondInput: number };
   mech_created_at: { firstInput: string; secondInput: string };
@@ -31,6 +33,10 @@ function Admin () {
     rating_difficulty: { firstInput: 0, secondInput: 0},
     rating_importance: { firstInput: 0, secondInput: 0},
   })
+
+  useEffect(()=>{
+    getMechanics(searchValue, filterData)?.then((mechanics) => setMechanicsData(mechanics))
+  },[])
 
   return(
     <div className="flex justify-center text-white w-full h-full pt-12 pb-12">
@@ -57,6 +63,11 @@ function Admin () {
           <MechSearch searchValueContext={{searchValue, setSearchValue}}/>
 
           <MechFilters filterDataContext={{filterData, setFilterData}}/>
+          
+        </section>
+
+        <section className="flex flex-col gap-4 bg-black bg-opacity-20 p-4 rounded-md">
+            
           
         </section>
 
