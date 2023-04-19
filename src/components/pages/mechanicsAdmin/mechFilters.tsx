@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Rating from "react-rating";
 
 function MechFilters(){
@@ -12,6 +12,23 @@ function MechFilters(){
     rating_importance: { firstInput: 0, secondInput: 0},
   })
 
+  const filterDataDefault = {
+    mech_difficulty: { firstInput: 0, secondInput: 0},
+    mech_importance: { firstInput: 0, secondInput: 0},
+    mech_created_at: { firstInput:  "", secondInput: ""},
+    rating_difficulty: { firstInput: 0, secondInput: 0},
+    rating_importance: { firstInput: 0, secondInput: 0},
+  }
+
+  const handleClearFilters = () => {
+    setFilterData(filterDataDefault)
+  }
+
+  useEffect(()=>{
+    console.log(filterData);
+    console.log(filterDataDefault);
+  },[filterData])
+
   return (
     <div className="flex gap-4 w-full rounded-md ">
       <section>
@@ -19,7 +36,7 @@ function MechFilters(){
       </section>
 
       <section className="flex flex-wrap gap-4">
-        <div className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
+        <div id="mech-difficulty-filter" className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
           <p className="text-xs">DIFFICULTY</p>
 
@@ -44,35 +61,39 @@ function MechFilters(){
             stop={5}
             onChange={(value: number)=> setFilterData({...filterData, mech_difficulty: {...filterData.mech_difficulty, secondInput: value}})}
             />
+            <button className="bg-black bg-opacity-25 hover:bg-opacity-50 text-xs text-red-800 p-1 rounded-md transition-all" 
+            onClick={()=> setFilterData({...filterData, mech_difficulty: {firstInput: 0, secondInput: 0}})}>
+              <p>RESET</p>
+            </button>
           </div>
           
         </div>
-        <div className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
+        <div id="mech-importance-filter" className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
           <p className="text-xs">IMPORTANCE</p>
           <div className="flex w-full justify-evenly">
             <Rating
             className=' text-gray-400 flex justify-between'
-            initialRating={filterData.mech_difficulty.firstInput}
+            initialRating={filterData.mech_importance.firstInput}
             emptySymbol="fa fa-star-o"
             fullSymbol="fa fa-star "
             fractions={1}
             stop={5}
-            onChange={(value: number)=> setFilterData({...filterData, mech_difficulty: {...filterData.mech_difficulty, firstInput: value}})}
+            onChange={(value: number)=> setFilterData({...filterData, mech_importance: {...filterData.mech_importance, firstInput: value}})}
             />
             <p>-</p>
             <Rating
             className=' text-gray-400 flex justify-between'
-            initialRating={filterData.mech_difficulty.secondInput}
+            initialRating={filterData.mech_importance.secondInput}
             emptySymbol="fa fa-star-o"
             fullSymbol="fa fa-star "
             fractions={1}
             stop={5}
-            onChange={(value: number)=> setFilterData({...filterData, mech_difficulty: {...filterData.mech_difficulty, secondInput: value}})}
+            onChange={(value: number)=> setFilterData({...filterData, mech_importance: {...filterData.mech_importance, secondInput: value}})}
             />
           </div>
         </div>
-        <div className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
+        <div id="rating-difficuty-filter" className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
           <p className="text-xs whitespace-nowrap">DIFFICULTY RATING</p>
           <div className="flex w-full justify-evenly">
@@ -83,7 +104,7 @@ function MechFilters(){
             fullSymbol="fa fa-star "
             fractions={1}
             stop={5}
-            onChange={(value: number)=> setFilterData({...filterData, mech_difficulty: {...filterData.mech_difficulty, firstInput: value}})}
+            onChange={(value: number)=> setFilterData({...filterData, rating_difficulty: {...filterData.rating_difficulty, firstInput: value}})}
             />
             <p>-</p>
             <Rating
@@ -93,11 +114,11 @@ function MechFilters(){
             fullSymbol="fa fa-star "
             fractions={1}
             stop={5}
-            onChange={(value: number)=> setFilterData({...filterData, mech_difficulty: {...filterData.mech_difficulty, secondInput: value}})}
+            onChange={(value: number)=> setFilterData({...filterData, rating_difficulty: {...filterData.rating_difficulty, secondInput: value}})}
             />
           </div>
         </div>
-        <div className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
+        <div id="rating-importance-filter" className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
           <p className="text-xs whitespace-nowrap">IMPORTANCE RATING</p>
           <div className="flex w-full justify-evenly">
@@ -108,7 +129,7 @@ function MechFilters(){
             fullSymbol="fa fa-star "
             fractions={1}
             stop={5}
-            onChange={(value: number)=> setFilterData({...filterData, mech_difficulty: {...filterData.mech_difficulty, firstInput: value}})}
+            onChange={(value: number)=> setFilterData({...filterData, rating_importance: {...filterData.rating_importance, firstInput: value}})}
             />
             <p>-</p>
             <Rating
@@ -118,7 +139,7 @@ function MechFilters(){
             fullSymbol="fa fa-star "
             fractions={1}
             stop={5}
-            onChange={(value: number)=> setFilterData({...filterData, mech_difficulty: {...filterData.mech_difficulty, secondInput: value}})}
+            onChange={(value: number)=> setFilterData({...filterData, rating_importance: {...filterData.rating_importance, secondInput: value}})}
             />
           </div>
         </div>
@@ -139,7 +160,7 @@ function MechFilters(){
 
         <div className="flex gap-4">
           <button className="text-xs bg-green-900 p-1 rounded-md hover:bg-green-800 transition-all">APPLY</button>
-          <button className="text-xs bg-red-900 p-1 rounded-md hover:bg-red-800 transition-all">CLEAR</button>
+          <button className="text-xs bg-red-900 p-1 rounded-md hover:bg-red-800 transition-all" onClick={handleClearFilters}>CLEAR</button>
         </div>
       </section>
     </div>
