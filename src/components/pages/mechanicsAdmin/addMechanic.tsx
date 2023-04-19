@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import Rating from "react-rating";
+import Icon from '@mdi/react';
 
 import { ThreeDots } from "react-loader-spinner";
+import { mdiCheckAll } from '@mdi/js';
 
 interface AddMechanicProps {
   addMechanicIsOpenContext: {
@@ -59,9 +61,19 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
     .then(data => {
       console.log(data);
       setIsFetching(false)
+
+      if(data && data.mechanic) {
+        setFetchSuccessful(true)
+        setTimeout(()=>{
+          window.location.href = '/admin'
+        },1000)
+      }
       if(data && data.name === 'error'){
         if(data.code === '23502' && !fetchErrors.includes('Name is required')){
           setFetchErrors([...fetchErrors, 'Name is required'])
+        }
+        if(data.code === '23505' && !fetchErrors.includes('Mechanic name exists')){
+          setFetchErrors([...fetchErrors, 'Mechanic name exists'])
         }
       }
     })
@@ -123,7 +135,7 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
         name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
         value={mechanicData.mech_yt_url_kbm ?? ''} onChange={handleInputChange}/>
 
-        <button className="text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
+        <button className="flex justify-center text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
           {
           !isFetching && !fetchSuccessful &&
           <p>SUBMIT</p>
@@ -141,7 +153,10 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
           visible={true}
           />
           }
-          
+          {
+          fetchSuccessful && 
+          <Icon path={mdiCheckAll} size={1} />
+          }
           
         </button>
 
