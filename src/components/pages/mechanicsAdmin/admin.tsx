@@ -11,7 +11,7 @@ import withAuthAdmin from "../../hocs/withAuthAdmin";
 
 function Admin () {
   const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false)
-  const [searchValue, setSearchValue] = useState<string | null>(null)
+  
 
   return(
     <div className="flex justify-center text-white w-full h-full pt-12 pb-12">
@@ -34,9 +34,10 @@ function Admin () {
         </section>
 
         <section className="flex flex-col gap-4 bg-black bg-opacity-20 p-4 rounded-md">
-          <MechSearch/>
-          <MechFilters/>
 
+          <MechSearch/>
+
+          <MechFilters/>
           
         </section>
 

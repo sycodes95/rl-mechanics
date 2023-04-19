@@ -52,7 +52,7 @@ function Login (){
         setTimeout(()=>{
           window.location.href = '/'
         },1000)
-      } else {
+      } else if (!errorMsgs.includes('Invalid email or password')){
         setErrorMsgs([...errorMsgs, 'Invalid email or password'])
       }
       

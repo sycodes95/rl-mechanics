@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Rating from "react-rating";
 
+import { ThreeDots } from "react-loader-spinner";
+
 interface AddMechanicProps {
   addMechanicIsOpenContext: {
     addMechanicIsOpen: boolean;
@@ -9,31 +11,60 @@ interface AddMechanicProps {
 }
 
 interface MechanicData {
-  mech_name: string | undefined;
-  mech_description: string | undefined;
-  mech_difficulty: number | undefined;
-  mech_importance: number | undefined;
-  mech_yt_url_controller: string | undefined;
-  mech_yt_url_kbm: string | undefined;
+  mech_name: string | null;
+  mech_description: string | null;
+  mech_difficulty: number | null;
+  mech_importance: number | null;
+  mech_yt_url_controller: string | null;
+  mech_yt_url_kbm: string | null;
 }
 
 function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
 
   const { addMechanicIsOpen, setAddMechanicIsOpen } = addMechanicIsOpenContext;
 
+  const [isFetching, setIsFetching] = useState(false)
+
+  const [fetchSuccessful, setFetchSuccessful] = useState(false)
+
+  const [fetchErrors, setFetchErrors] = useState<string[]>([])
+
   const [mechanicData, setMechanicData] = useState<MechanicData>({
-    mech_name: undefined,
-    mech_description: undefined,
-    mech_difficulty: undefined,
-    mech_importance: undefined,
-    mech_yt_url_controller: undefined,
-    mech_yt_url_kbm: undefined,
+    mech_name: null,
+    mech_description: null,
+    mech_difficulty: null,
+    mech_importance: null,
+    mech_yt_url_controller: null,
+    mech_yt_url_kbm: null,
   })
 
   const handleInputChange = (e: any) => {
+    //reset fetch errors
+    setFetchErrors([])
+
     const { name, value } = e.target;
     setMechanicData({...mechanicData, [name]: value})
+  }
 
+  const handleAddMechanicSubmit = () => {
+
+    setIsFetching(true)
+
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-post`, {
+      method: 'POST',
+      body: JSON.stringify(mechanicData),
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      setIsFetching(false)
+      if(data && data.name === 'error'){
+        if(data.code === '23502' && !fetchErrors.includes('Name is required')){
+          setFetchErrors([...fetchErrors, 'Name is required'])
+        }
+      }
+    })
   }
 
   useEffect(()=>{
@@ -53,15 +84,15 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
           <button className="text-white" onClick={()=> setAddMechanicIsOpen(false)}>X</button>
         </div>
         <input className="text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800 p-1" 
-        name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name} onChange={handleInputChange}/>
+        name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
         <textarea className="h-32 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800 p-1"  
-        name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description} onChange={handleInputChange}/>
+        name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleInputChange}/>
         <div id="add-mechanic-difficulty"
         className="flex gap-4 justify-between items-center ">
         <label className="text-xs text-gray-400">DIFFICULTY :</label>
           <Rating
           className=' text-gray-400 flex justify-between'
-          initialRating={mechanicData.mech_difficulty}
+          initialRating={mechanicData.mech_difficulty ?? 0}
           emptySymbol="fa fa-star-o"
           fullSymbol="fa fa-star "
           fractions={1}
@@ -75,7 +106,7 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
           <label className="text-xs text-gray-400">IMPORTANCE :</label>
           <Rating
           className=' text-gray-400 flex justify-between'
-          initialRating={mechanicData.mech_importance}
+          initialRating={mechanicData.mech_importance ?? 0}
           emptySymbol="fa fa-star-o"
           fullSymbol="fa fa-star "
           fractions={1}
@@ -86,16 +117,43 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
         
         <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm" 
         name="mech_yt_url_controller" type="text" placeholder="YOUTUBE URL CONTROLLER" 
-        value={mechanicData.mech_yt_url_controller} onChange={handleInputChange}/>
+        value={mechanicData.mech_yt_url_controller ?? ''} onChange={handleInputChange}/>
 
         <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm"
         name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
-        value={mechanicData.mech_yt_url_kbm} onChange={handleInputChange}/>
+        value={mechanicData.mech_yt_url_kbm ?? ''} onChange={handleInputChange}/>
 
-        <button className="text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md">SUBMIT</button>
+        <button className="text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
+          {
+          !isFetching && !fetchSuccessful &&
+          <p>SUBMIT</p>
+          }
+
+          {
+          isFetching &&
+          <ThreeDots 
+          height="24" 
+          width="24" 
+          radius="9"
+          color="#000000" 
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          visible={true}
+          />
+          }
+          
+          
+        </button>
 
         <button className="text-sm bg-red-800 hover:bg-red-700 transition-all p-1 rounded-md" onClick={()=> setAddMechanicIsOpen(false)}>CANCEL</button>
-
+          
+        <div id="add-mechanic-fetch-errors">
+          {
+          fetchErrors.map((err, index) => (
+            <p className="text-red-600 text-xs" key={index}>{err}</p>
+          ))
+          }
+        </div>
       </div>
 
     </div>

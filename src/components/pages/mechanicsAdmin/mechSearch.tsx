@@ -1,11 +1,15 @@
+import { useEffect, useState } from "react";
 
 
 function MechSearch(){
+  const [searchValue, setSearchValue] = useState<string>("")
+
   return(
     <div className="flex items-center gap-4 h-full w-full rounded-md ">
       <label className="text-sm font-bold">SEARCH</label>
       <input className=" w-full bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
-    focus:outline-gray-600 transition-all duration-300" type="text" placeholder="Search Any..." />
+    focus:outline-gray-600 transition-all duration-300" type="text" placeholder="Search Any..." value={searchValue}
+    onChange={(e)=>setSearchValue(e.target.value)}/>
     </div>
   )
 }

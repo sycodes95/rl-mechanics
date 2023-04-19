@@ -75,7 +75,9 @@ function Register () {
       };
       
       if(data && errors) {
-        if(errors.code === '23505') setErrorMsgs([...errorMsgs, 'Email Already Exists *']);
+        if(errors.code === '23505' && !errorMsgs.includes('Email Already Exists *')){
+          setErrorMsgs([...errorMsgs, 'Email Already Exists *']);
+        }
 
         errors.forEach((err: {msg: string}) => {
           if(err.msg === 'Passwords don\'t match' && !errorMsgs.includes('Passwords don\'t match')){

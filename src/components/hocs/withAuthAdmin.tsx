@@ -30,10 +30,6 @@ const withAuthAdmin = (Component: any) => {
       fetchUserDetails();
     }, []);
 
-    useEffect(()=>{
-      console.log(userDetails);
-    },[userDetails])
-
     if (userDetails && userDetails.user_is_admin) {
       return <Component {...props} />;
     } else {
