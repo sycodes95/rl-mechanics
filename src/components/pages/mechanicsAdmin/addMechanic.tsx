@@ -25,11 +25,11 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
 
   const { addMechanicIsOpen, setAddMechanicIsOpen } = addMechanicIsOpenContext;
 
-  const [isFetching, setIsFetching] = useState(false)
+  const [isFetching, setIsFetching] = useState(false);
 
-  const [fetchSuccessful, setFetchSuccessful] = useState(false)
+  const [fetchSuccessful, setFetchSuccessful] = useState(false);
 
-  const [fetchErrors, setFetchErrors] = useState<string[]>([])
+  const [fetchErrors, setFetchErrors] = useState<string[]>([]);
 
   const [mechanicData, setMechanicData] = useState<MechanicData>({
     mech_name: null,
@@ -38,19 +38,19 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
     mech_importance: null,
     mech_yt_url_controller: null,
     mech_yt_url_kbm: null,
-  })
+  });
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //reset fetch errors
-    setFetchErrors([])
+    setFetchErrors([]);
 
     const { name, value } = e.target;
-    setMechanicData({...mechanicData, [name]: value})
-  }
+    setMechanicData({...mechanicData, [name]: value});
+  };
 
   const handleAddMechanicSubmit = () => {
 
-    setIsFetching(true)
+    setIsFetching(true);
 
     fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-post`, {
       method: 'POST',
@@ -60,28 +60,32 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      setIsFetching(false)
+      setIsFetching(false);
 
       if(data && data.mechanic) {
-        setFetchSuccessful(true)
+        setFetchSuccessful(true);
         setTimeout(()=>{
           window.location.href = '/admin'
-        },1000)
-      }
+        },1000);
+      };
+
       if(data && data.name === 'error'){
         if(data.code === '23502' && !fetchErrors.includes('Name is required')){
-          setFetchErrors([...fetchErrors, 'Name is required'])
-        }
+          setFetchErrors([...fetchErrors, 'Name is required']);
+        };
         if(data.code === '23505' && !fetchErrors.includes('Mechanic name exists')){
-          setFetchErrors([...fetchErrors, 'Mechanic name exists'])
-        }
-      }
+          setFetchErrors([...fetchErrors, 'Mechanic name exists']);
+        };
+      };
     })
-  }
+    .catch(error => {
+      console.error('Error:', error);
+      setIsFetching(false);
+      setFetchErrors([...fetchErrors, error.message]);
+    });
+  };
 
-  useEffect(()=>{
-    console.log(mechanicData);
-  },[mechanicData]);  
+  
 
   return (
     <div>
@@ -140,7 +144,6 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
           !isFetching && !fetchSuccessful &&
           <p>SUBMIT</p>
           }
-
           {
           isFetching &&
           <ThreeDots 

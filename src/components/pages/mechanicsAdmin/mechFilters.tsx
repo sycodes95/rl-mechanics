@@ -2,15 +2,16 @@
 import { useEffect, useState } from "react";
 import Rating from "react-rating";
 
-function MechFilters(){
+interface MechSearchProps{
+  filterDataContext: {
+    filterData: object;
+    setFilterData: React.Dispatch<React.SetStateAction<object>>;
+  };
+}
+
+function MechFilters({ filterDataContext }: MechSearchProps){
   
-  const [filterData, setFilterData] = useState({
-    mech_difficulty: { firstInput: 0, secondInput: 0},
-    mech_importance: { firstInput: 0, secondInput: 0},
-    mech_created_at: { firstInput:  "", secondInput: ""},
-    rating_difficulty: { firstInput: 0, secondInput: 0},
-    rating_importance: { firstInput: 0, secondInput: 0},
-  })
+  const {filterData, setFilterData} = filterDataContext;
 
   const filterDataDefault = {
     mech_difficulty: { firstInput: 0, secondInput: 0},
@@ -20,9 +21,9 @@ function MechFilters(){
     rating_importance: { firstInput: 0, secondInput: 0},
   }
 
-  const handleClearFilters = () => {
-    setFilterData(filterDataDefault)
-  }
+  const handleClearFilters = () => setFilterData(filterDataDefault);
+    
+  
 
   useEffect(()=>{
     console.log(filterData);

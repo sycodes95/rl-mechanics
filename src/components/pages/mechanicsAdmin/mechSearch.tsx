@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 
+interface MechSearchProps{
+  searchValueContext: {
+    searchValue: string;
+    setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  };
+}
 
-function MechSearch(){
-  const [searchValue, setSearchValue] = useState<string>("")
-
+function MechSearch({ searchValueContext } : MechSearchProps){
+  
+  const {searchValue, setSearchValue} = searchValueContext;
   return(
     <div className="flex items-center gap-4 h-full w-full rounded-md ">
       <label className="text-sm font-bold">SEARCH</label>

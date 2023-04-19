@@ -9,9 +9,28 @@ import MechSearch from "./mechSearch";
 
 import withAuthAdmin from "../../hocs/withAuthAdmin";
 
+interface FilterData {
+  mech_difficulty: { firstInput: number; secondInput: number };
+  mech_importance: { firstInput: number; secondInput: number };
+  mech_created_at: { firstInput: string; secondInput: string };
+  rating_difficulty: { firstInput: number; secondInput: number };
+  rating_importance: { firstInput: number; secondInput: number };
+}
+
 function Admin () {
   const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false)
+
+  const [mechanicsData, setMechanicsData] = useState<object[] | null>(null)
   
+  const [searchValue, setSearchValue] = useState<string>("")
+
+  const [filterData, setFilterData] = useState<FilterData>({
+    mech_difficulty: { firstInput: 0, secondInput: 0},
+    mech_importance: { firstInput: 0, secondInput: 0},
+    mech_created_at: { firstInput:  "", secondInput: ""},
+    rating_difficulty: { firstInput: 0, secondInput: 0},
+    rating_importance: { firstInput: 0, secondInput: 0},
+  })
 
   return(
     <div className="flex justify-center text-white w-full h-full pt-12 pb-12">
@@ -35,9 +54,9 @@ function Admin () {
 
         <section className="flex flex-col gap-4 bg-black bg-opacity-20 p-4 rounded-md">
 
-          <MechSearch/>
+          <MechSearch searchValueContext={{searchValue, setSearchValue}}/>
 
-          <MechFilters/>
+          <MechFilters filterDataContext={{filterData, setFilterData}}/>
           
         </section>
 
