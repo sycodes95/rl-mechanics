@@ -5,6 +5,7 @@ import Register from './components/pages/register/register';
 import Login from './components/pages/login/login';
 import Mechanics from './components/pages/mechanics/mechanics';
 import Admin from './components/pages/mechanicsAdmin/admin';
+import 'react-tooltip/dist/react-tooltip.css'
 
 function App() {
 

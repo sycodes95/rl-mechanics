@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import Rating from "react-rating";
 import { FilterData } from "./admin"
 
-interface MechFiltersProps{
+interface AdminMechFiltersProps{
   filterDataContext: {
     filterData: FilterData | null;
     setFilterData: React.Dispatch<React.SetStateAction<FilterData | null>>;
   };
 }
 
-function MechFilters({ filterDataContext }: MechFiltersProps){
+function AdminMechFilters({ filterDataContext }: AdminMechFiltersProps){
   
   const {filterData, setFilterData} = filterDataContext;
 
@@ -49,9 +49,24 @@ function MechFilters({ filterDataContext }: MechFiltersProps){
       </section>
 
       <section className="flex flex-wrap gap-4">
+        <div className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
+        border border-gray-900">
+          <p className="text-xs whitespace-nowrap">DATE CREATED</p>
+          <div className="flex w-full justify-evenly">
+            <input className="bg-black bg-opacity-25 p-1 text-xs"  type="date" value={filterValues.mech_created_at.firstInput} onChange={(e)=>{
+              setFilterValues({...filterValues, mech_created_at: {firstInput: e.target.value, secondInput: filterValues.mech_created_at.secondInput} })
+            }}/>
+            <p>-</p>
+            <input className="bg-black bg-opacity-25 p-1 text-xs"  type="date" value={filterValues.mech_created_at.secondInput} onChange={(e)=>{
+              setFilterValues({...filterValues, mech_created_at: {firstInput: filterValues.mech_created_at.firstInput, secondInput: e.target.value} })
+            }}/>
+          </div>
+        </div>
         <div id="mech-difficulty-filter" className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
           <p className="text-xs">DIFFICULTY</p>
+
+
 
           <div className="flex w-full justify-evenly">
           
@@ -157,19 +172,7 @@ function MechFilters({ filterDataContext }: MechFiltersProps){
           </div>
         </div>
 
-        <div className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
-        border border-gray-900">
-          <p className="text-xs whitespace-nowrap">DATE CREATED</p>
-          <div className="flex w-full justify-evenly">
-            <input className="bg-black bg-opacity-25 p-1 text-xs"  type="date" value={filterValues.mech_created_at.firstInput} onChange={(e)=>{
-              setFilterValues({...filterValues, mech_created_at: {firstInput: e.target.value, secondInput: filterValues.mech_created_at.secondInput} })
-            }}/>
-            <p>-</p>
-            <input className="bg-black bg-opacity-25 p-1 text-xs"  type="date" value={filterValues.mech_created_at.secondInput} onChange={(e)=>{
-              setFilterValues({...filterValues, mech_created_at: {firstInput: filterValues.mech_created_at.firstInput, secondInput: e.target.value} })
-            }}/>
-          </div>
-        </div>
+        
 
         <div className="flex gap-4">
 
@@ -185,4 +188,4 @@ function MechFilters({ filterDataContext }: MechFiltersProps){
   );
 };
 
-export default MechFilters;
+export default AdminMechFilters;

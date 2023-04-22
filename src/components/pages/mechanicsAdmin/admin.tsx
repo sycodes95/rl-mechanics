@@ -2,15 +2,23 @@
 import { useEffect, useState } from "react";
 
 import Rating from "react-rating";
-import AdminFilters from "./mechFilters";
-import MechFilters from "./mechFilters";
+import AdminFilters from "./adminMechFilters";
+import MechFilters from "./adminMechFilters";
 import AddMechanic from "./addMechanic";
-import MechSearch from "./mechSearch";
+import MechSearch from "./adminMechSearch";
 
 import getMechanics from "../../utils/getMechanics";
 
 import withAuthAdmin from "../../hocs/withAuthAdmin";
 import useDebounce from "../../hooks/useDebounce";
+
+import '../../../styles/admin.css'
+
+import { format } from 'date-fns'
+import MechTable from "./adminMechTable";
+import AdminMechTable from "./adminMechTable";
+import AdminMechFilters from "./adminMechFilters";
+import AdminMechSearch from "./adminMechSearch";
 
 export interface FilterData {
   mech_difficulty: { firstInput: number; secondInput: number };
@@ -49,14 +57,7 @@ function Admin () {
   
   const [filterData, setFilterData] = useState<FilterData | null>(null)
 
-  const mechTableColumns = {
-    mech_created_at: 'UPLOAD DATE',
-    mech_id: 'ID',
-    mech_name: 'NAME',
-    mech_description: 'DESCRIPTION',
-    mech_difficulty: 'DIFFICULTY',
-    mech_importance: 'IMPORTANCE',
-  }
+  
 
   useEffect(()=>{
     console.log(mechanicsData);
@@ -81,53 +82,33 @@ function Admin () {
             <button className="p-4 w-full sm:w-fit bg-orange-500 hover:bg-orange-400 text-sm font-bold 
             rounded-md whitespace-nowrap transition-all" onClick={()=> setAddMechanicIsOpen(true)}>ADD MECHANIC</button>
 
-            {
-            addMechanicIsOpen &&
-            <AddMechanic addMechanicIsOpenContext={{addMechanicIsOpen, setAddMechanicIsOpen}}/>
-            }
+            
           </div>
           
         </section>
 
+        <section className="z-50">
+          {
+          addMechanicIsOpen &&
+          <AddMechanic addMechanicIsOpenContext={{addMechanicIsOpen, setAddMechanicIsOpen}}/>
+          }
+        </section>
+
         <section className="flex flex-col gap-4 bg-black bg-opacity-20 p-4 rounded-md min-w-fit">
 
-          <MechSearch searchValueContext={{searchValue, setSearchValue}}/>
+          <AdminMechSearch searchValueContext={{searchValue, setSearchValue}}/>
 
-          <MechFilters filterDataContext={{filterData, setFilterData}}/>
+          <AdminMechFilters filterDataContext={{filterData, setFilterData}}/>
           
         </section>
 
-        <section className="flex flex-col gap-4 bg-black bg-opacity-20 p-4 rounded-md">
+        <section className="flex flex-col gap-4 bg-black bg-opacity-20 rounded-md overflow-auto">
 
-
-          <table>
-            <thead>
-              <tr className="text-xs bg-green-800">
-                {
-                 Object.keys(mechTableColumns).map((column, index) => (
-                  <th key={index}>{mechTableColumns[column as keyof typeof mechTableColumns]}</th>
-                 ))
-                }
-                
-              </tr>
-            </thead>
-
-            <tbody>
-              {
-              mechanicsData.length &&
-              mechanicsData.map((mechanic: Mechanic, index) => (
-                <tr className="text-center" key={index}>
-                  <td>{mechanic.mech_created_at}</td>
-                  <td>{mechanic.mech_id}</td>
-                  <td>{mechanic.mech_name}</td>
-                  <td>{mechanic.mech_description}</td>
-                  <td>{mechanic.mech_difficulty}</td>
-                  <td>{mechanic.mech_importance}</td>
-                </tr>
-              ))
-              }
-            </tbody>
-          </table>
+          {
+          mechanicsData &&
+          <AdminMechTable mechanicsDataContext={{mechanicsData, setMechanicsData}} />
+          
+          }
           
         </section>
 

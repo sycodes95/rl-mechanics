@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-interface MechSearchProps{
+interface AdminMechSearchProps{
   searchValueContext: {
     searchValue: string;
     setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   };
 }
 
-function MechSearch({ searchValueContext } : MechSearchProps){
+function AdminMechSearch({ searchValueContext } : AdminMechSearchProps){
   
   const {searchValue, setSearchValue} = searchValueContext;
   
@@ -21,4 +21,4 @@ function MechSearch({ searchValueContext } : MechSearchProps){
   )
 }
 
-export default MechSearch;
+export default AdminMechSearch;
