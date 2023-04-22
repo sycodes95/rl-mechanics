@@ -49,24 +49,28 @@ function AdminMechFilters({ filterDataContext }: AdminMechFiltersProps){
       </section>
 
       <section className="flex flex-wrap gap-4">
+
         <div className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
           <p className="text-xs whitespace-nowrap">DATE CREATED</p>
           <div className="flex w-full justify-evenly">
-            <input className="bg-black bg-opacity-25 p-1 text-xs"  type="date" value={filterValues.mech_created_at.firstInput} onChange={(e)=>{
+            <input className="bg-black bg-opacity-10 p-1 text-xs"  type="date" value={filterValues.mech_created_at.firstInput} onChange={(e)=>{
               setFilterValues({...filterValues, mech_created_at: {firstInput: e.target.value, secondInput: filterValues.mech_created_at.secondInput} })
             }}/>
             <p>-</p>
-            <input className="bg-black bg-opacity-25 p-1 text-xs"  type="date" value={filterValues.mech_created_at.secondInput} onChange={(e)=>{
+            <input className="bg-black bg-opacity-10 p-1 text-xs"  type="date" value={filterValues.mech_created_at.secondInput} onChange={(e)=>{
               setFilterValues({...filterValues, mech_created_at: {firstInput: filterValues.mech_created_at.firstInput, secondInput: e.target.value} })
             }}/>
           </div>
+          <button className=" text-xs text-red-800 p-1 rounded-md transition-all" 
+          onClick={()=> setFilterValues({...filterValues, mech_created_at: {firstInput: "", secondInput: ""}})}>
+            <p>RESET</p>
+          </button>
         </div>
+
         <div id="mech-difficulty-filter" className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
           <p className="text-xs">DIFFICULTY</p>
-
-
 
           <div className="flex w-full justify-evenly">
           
@@ -89,7 +93,7 @@ function AdminMechFilters({ filterDataContext }: AdminMechFiltersProps){
             stop={5}
             onChange={(value: number)=> setFilterValues({...filterValues, mech_difficulty: {...filterValues.mech_difficulty, secondInput: value}})}
             />
-            <button className="bg-black bg-opacity-25 hover:bg-opacity-50 text-xs text-red-800 p-1 rounded-md transition-all" 
+            <button className=" text-xs text-red-800 p-1 rounded-md transition-all" 
             onClick={()=> setFilterValues({...filterValues, mech_difficulty: {firstInput: 0, secondInput: 0}})}>
               <p>RESET</p>
             </button>
@@ -120,6 +124,10 @@ function AdminMechFilters({ filterDataContext }: AdminMechFiltersProps){
             onChange={(value: number)=> setFilterValues({...filterValues, mech_importance: {...filterValues.mech_importance, secondInput: value}})}
             />
           </div>
+          <button className=" text-xs text-red-800 p-1 rounded-md transition-all" 
+          onClick={()=> setFilterValues({...filterValues, mech_importance: {firstInput: 0, secondInput: 0}})}>
+            <p>RESET</p>
+          </button>
         </div>
         <div id="rating-difficuty-filter" className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
@@ -145,6 +153,10 @@ function AdminMechFilters({ filterDataContext }: AdminMechFiltersProps){
             onChange={(value: number)=> setFilterValues({...filterValues, rating_difficulty: {...filterValues.rating_difficulty, secondInput: value}})}
             />
           </div>
+          <button className=" text-xs text-red-800 p-1 rounded-md transition-all" 
+          onClick={()=> setFilterValues({...filterValues, rating_difficulty: {firstInput: 0, secondInput: 0}})}>
+            <p>RESET</p>
+          </button>
         </div>
         <div id="rating-importance-filter" className="flex flex-grow items-center pl-2 pr-2 rounded-md gap-4 text-lg bg-black bg-opacity-10
         border border-gray-900">
@@ -170,6 +182,10 @@ function AdminMechFilters({ filterDataContext }: AdminMechFiltersProps){
             onChange={(value: number)=> setFilterValues({...filterValues, rating_importance: {...filterValues.rating_importance, secondInput: value}})}
             />
           </div>
+          <button className=" text-xs text-red-800 p-1 rounded-md transition-all" 
+          onClick={()=> setFilterValues({...filterValues, rating_importance: {firstInput: 0, secondInput: 0}})}>
+            <p>RESET</p>
+          </button>
         </div>
 
         

@@ -5,10 +5,13 @@ table tr:nth-child(2n) {
 th{
   white-space: nowrap;
   max-width: 10ch;
-  min-width: 1ch;
+  min-width: 4ch;
 }
 
 td{
-  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 10ch;
 }
 

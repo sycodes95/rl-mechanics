@@ -40,7 +40,7 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
     mech_yt_url_kbm: null,
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     //reset fetch errors
     setFetchErrors([]);
 
@@ -105,7 +105,7 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
         name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleInputChange}/>
         <div id="add-mechanic-difficulty"
         className="flex gap-4 justify-between items-center ">
-        <label className="text-xs text-gray-400">DIFFICULTY :</label>
+          <label className="text-xs text-gray-400">DIFFICULTY :</label>
           <Rating
           className=' text-gray-400 flex justify-between'
           initialRating={mechanicData.mech_difficulty ?? 0}

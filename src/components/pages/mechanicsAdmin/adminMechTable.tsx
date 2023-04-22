@@ -7,6 +7,8 @@ import { mdiDelete, mdiFileEdit } from '@mdi/js';
 
 import Rating from "react-rating";
 import { Tooltip } from "react-tooltip";
+import { useState } from "react";
+import DeleteMechanic from "./deleteMechanic";
 
 interface AdminMechTableProps {
   mechanicsDataContext: {
@@ -15,9 +17,22 @@ interface AdminMechTableProps {
   };
 }
 
+export interface IsDeleteOpen {
+  open: boolean;
+  mech_id: null | number;
+}
+
 function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
 
-  const {mechanicsData, setMechanicsData} = mechanicsDataContext
+  const {mechanicsData, setMechanicsData} = mechanicsDataContext;
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState<IsDeleteOpen>({
+    open: false,
+    mech_id: null
+  });
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+
   const mechTableColumns = {
     mech_created_at: 'UPLOAD DATE',
     mech_id: 'ID',
@@ -25,7 +40,8 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
     mech_description: 'DESCRIPTION',
     mech_difficulty: 'DIFFICULTY',
     mech_importance: 'IMPORTANCE',
-  }
+  };
+
   return(
     
     <table className="overflow-auto">
@@ -35,7 +51,7 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
           <th className="border-l-2 border-black border-opacity-10 p-1 text-xs text-yellow-900">E</th>
           {
           Object.keys(mechTableColumns).map((column, index) => (
-          <th className="border-l-2 border-black border-opacity-10 p-1" key={index}>{mechTableColumns[column as keyof typeof mechTableColumns]}</th>
+          <th className="text-gray-400 text-xs border-l-2 border-black border-opacity-10 p-1" key={index}>{mechTableColumns[column as keyof typeof mechTableColumns]}</th>
           ))
           }
         </tr>
@@ -47,8 +63,19 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
         mechanicsData.map((mechanic: Mechanic, index) => (
           <tr className="text-center text-xs" key={index}>
             <td className="bg-red-900 bg-opacity-10">
-              <div className="flex justify-center cursor-pointer hover:text-red-200 transition-all">
-                <Icon className="flex justify-center" path={mdiDelete} size={0.7} />
+              <div className="flex justify-center " >
+                <button onClick={()=> setIsDeleteOpen({ open: true, mech_id: mechanic.mech_id})}>
+                <Icon className="flex justify-center hover:text-red-200 transition-all cursor-pointer" path={mdiDelete} size={0.7} />
+
+                </button>
+                {
+                isDeleteOpen.open && isDeleteOpen.mech_id === mechanic.mech_id &&
+                <DeleteMechanic 
+                isDeleteOpenContext={{isDeleteOpen, setIsDeleteOpen}}
+                mechanic={mechanic}
+                />
+                }
+                
               </div>
             </td>
             <td className="bg-yellow-900 bg-opacity-10">
@@ -71,7 +98,7 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
             </td>
             <td>
               <Rating
-              className=' text-gray-400 flex justify-between'
+              className='  flex justify-between'
               initialRating={mechanic.mech_difficulty}
               emptySymbol="fa fa-star-o"
               fullSymbol="fa fa-star "
@@ -82,7 +109,7 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
             </td>
             <td>
               <Rating
-              className=' text-gray-400 flex justify-between'
+              className='  flex justify-between'
               initialRating={mechanic.mech_importance}
               emptySymbol="fa fa-star-o"
               fullSymbol="fa fa-star "
