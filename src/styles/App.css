@@ -104,6 +104,13 @@
   min-width: 16rem;
 }
 
+/* UTIL */
+
+.break-word{
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
 /* MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA MEDIA */
 
 @media (max-width: 768px) {

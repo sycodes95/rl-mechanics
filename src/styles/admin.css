@@ -15,3 +15,19 @@ td{
   max-width: 10ch;
 }
 
+#delete-mechanic-modal-container{
+  width: 469px;
+}
+
+@media (max-width : 469px) {
+  #delete-mechanic-modal-container{
+    width: 95%;
+  }
+}
+
+@media (max-width : 279px) {
+  #delete-mechanic-modal-container{
+    width: 280px;
+  }
+}
+

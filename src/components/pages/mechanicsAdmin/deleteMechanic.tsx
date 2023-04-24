@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { Mechanic } from "./admin";
 
 import { IsDeleteOpen } from "./adminMechTable";
+import { useNavigate } from "react-router-dom";
+
+import { Oval } from "react-loader-spinner";
+import Icon from '@mdi/react';
+import { mdiCheckAll } from '@mdi/js';
+
 interface DeleteMechanicProps {
   isDeleteOpenContext: {
     isDeleteOpen: IsDeleteOpen;
@@ -11,10 +17,37 @@ interface DeleteMechanicProps {
 }
 
 function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps) {
+  const navigate = useNavigate()
+
   const { isDeleteOpen, setIsDeleteOpen } = isDeleteOpenContext
-  // const handleDeleteMechanicSubmit = () => {
-  //   fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-delete?mech_id=${}`)
-  // }
+
+  const [deleteIsSuccessful, setDeleteIsSuccessful] = useState(false)
+
+  const [deleteIsLoading, setDeleteIsLoading] = useState(false)
+
+  const handleDeleteMechanicSubmit = () => {
+
+
+    setDeleteIsLoading(true)
+
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-delete?mech_id=${mechanic.mech_id}`,{
+      method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(data => {
+
+      setDeleteIsLoading(false)
+
+      if(data && data.mechanics > 0) {
+        setDeleteIsSuccessful(true)
+        setTimeout(()=>{
+          navigate(0)
+        },1000)
+      }
+
+      
+    })
+  }
 
   const handleClose = () => {
     setIsDeleteOpen({...isDeleteOpen, open : false});
@@ -24,22 +57,62 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
     console.log(mechanic);
   },[])
   return(
-    <div className="z-50 fixed top-0 left-0 ">
-      <div id="delete-mechanic-modal-overlay" className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-25 "></div>
+    <div  className="z-50">
+      <div id="delete-mechanic-modal-overlay" className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-25 " onClick={handleClose}></div>
       
       {
       mechanic &&
-      <div className="bg-slate-800 text-white fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 p-4 rounded-md">
-        <div>
-          <p>DELETE MECHANIC?</p>
-          <button onClick={handleClose}>X</button>
+      <div id="delete-mechanic-modal-container" 
+      className="flex flex-col bg-black text-white fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-md">
+        <section className="flex justify-between items-center pl-4 pr-4 rounded-sm text-xl bg-red-800">
+          <p className="text-black font-bold">DELETE MECHANIC</p>
+          <button className="text-black text-sm font-bold" onClick={handleClose}>X</button>
           
-        </div>
-        <div>
-        <p>{mechanic.mech_id}</p>
-        <p>{mechanic.mech_name}</p>
-        <p>{mechanic.mech_description}</p>
-        </div>
+        </section>
+        
+        <section className="flex flex-col gap-6 p-4 w-full">
+          <div className="flex whitespace-pre-wrap text-red-500">Are you sure you want to delete this mechanic?</div>
+
+          <div className="flex flex-col gap-2"> 
+            
+            <div className="flex gap-2">
+              <p>NAME:</p>
+              <div className="flex whitespace-pre-wrap break-word">{mechanic.mech_name.toUpperCase()}</div> 
+            </div>
+          </div>
+          
+          <div className="flex justify-end gap-4">
+            <button className="text-gray-400 hover:text-gray-200 transition-all w-24" onClick={handleClose}>CANCEL</button>
+            <button className="bg-red-800 hover:bg-red-900 text-black rounded-sm p-2 transition-all w-24"
+            onClick={handleDeleteMechanicSubmit}>
+              {
+                !deleteIsLoading && !deleteIsSuccessful &&
+                <p>DELETE</p>
+              }
+              {
+                deleteIsLoading && 
+                <Oval
+                height={20}
+                width={20}
+                color="#000000"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel='oval-loading'
+                secondaryColor="#111111"
+                strokeWidth={6}
+                strokeWidthSecondary={6}
+                />
+              }
+              {
+                deleteIsSuccessful && 
+                <Icon path={mdiCheckAll} size={1} />
+              }
+              
+            </button>
+          </div>
+        
+        </section>
       </div>
       }
       
