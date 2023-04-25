@@ -6,6 +6,7 @@ import { IsEditMechanicOpen } from "./adminMechTable";
 
 import { ThreeDots } from "react-loader-spinner";
 import { mdiCheckAll } from '@mdi/js';
+import { useNavigate } from "react-router-dom";
 
 interface EditMechanicProps {
   editMechanicIsOpenContext: {
@@ -26,6 +27,7 @@ interface MechanicData {
 }
 
 function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProps) {
+  const navigate = useNavigate()
 
   const { editMechanicIsOpen, setEditMechanicIsOpen } = editMechanicIsOpenContext;
 
@@ -66,7 +68,12 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
     .then(data => {
       console.log(data);
       setIsFetching(false);
-
+      if(data && data.command === 'UPDATE'){
+        setFetchSuccessful(true)
+        setTimeout(()=>{
+          navigate(0)
+        },1000)
+      }
       
     })
     .catch(error => {
@@ -76,15 +83,9 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
     });
   };
 
-  const handleClose = () => {
-    setEditMechanicIsOpen({...editMechanicIsOpen, open : false});
-  }
-
   useEffect(()=>{
-    
     if(mechanic){
       setMechanicData(mechanic)
-      console.log(mechanic);
     } 
   },[mechanic])
   
