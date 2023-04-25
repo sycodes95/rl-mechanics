@@ -9,6 +9,8 @@ import Rating from "react-rating";
 import { Tooltip } from "react-tooltip";
 import { useState } from "react";
 import DeleteMechanic from "./deleteMechanic";
+import EditMechanic from "./editMechanic";
+
 
 interface AdminMechTableProps {
   mechanicsDataContext: {
@@ -22,6 +24,7 @@ export interface IsDeleteOpen {
   mech_id: null | number;
 }
 
+
 function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
 
   const {mechanicsData, setMechanicsData} = mechanicsDataContext;
@@ -31,7 +34,10 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
     mech_id: null
   });
 
-  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editMechanicIsOpen, setEditMechanicIsOpen] = useState<IsEditMechanicOpen>({
+    open: false, 
+    mech_id: null
+  })
 
   const mechTableColumns = {
     mech_created_at: 'UPLOAD DATE',
@@ -82,7 +88,16 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
             </td>
             <td className="bg-yellow-900 bg-opacity-10">
               <div className="flex justify-center cursor-pointer hover:text-yellow-200 transition-all ">
+                <button onClick={()=> setEditMechanicIsOpen({ open: true, mech_id: mechanic.mech_id})}>
                 <Icon className="flex justify-center" path={mdiFileEdit} size={0.6} />
+                </button>
+                {
+                editMechanicIsOpen.open && editMechanicIsOpen.mech_id === mechanic.mech_id &&
+                <EditMechanic 
+                editMechanicIsOpenContext={{editMechanicIsOpen, setEditMechanicIsOpen}}
+                mechanic={mechanic}
+                />
+                }
               </div>
             </td>
 
