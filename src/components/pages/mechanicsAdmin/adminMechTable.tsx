@@ -44,14 +44,16 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
 
   return(
     
-    <table className="overflow-auto">
+    <table className="overflow-auto table-fixed w-full">
       <thead>
         <tr className="text-sm bg-slate-800">
-          <th id="tab" className="border-r border-black p-1 text-xs text-red-900">D</th>
-          <th className="border-l-2 border-black border-opacity-10 p-1 text-xs text-yellow-900">E</th>
+          <th id="tab" className="border-r border-black p-1 text-xs text-red-900 w-12">D</th>
+          <th className="border-l-2 border-black border-opacity-10 p-1 text-xs text-yellow-900 w-12">E</th>
           {
           Object.keys(mechTableColumns).map((column, index) => (
-          <th className="text-gray-400 text-xs border-l-2 border-black border-opacity-10 p-1" key={index}>{mechTableColumns[column as keyof typeof mechTableColumns]}</th>
+          <th className={`text-gray-400 text-xs border-l-2 border-black border-opacity-10 p-1
+          ${column === 'mech_id' && 'w-12'}`} 
+          key={index}>{mechTableColumns[column as keyof typeof mechTableColumns]}</th>
           ))
           }
         </tr>

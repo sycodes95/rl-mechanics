@@ -83,7 +83,7 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
           
           <div className="flex justify-end gap-4">
             <button className="text-gray-400 hover:text-gray-200 transition-all w-24" onClick={handleClose}>CANCEL</button>
-            <button className="bg-red-800 hover:bg-red-900 text-black rounded-sm p-2 transition-all w-24"
+            <button className="flex justify-center bg-red-800 hover:bg-red-900 text-black rounded-sm p-2 transition-all w-24"
             onClick={handleDeleteMechanicSubmit}>
               {
                 !deleteIsLoading && !deleteIsSuccessful &&
@@ -92,8 +92,8 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
               {
                 deleteIsLoading && 
                 <Oval
-                height={20}
-                width={20}
+                height={10}
+                width={10}
                 color="#000000"
                 wrapperStyle={{}}
                 wrapperClass=""
@@ -106,7 +106,7 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
               }
               {
                 deleteIsSuccessful && 
-                <Icon path={mdiCheckAll} size={1} />
+                <Icon path={mdiCheckAll} size={0.6} />
               }
               
             </button>
