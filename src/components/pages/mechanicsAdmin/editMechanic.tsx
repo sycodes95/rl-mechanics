@@ -16,6 +16,7 @@ interface EditMechanicProps {
 }
 
 interface MechanicData {
+  mech_id: number | null,
   mech_name: string | null;
   mech_description: string | null;
   mech_difficulty: number | null;
@@ -35,6 +36,7 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
   const [fetchErrors, setFetchErrors] = useState<string[]>([]);
 
   const [mechanicData, setMechanicData] = useState<MechanicData>({
+    mech_id: null,
     mech_name: null,
     mech_description: null,
     mech_difficulty: null,
@@ -55,8 +57,8 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
 
     setIsFetching(true);
 
-    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-post`, {
-      method: 'POST',
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-patch`, {
+      method: 'PATCH',
       body: JSON.stringify(mechanicData),
       headers: {'Content-Type': 'application/json'}
     })
@@ -65,21 +67,7 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
       console.log(data);
       setIsFetching(false);
 
-      if(data && data.mechanic) {
-        setFetchSuccessful(true);
-        setTimeout(()=>{
-          window.location.href = '/admin'
-        },1000);
-      };
-
-      if(data && data.name === 'error'){
-        if(data.code === '23502' && !fetchErrors.includes('Name is required')){
-          setFetchErrors([...fetchErrors, 'Name is required']);
-        };
-        if(data.code === '23505' && !fetchErrors.includes('Mechanic name exists')){
-          setFetchErrors([...fetchErrors, 'Mechanic name exists']);
-        };
-      };
+      
     })
     .catch(error => {
       console.error('Error:', error);
@@ -88,14 +76,21 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
     });
   };
 
+  const handleClose = () => {
+    setEditMechanicIsOpen({...editMechanicIsOpen, open : false});
+  }
 
   useEffect(()=>{
-    if(mechanic) setMechanicData(mechanic)
+    
+    if(mechanic){
+      setMechanicData(mechanic)
+      console.log(mechanic);
+    } 
   },[mechanic])
   
 
   return (
-    <div>
+    <div className="z-50">
             
       <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50" id="add-mechanic-overlay" >
       </div>
@@ -103,7 +98,7 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
       <div className="flex flex-col gap-4 bg-black rounded-md fixed 
       top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm: w-96">
         <div className="flex justify-between text-xl text-orange-500">
-          <p>ADD MECH</p>
+          <p>EDIT MECH</p>
           <button className="text-white" onClick={()=> setEditMechanicIsOpen({...editMechanicIsOpen, open:false})}>X</button>
         </div>
         <input className="text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800 p-1" 
@@ -149,7 +144,7 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
         <button className="flex justify-center text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
           {
           !isFetching && !fetchSuccessful &&
-          <p>SUBMIT</p>
+          <p>EDIT</p>
           }
           {
           isFetching &&

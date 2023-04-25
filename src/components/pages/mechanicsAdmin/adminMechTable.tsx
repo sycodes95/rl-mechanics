@@ -1,5 +1,6 @@
 
 import { Mechanic } from "./admin";
+
 import format from "date-fns/format";
 
 import Icon from '@mdi/react';
@@ -10,7 +11,7 @@ import { Tooltip } from "react-tooltip";
 import { useState } from "react";
 import DeleteMechanic from "./deleteMechanic";
 import EditMechanic from "./editMechanic";
-
+import { MechanicData } from "./addMechanic";
 
 interface AdminMechTableProps {
   mechanicsDataContext: {
@@ -20,6 +21,11 @@ interface AdminMechTableProps {
 }
 
 export interface IsDeleteOpen {
+  open: boolean;
+  mech_id: null | number;
+}
+
+export interface IsEditMechanicOpen {
   open: boolean;
   mech_id: null | number;
 }
@@ -87,7 +93,7 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
               </div>
             </td>
             <td className="bg-yellow-900 bg-opacity-10">
-              <div className="flex justify-center cursor-pointer hover:text-yellow-200 transition-all ">
+              <div className="flex justify-center hover:text-yellow-200 transition-all ">
                 <button onClick={()=> setEditMechanicIsOpen({ open: true, mech_id: mechanic.mech_id})}>
                 <Icon className="flex justify-center" path={mdiFileEdit} size={0.6} />
                 </button>
@@ -127,7 +133,7 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
             <td>
               <Rating
               className='  flex justify-between'
-              initialRating={mechanic.mech_importance}
+              initialRating={mechanic.mech_importance && mechanic.mech_importance}
               emptySymbol="fa fa-star-o"
               fullSymbol="fa fa-star "
               fractions={1}

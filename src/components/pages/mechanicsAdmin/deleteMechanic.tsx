@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Mechanic } from "./admin";
 
 import { IsDeleteOpen } from "./adminMechTable";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import Icon from '@mdi/react';
 import { mdiCheckAll } from '@mdi/js';
+import { Mechanic } from "./admin";
 
 interface DeleteMechanicProps {
   isDeleteOpenContext: {
@@ -77,7 +77,7 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
             
             <div className="flex gap-2">
               <p>NAME:</p>
-              <div className="flex whitespace-pre-wrap break-word">{mechanic.mech_name.toUpperCase()}</div> 
+              <div className="flex whitespace-pre-wrap break-word">{mechanic.mech_name && mechanic.mech_name.toUpperCase()}</div> 
             </div>
           </div>
           

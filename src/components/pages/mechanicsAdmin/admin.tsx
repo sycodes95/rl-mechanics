@@ -38,11 +38,14 @@ export interface MechTableColumns {
 
 export interface Mechanic {
   mech_id: number;
-  mech_name: string;
+  mech_name: string
   mech_description: string;
   mech_difficulty: number;
   mech_importance: number;
   mech_created_at: string;
+  mech_yt_url_controller: string;
+  mech_yt_url_kbm: string;
+
 }
 
 function Admin () {

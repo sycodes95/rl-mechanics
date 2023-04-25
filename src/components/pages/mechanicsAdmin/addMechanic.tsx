@@ -12,7 +12,7 @@ interface AddMechanicProps {
   };
 }
 
-interface MechanicData {
+export interface MechanicData {
   mech_name: string | null;
   mech_description: string | null;
   mech_difficulty: number | null;
