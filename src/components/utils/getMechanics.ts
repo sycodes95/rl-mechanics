@@ -1,7 +1,7 @@
-import { FilterData } from "../pages/mechanicsAdmin/admin";
+import { ColumnSortOrder, FilterData, SelectedSortColumn } from "../types/mechanicsAdmin/types";
 
-const getMechanics = (searchValue: string, filterValues: FilterData | null) => {
-  return fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-get?searchValue=${searchValue}&filterValues=${JSON.stringify(filterValues)}`)
+const getMechanics = (searchValue: string, filterValues: FilterData | null, selectedSortColumn: SelectedSortColumn) => {
+  return fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-get?searchValue=${searchValue}&filterValues=${JSON.stringify(filterValues)}&selectedSortColumn=${JSON.stringify(selectedSortColumn)}`)
   .then(res => res.json())
   .then(data => {
     if(data && data.mechanics) return data.mechanics

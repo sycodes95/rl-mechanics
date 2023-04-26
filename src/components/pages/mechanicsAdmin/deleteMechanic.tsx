@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-
-import { IsDeleteOpen } from "./adminMechTable";
 import { useNavigate } from "react-router-dom";
 
 import { Oval } from "react-loader-spinner";
 import Icon from '@mdi/react';
 import { mdiCheckAll } from '@mdi/js';
-import { Mechanic } from "./admin";
+
+import { IsDeleteOpen, Mechanic } from "../../types/mechanicsAdmin/types";
 
 interface DeleteMechanicProps {
   isDeleteOpenContext: {
@@ -53,9 +52,6 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
     setIsDeleteOpen({...isDeleteOpen, open : false});
   }
 
-  useEffect(()=>{
-    console.log(mechanic);
-  },[])
   return(
     <div  className="z-50">
       <div id="delete-mechanic-modal-overlay" className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-25 " onClick={handleClose}></div>

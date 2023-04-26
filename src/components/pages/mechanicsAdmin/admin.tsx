@@ -1,11 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-import Rating from "react-rating";
-import AdminFilters from "./adminMechFilters";
-import MechFilters from "./adminMechFilters";
 import AddMechanic from "./addMechanic";
-import MechSearch from "./adminMechSearch";
 
 import getMechanics from "../../utils/getMechanics";
 
@@ -14,39 +10,18 @@ import useDebounce from "../../hooks/useDebounce";
 
 import '../../../styles/admin.css'
 
-import { format } from 'date-fns'
-import MechTable from "./adminMechTable";
 import AdminMechTable from "./adminMechTable";
 import AdminMechFilters from "./adminMechFilters";
 import AdminMechSearch from "./adminMechSearch";
 
-export interface FilterData {
-  mech_difficulty: { firstInput: number; secondInput: number };
-  mech_importance: { firstInput: number; secondInput: number };
-  mech_created_at: { firstInput: string; secondInput: string };
-  rating_difficulty: { firstInput: number; secondInput: number };
-  rating_importance: { firstInput: number; secondInput: number };
-}
+import { 
+  FilterData, 
+  MechTableColumns, 
+  Mechanic, 
+  ColumnSortOrder, 
+  SelectedSortColumn
+} from "../../types/mechanicsAdmin/types";
 
-export interface MechTableColumns {
-  mech_id: string;
-  mech_name: string;
-  mech_description: string;
-  mech_difficulty: string;
-  mech_importance: string;
-}
-
-export interface Mechanic {
-  mech_id: number;
-  mech_name: string
-  mech_description: string;
-  mech_difficulty: number;
-  mech_importance: number;
-  mech_created_at: string;
-  mech_yt_url_controller: string;
-  mech_yt_url_kbm: string;
-
-}
 
 function Admin () {
 
@@ -60,16 +35,20 @@ function Admin () {
   
   const [filterData, setFilterData] = useState<FilterData | null>(null)
 
+  const [selectedSortColumn, setSelectedSortColumn] = useState<SelectedSortColumn>({
+    column: null,
+    value: false
+  })
   
 
   useEffect(()=>{
-    console.log(mechanicsData);
-  },[mechanicsData]) 
+    console.log(selectedSortColumn);
+  },[selectedSortColumn]) 
 
   useEffect(()=>{
     //get mechanics when component renders, and when debouncedsearch value changes or filterdata is submitted / applied
-    getMechanics(debouncedSearch, filterData).then((mechanics) => setMechanicsData(mechanics))
-  },[debouncedSearch, filterData]) 
+    getMechanics(debouncedSearch, filterData, selectedSortColumn).then((mechanics) => setMechanicsData(mechanics))
+  },[debouncedSearch, filterData, selectedSortColumn]) 
 
   return(
     <div className="flex justify-center text-white w-full h-full pt-12 pb-12">
@@ -109,7 +88,10 @@ function Admin () {
 
           {
           mechanicsData &&
-          <AdminMechTable mechanicsDataContext={{mechanicsData, setMechanicsData}} />
+          <AdminMechTable 
+          mechanicsDataContext={{mechanicsData, setMechanicsData}} 
+          selectedSortColumnContext={{selectedSortColumn, setSelectedSortColumn}}
+          />
           
           }
           

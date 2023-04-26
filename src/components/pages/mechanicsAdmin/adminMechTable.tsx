@@ -1,5 +1,4 @@
 
-import { Mechanic } from "./admin";
 
 import format from "date-fns/format";
 
@@ -7,33 +6,34 @@ import Icon from '@mdi/react';
 import { mdiDelete, mdiFileEdit } from '@mdi/js';
 
 import Rating from "react-rating";
-import { Tooltip } from "react-tooltip";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteMechanic from "./deleteMechanic";
 import EditMechanic from "./editMechanic";
-import { MechanicData } from "./addMechanic";
 
-interface AdminMechTableProps {
+import { 
+  IsDeleteOpen, 
+  IsEditMechanicOpen, 
+  ColumnSortOrder, 
+  Mechanic, 
+  SelectedSortColumn
+} from "../../types/mechanicsAdmin/types";
+
+type AdminMechTableProps = {
   mechanicsDataContext: {
     mechanicsData: Mechanic[];
     setMechanicsData: React.Dispatch<React.SetStateAction<Mechanic[]>>;
   };
+  selectedSortColumnContext: {
+    selectedSortColumn: SelectedSortColumn;
+    setSelectedSortColumn: React.Dispatch<React.SetStateAction<SelectedSortColumn>>;
+  }
 }
 
-export interface IsDeleteOpen {
-  open: boolean;
-  mech_id: null | number;
-}
-
-export interface IsEditMechanicOpen {
-  open: boolean;
-  mech_id: null | number;
-}
-
-
-function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
+function AdminMechTable({mechanicsDataContext, selectedSortColumnContext} :AdminMechTableProps ) {
 
   const {mechanicsData, setMechanicsData} = mechanicsDataContext;
+
+  const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext;
 
   const [isDeleteOpen, setIsDeleteOpen] = useState<IsDeleteOpen>({
     open: false,
@@ -54,6 +54,22 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
     mech_importance: 'IMPORTANCE',
   };
 
+
+  const handleColumnSort = (column: string | null) => {
+    console.log(column);
+    
+    if(selectedSortColumn.column === column){
+      return setSelectedSortColumn({...selectedSortColumn, value: !selectedSortColumn.value})
+    }  
+
+    if(!selectedSortColumn.column || selectedSortColumn.column !== column){
+      return setSelectedSortColumn({ column: column, value: true})
+    } 
+  
+  }
+
+
+
   return(
     
     <table className="overflow-auto table-fixed w-full">
@@ -64,8 +80,11 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
           {
           Object.keys(mechTableColumns).map((column, index) => (
           <th className={`text-gray-400 text-xs border-l-2 border-black border-opacity-10 p-1
-          ${column === 'mech_id' && 'w-12'}`} 
-          key={index}>{mechTableColumns[column as keyof typeof mechTableColumns]}</th>
+          cursor-pointer hover:text-gray-600 transition-all ${column === 'mech_id' && 'w-12'}`} key={index} 
+          onClick={()=> handleColumnSort(column)}>
+          
+            {mechTableColumns[column as keyof typeof mechTableColumns]}
+          </th>
           ))
           }
         </tr>
@@ -110,15 +129,7 @@ function AdminMechTable({mechanicsDataContext} :AdminMechTableProps ) {
             <td>{format(new Date(mechanic.mech_created_at), 'yyyy-MM-dd')}</td>
             <td>{mechanic.mech_id}</td>
             <td>{mechanic.mech_name}</td>
-            <td>
-              <a className="text-black text-xs bg-gray-500 rounded-md pr-2 pl-2 
-              hover:bg-gray-400 cursor-default transition-all whitespace-nowrap" 
-              data-tooltip-id="my-tooltip" data-tooltip-content={mechanic.mech_description}>
-                Show Description
-              </a>
-              <Tooltip className="bg-gray-300 text-black" id="my-tooltip" />
-              
-            </td>
+            <td>{mechanic.mech_description}</td>
             <td>
               <Rating
               className='  flex justify-between'

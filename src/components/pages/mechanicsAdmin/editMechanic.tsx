@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Rating from "react-rating";
 import Icon from '@mdi/react';
-import { Mechanic } from "./admin";
-import { IsEditMechanicOpen } from "./adminMechTable";
+
 
 import { ThreeDots } from "react-loader-spinner";
 import { mdiCheckAll } from '@mdi/js';
 import { useNavigate } from "react-router-dom";
+import { IsEditMechanicOpen } from "../../types/mechanicsAdmin/types";
 
 interface EditMechanicProps {
   editMechanicIsOpenContext: {
