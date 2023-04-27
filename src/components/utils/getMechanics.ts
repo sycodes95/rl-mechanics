@@ -4,6 +4,7 @@ const getMechanics = (searchValue: string, filterValues: FilterData | null, sele
   return fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-get?searchValue=${searchValue}&filterValues=${JSON.stringify(filterValues)}&selectedSortColumn=${JSON.stringify(selectedSortColumn)}`)
   .then(res => res.json())
   .then(data => {
+    console.log(data);
     if(data && data.mechanics) return data.mechanics
   })
   .catch(err => {

@@ -42,5 +42,10 @@ export type IsEditMechanicOpen = {
 
 export type SelectedSortColumn = {
   column: null | string;
-  value: boolean
+  value: boolean;
+}
+
+export type PaginationData = {
+  pageNumber: number;
+  pageSize: number;
 }

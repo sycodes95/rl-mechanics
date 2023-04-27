@@ -14,12 +14,15 @@ import AdminMechTable from "./adminMechTable";
 import AdminMechFilters from "./adminMechFilters";
 import AdminMechSearch from "./adminMechSearch";
 
+import ReactPaginate from "react-paginate";
+
 import { 
   FilterData, 
   MechTableColumns, 
   Mechanic, 
   ColumnSortOrder, 
-  SelectedSortColumn
+  SelectedSortColumn,
+  PaginationData
 } from "../../types/mechanicsAdmin/types";
 
 
@@ -38,8 +41,16 @@ function Admin () {
   const [selectedSortColumn, setSelectedSortColumn] = useState<SelectedSortColumn>({
     column: null,
     value: false
+  });
+
+  const [paginationData, setPaginationData] = useState<PaginationData>({
+    pageNumber: 1,
+    pageSize: 2,
   })
-  
+
+  const handlePageChange = (page: number) => {
+    console.log(page);
+  }
 
   useEffect(()=>{
     console.log(selectedSortColumn);
@@ -98,7 +109,16 @@ function Admin () {
         </section>
 
         <section>
-          
+          <ReactPaginate
+          className="flex"
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={(page)=> handlePageChange(page.selected)}
+          pageRangeDisplayed={5}
+          pageCount={10}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          />
         </section>
 
         
