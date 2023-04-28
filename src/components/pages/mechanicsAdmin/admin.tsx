@@ -44,7 +44,7 @@ function Admin () {
   });
 
   const [paginationData, setPaginationData] = useState<PaginationData>({
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: 2,
   })
 
@@ -58,8 +58,10 @@ function Admin () {
 
   useEffect(()=>{
     //get mechanics when component renders, and when debouncedsearch value changes or filterdata is submitted / applied
-    getMechanics(debouncedSearch, filterData, selectedSortColumn).then((mechanics) => setMechanicsData(mechanics))
-  },[debouncedSearch, filterData, selectedSortColumn]) 
+    getMechanics(debouncedSearch, filterData, selectedSortColumn, paginationData)
+    .then((mechanics) => setMechanicsData(mechanics))
+
+  },[debouncedSearch, filterData, selectedSortColumn, paginationData]) 
 
   return(
     <div className="flex justify-center text-white w-full h-full pt-12 pb-12">
