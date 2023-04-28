@@ -48,4 +48,5 @@ export type SelectedSortColumn = {
 export type PaginationData = {
   pageNumber: number;
   pageSize: number;
+  totalCount: null | number;
 }

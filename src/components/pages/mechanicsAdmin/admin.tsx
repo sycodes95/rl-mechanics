@@ -24,6 +24,7 @@ import {
   SelectedSortColumn,
   PaginationData
 } from "../../types/mechanicsAdmin/types";
+import getMechanicsCount from "../../utils/getMechanicsCount";
 
 
 function Admin () {
@@ -46,10 +47,12 @@ function Admin () {
   const [paginationData, setPaginationData] = useState<PaginationData>({
     pageNumber: 0,
     pageSize: 2,
+    totalCount: null
   })
 
   const handlePageChange = (page: number) => {
     console.log(page);
+    setPaginationData({...paginationData, pageNumber: page})
   }
 
   useEffect(()=>{
@@ -57,11 +60,16 @@ function Admin () {
   },[selectedSortColumn]) 
 
   useEffect(()=>{
+    console.log(paginationData);
     //get mechanics when component renders, and when debouncedsearch value changes or filterdata is submitted / applied
     getMechanics(debouncedSearch, filterData, selectedSortColumn, paginationData)
     .then((mechanics) => setMechanicsData(mechanics))
 
   },[debouncedSearch, filterData, selectedSortColumn, paginationData]) 
+
+  useEffect(()=>{
+    getMechanicsCount().then(count => setPaginationData({...paginationData, totalCount: count}))
+  },[])
 
   return(
     <div className="flex justify-center text-white w-full h-full pt-12 pb-12">
@@ -111,16 +119,19 @@ function Admin () {
         </section>
 
         <section>
+          {
+          paginationData.totalCount &&
           <ReactPaginate
           className="flex"
           breakLabel="..."
           nextLabel="next >"
           onPageChange={(page)=> handlePageChange(page.selected)}
           pageRangeDisplayed={5}
-          pageCount={10}
+          pageCount={Math.ceil(paginationData.totalCount / paginationData.pageSize)}
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           />
+          }
         </section>
 
         
