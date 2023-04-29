@@ -56,20 +56,31 @@ function Admin () {
   }
 
   useEffect(()=>{
-    console.log(selectedSortColumn);
   },[selectedSortColumn]) 
 
   useEffect(()=>{
-    console.log(paginationData);
+    
     //get mechanics when component renders, and when debouncedsearch value changes or filterdata is submitted / applied
     getMechanics(debouncedSearch, filterData, selectedSortColumn, paginationData)
-    .then((mechanics) => setMechanicsData(mechanics))
+    .then(data => {
+      if(data && data.mechanics){
+        setMechanicsData(data.mechanics)
+      } else {
+        setMechanicsData([])
+      }
+      if(data && data.count) setPaginationData({...paginationData, totalCount: data.count})
+    })
+  },[debouncedSearch, filterData, selectedSortColumn, paginationData.pageNumber]) 
 
-  },[debouncedSearch, filterData, selectedSortColumn, paginationData]) 
+  useEffect(()=> {
+    if(paginationData && paginationData.totalCount){
+      if((paginationData.pageNumber * paginationData.pageSize) > paginationData.totalCount){
+        setPaginationData({...paginationData, pageNumber: 0})
+      }
+    }
+  },[paginationData.totalCount])
 
-  useEffect(()=>{
-    getMechanicsCount().then(count => setPaginationData({...paginationData, totalCount: count}))
-  },[])
+  
 
   return(
     <div className="flex justify-center text-white w-full h-full pt-12 pb-12">

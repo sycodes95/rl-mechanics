@@ -5,7 +5,7 @@ const getMechanics = (searchValue: string, filterValues: FilterData | null, sele
   .then(res => res.json())
   .then(data => {
     console.log(data);
-    if(data && data.mechanics) return data.mechanics
+    if(data && data.mechanics && data.count) return data
   })
   .catch(err => {
     console.error(err);
