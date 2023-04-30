@@ -24,20 +24,19 @@ import {
   SelectedSortColumn,
   PaginationData
 } from "../../types/mechanicsAdmin/types";
-import getMechanicsCount from "../../utils/getMechanicsCount";
 
 
 function Admin () {
 
-  const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false)
+  const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false);
 
-  const [mechanicsData, setMechanicsData] = useState<Mechanic[]>([])
+  const [mechanicsData, setMechanicsData] = useState<Mechanic[]>([]);
   
-  const [searchValue, setSearchValue] = useState<string>("")
+  const [searchValue, setSearchValue] = useState<string>("");
 
-  const debouncedSearch = useDebounce(searchValue, 300)
+  const debouncedSearch = useDebounce(searchValue, 300);
   
-  const [filterData, setFilterData] = useState<FilterData | null>(null)
+  const [filterData, setFilterData] = useState<FilterData | null>(null);
 
   const [selectedSortColumn, setSelectedSortColumn] = useState<SelectedSortColumn>({
     column: null,
@@ -48,37 +47,32 @@ function Admin () {
     pageNumber: 0,
     pageSize: 2,
     totalCount: null
-  })
+  });
 
   const handlePageChange = (page: number) => {
-    console.log(page);
-    setPaginationData({...paginationData, pageNumber: page})
-  }
+    setPaginationData({...paginationData, pageNumber: page});
+  };
 
   useEffect(()=>{
-  },[selectedSortColumn]) 
-
-  useEffect(()=>{
-    
-    //get mechanics when component renders, and when debouncedsearch value changes or filterdata is submitted / applied
+    //when Search, Filters, Column Sort, Page Number values change, refetch mechanics using those new params
     getMechanics(debouncedSearch, filterData, selectedSortColumn, paginationData)
     .then(data => {
       if(data && data.mechanics){
-        setMechanicsData(data.mechanics)
+        setMechanicsData(data.mechanics);
       } else {
-        setMechanicsData([])
-      }
-      if(data && data.count) setPaginationData({...paginationData, totalCount: data.count})
-    })
-  },[debouncedSearch, filterData, selectedSortColumn, paginationData.pageNumber]) 
+        setMechanicsData([]);
+      };
+      if(data && data.count) setPaginationData({...paginationData, totalCount: data.count});
+    });
+
+  },[debouncedSearch, filterData, selectedSortColumn, paginationData.pageNumber]);
 
   useEffect(()=> {
+    //if current page number is higher than maximum possible, and there is data, reset pageNumber to 0
     if(paginationData && paginationData.totalCount){
-      if((paginationData.pageNumber * paginationData.pageSize) > paginationData.totalCount){
-        setPaginationData({...paginationData, pageNumber: 0})
-      }
-    }
-  },[paginationData.totalCount])
+      !mechanicsData.length && setPaginationData({...paginationData, pageNumber: 0});
+    };
+  },[paginationData.totalCount]);
 
   
 
@@ -129,17 +123,22 @@ function Admin () {
           
         </section>
 
-        <section>
+        <section className="flex w-full justify-end">
           {
           paginationData.totalCount &&
           <ReactPaginate
-          className="flex"
+          className="flex gap-x-4 p-1 rounded-md"
           breakLabel="..."
-          nextLabel="next >"
+          nextLabel="NEXT"
           onPageChange={(page)=> handlePageChange(page.selected)}
           pageRangeDisplayed={5}
+          activeClassName="text-blue-300"
+          previousClassName={`text-xs flex items-center hover:text-slate-400 transition-all
+          ${paginationData.pageNumber === 0 && `text-slate-400 pointer-events-none`}`}
+          nextClassName={`text-xs flex items-center hover:text-slate-400 transition-all
+          ${(paginationData.pageNumber + 1) * paginationData.pageSize >= paginationData.totalCount && `text-slate-400 pointer-events-none`}`}
           pageCount={Math.ceil(paginationData.totalCount / paginationData.pageSize)}
-          previousLabel="< previous"
+          previousLabel="PREV"
           renderOnZeroPageCount={null}
           />
           }
