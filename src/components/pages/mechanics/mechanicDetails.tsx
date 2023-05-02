@@ -26,11 +26,49 @@ function MechanicDetails () {
   },[mechanicDetails])
   
   return(
-    <div>
-      {
-      mechanicDetails?.mech_yt_url_controller &&
-      <div dangerouslySetInnerHTML={{__html: mechanicDetails.mech_yt_url_controller}}></div>
-      }
+    <div className="w-full flex justify-center ">
+      <div className="bg-black bg-opacity-50 max-w-5xl w-full">
+
+      <section className="flex justify-between p-4">
+        <div className="text-white text-5xl">{mechanicDetails?.mech_name}</div>
+        <div className="flex items-center gap-4 w-1/2 bg-black bg-opacity-20 
+        text-sm text-white p-2">
+          <section>
+            <div>
+              <p>DIFFICULTY</p>
+            </div>
+            <div>
+              <p>IMPORTANCE</p>
+            </div>
+          </section>
+          <section>
+            <div>
+              <p>USER RATED DIF.</p>
+            </div>
+            <div>
+              <p>USER RATED IMP.</p>
+            </div>
+          </section>
+          
+        </div>
+      </section>
+      <section className="flex flex-col items-center ">
+        <div className="relative h-96 w-full">
+          {
+          mechanicDetails?.mech_yt_url_controller &&
+          <div dangerouslySetInnerHTML={{__html: mechanicDetails.mech_yt_url_controller}}></div>
+          }
+        </div>
+      
+
+        <div className="w-full text-xs text-white p-2 bg-black bg-opacity-25">
+          <p className="text-xl text-center border-b border-white">DESCRIPTION</p>
+          <p className="p-2">{mechanicDetails?.mech_description?.toUpperCase()}</p>
+        </div>
+
+      </section>
+      
+      </div>
     </div>
   )
 }
