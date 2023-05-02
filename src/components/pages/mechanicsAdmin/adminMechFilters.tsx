@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import Rating from "react-rating";
-import { FilterData } from "./admin"
+import { FilterData } from "../../types/mechanicsAdmin/types";
 
 interface AdminMechFiltersProps{
   filterDataContext: {

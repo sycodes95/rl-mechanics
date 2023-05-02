@@ -45,7 +45,7 @@ function Admin () {
 
   const [paginationData, setPaginationData] = useState<PaginationData>({
     pageNumber: 0,
-    pageSize: 2,
+    pageSize: 50,
     totalCount: null
   });
 

@@ -23,7 +23,7 @@ export type Mechanic = {
   mech_created_at: string;
   mech_yt_url_controller: string;
   mech_yt_url_kbm: string;
-
+  mech_url: string;
 }
 
 export type ColumnSortOrder = {

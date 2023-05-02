@@ -24,6 +24,7 @@ interface MechanicData {
   mech_importance: number | null;
   mech_yt_url_controller: string | null;
   mech_yt_url_kbm: string | null;
+  mech_url: string | null;
 }
 
 function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProps) {
@@ -45,6 +46,7 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
     mech_importance: null,
     mech_yt_url_controller: null,
     mech_yt_url_kbm: null,
+    mech_url: null
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -141,6 +143,10 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
         <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm"
         name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
         value={mechanicData.mech_yt_url_kbm ?? ''} onChange={handleInputChange}/>
+
+        <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm"
+        name="mech_url" type="text" placeholder="MECH URL" 
+        value={mechanicData.mech_url ?? ''} onChange={handleInputChange}/> 
 
         <button className="flex justify-center text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
           {
