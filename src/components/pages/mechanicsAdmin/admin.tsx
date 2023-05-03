@@ -87,7 +87,7 @@ function Admin () {
           </div>
           
           <div >
-            <button className="p-4 w-full sm:w-fit bg-orange-500 hover:bg-orange-400 text-sm font-bold 
+            <button className="p-4 w-full sm:w-fit bg-yellow-400 hover:bg-opacity-50 text-sm text-black font-bold 
             rounded-md whitespace-nowrap transition-all" onClick={()=> setAddMechanicIsOpen(true)}>ADD MECHANIC</button>
 
             

@@ -62,6 +62,10 @@
   background-color: rgb(28, 29, 35);
 }
 
+.bg-jet-plum-gradient{
+  background: linear-gradient(rgb(28, 29, 35), rgb(39, 38, 45));
+}
+
 .bg-jet-dark-green{
   background-color: rgb(41, 91, 66);
 }
@@ -77,6 +81,10 @@
 
 .bg-jet-light{
   background-color: rgb(37, 40, 48);
+}
+
+.bg-brown-plum-gradient{
+  background: rgb(39, 38, 45)
 }
 
 .bg-gradient{

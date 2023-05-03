@@ -37,7 +37,8 @@ function Header() {
   },[user_details])
 
   return(
-    <div className=' h-12 w-full p-4 flex justify-center items-center bg-jet-dark z-40'>
+    <div className=' h-16 w-full p-4 flex justify-center items-center 
+    bg-jet-plum-gradient border-b border-black border-opacity-10 z-40'>
 
       <div className='w-full max-w-7xl flex justify-between'>
 
@@ -58,7 +59,7 @@ function Header() {
         <section className='flex justify-end items-center w-full gap-x-4'>
 
           <Link to='/' className='h-6 w-20 flex justify-center items-center 
-          bg-orange-500 bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
+          bg-yellow-500 bg-opacity-100 p-2 text-xs font-bold text-black rounded-lg
           hover:bg-opacity-75 transition-all'>
             <p>MECHANICS</p>
           </Link>

@@ -12,7 +12,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div id='app' className='flex flex-col min-h-screen bg-jet-light'>
+      <div id='app' className='flex flex-col min-h-screen bg-brown-plum-gradient'>
         <Header/>
         <Routes>
           <Route path='/' element={<Mechanics/>}/>
