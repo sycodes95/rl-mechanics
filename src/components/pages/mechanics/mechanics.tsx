@@ -24,7 +24,7 @@ function Mechanics() {
 
   return (
     <div className="text-white w-full flex justify-center ">
-      <div className="max-w-5xl w-full flex flex-col items-center">
+      <div className="max-w-4xl w-full flex flex-col items-center">
 
       <section className="mt-44">
         <MechanicsTable mechanicsData={mechanicsData}/>

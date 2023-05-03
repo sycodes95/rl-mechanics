@@ -30,12 +30,13 @@ function MechanicDetails () {
       <div className="bg-black bg-opacity-50 max-w-5xl w-full">
 
       <section className="flex justify-between p-4">
-        <div className="text-white text-5xl">{mechanicDetails?.mech_name}</div>
-        <div className="flex items-center gap-4 w-1/2 bg-black bg-opacity-20 
-        text-sm text-white p-2">
-          <section>
-            <div>
+        <div className="text-white text-4xl flex items-center">{mechanicDetails?.mech_name}</div>
+        <div className="grid grid-cols-2 gap-4 w-1/2 bg-black bg-opacity-20 
+        text-sm text-white p-2 ">
+          <section className="grid grid-rows-2">
+            <div className="flex gap-4">
               <p>DIFFICULTY</p>
+              <p>*****</p>
             </div>
             <div>
               <p>IMPORTANCE</p>
