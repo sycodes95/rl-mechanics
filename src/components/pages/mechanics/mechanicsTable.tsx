@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Mechanic } from "../../types/mechanicsAdmin/types";
+import { Mechanic, SelectedSortColumn } from "../../types/mechanicsAdmin/types";
 import { Link, useSearchParams } from "react-router-dom";
 
 import Icon from '@mdi/react';
@@ -8,12 +8,18 @@ import { mdiRhombusSplit } from '@mdi/js';
 
 
 type MechanicsTableProps = {
-  mechanicsData: Mechanic[]
+  mechanicsData: Mechanic[];
+  selectedSortColumnContext: {
+    selectedSortColumn: SelectedSortColumn;
+    setSelectedSortColumn: React.Dispatch<React.SetStateAction<SelectedSortColumn>>;
+  }
 }
 
-function MechanicsTable ({mechanicsData} : MechanicsTableProps) {
+function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsTableProps) {
+  const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext
   const mechTableColumns = {
     status: 'Status',
+    mech_type: 'Type',
     mech_name: 'Name',
     mech_difficulty: 'Difficulty',
     mech_importance: 'Importance',
@@ -28,6 +34,19 @@ function MechanicsTable ({mechanicsData} : MechanicsTableProps) {
     <p className="text-orange-400">Hard</p>,
     <p className="text-red-400">Insane</p>
   ]
+
+  const handleColumnSort = (column: string | null) => {
+    console.log(column);
+    
+    if(selectedSortColumn.column === column){
+      return setSelectedSortColumn({...selectedSortColumn, value: !selectedSortColumn.value})
+    }  
+
+    if(!selectedSortColumn.column || selectedSortColumn.column !== column){
+      return setSelectedSortColumn({ column: column, value: true})
+    } 
+  
+  }
   
   return(
     <table className=" overflow-scroll">
@@ -38,7 +57,7 @@ function MechanicsTable ({mechanicsData} : MechanicsTableProps) {
           Object.keys(mechTableColumns).map((column, index) => (
           <th className={`text-gray-400 text-xs
           cursor-pointer hover:text-gray-600 transition-all ${column === 'mech_name' && 'w-80'}`} key={index} 
-          >
+          onClick={()=>handleColumnSort(column)}>
             {mechTableColumns[column as keyof typeof mechTableColumns]}
           </th>
           ))
@@ -51,6 +70,7 @@ function MechanicsTable ({mechanicsData} : MechanicsTableProps) {
         mechanicsData.map((mech, i) => (
           <tr key={i} className="text-sm h-8">
             <td>  </td>
+            <td>{mech.mech_type}</td>
             <td className=" h-full">
               <Link className=" hover:text-blue-500 hover:cursor-pointer transition-all w-fit" 
               to={`/mechanics/${mech.mech_url}`}> 

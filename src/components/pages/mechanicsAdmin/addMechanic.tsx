@@ -20,7 +20,7 @@ export interface MechanicData {
   mech_yt_url_controller: string | null;
   mech_yt_url_kbm: string | null;
   mech_url: string | null;
-  mech_family: string | null;
+  mech_type: string | null;
 }
 
 function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
@@ -41,7 +41,7 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
     mech_yt_url_controller: null,
     mech_yt_url_kbm: null,
     mech_url: null,
-    mech_family: null
+    mech_type: null
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -151,8 +151,8 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
         value={mechanicData.mech_url ?? ''} onChange={handleInputChange}/>
 
         <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm"
-        name="mech_family" type="text" placeholder="MECH FAMILY" 
-        value={mechanicData.mech_family ?? ''} onChange={handleInputChange}/>
+        name="mech_type" type="text" placeholder="MECH TYPE" 
+        value={mechanicData.mech_type ?? ''} onChange={handleInputChange}/>
 
         <button className="flex justify-center text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
           {

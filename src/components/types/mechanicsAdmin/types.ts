@@ -16,7 +16,8 @@ export type MechTableColumns = {
 
 export type Mechanic = {
   mech_id: number;
-  mech_name: string
+  mech_type: string;
+  mech_name: string;
   mech_description: string;
   mech_difficulty: number;
   mech_importance: number;
