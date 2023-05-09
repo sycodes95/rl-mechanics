@@ -47,14 +47,13 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
   }
   
   return(
-    <table className=" overflow-scroll table-fixed">
+    <table className="">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
-          
         {
           Object.keys(mechTableColumns).map((column, index) => (
-          <th className={`text-gray-400 text-xs
-          cursor-pointer hover:text-gray-600 transition-all ${column === 'mech_name' ? 'w-80' : 'w-32'}`} key={index} 
+          <th className={`text-gray-400 text-xs pr-4 
+          cursor-pointer hover:text-gray-600 transition-all ${column === 'mech_name' ? 'min-w-80' : 'min-w-32'}`} key={index} 
           onClick={()=>handleColumnSort(column)}>
             {mechTableColumns[column as keyof typeof mechTableColumns]}
           </th>
@@ -69,14 +68,14 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
           <tr key={i} className="text-sm h-8">
             <td>  </td>
             <td>{mech.mech_type}</td>
-            <td className=" h-full">
+            <td className="">
               <Link className=" hover:text-blue-500 hover:cursor-pointer transition-all w-fit" 
               to={`/mechanics/${mech.mech_url}`}> 
               {mech.mech_name}
               </Link>
             </td>
             <td>{difficultySymbols[mech.mech_difficulty - 1]}</td>
-            <td className="w-20">
+            <td className="">
               <div className="h-full flex min-w-fit"> 
                 <Icon className={`${mech.mech_importance >= 1 ? 'text-yellow-400' : 'text-gray-600'}`} 
                 path={mdiRhombusSplit} size={0.7}/>
