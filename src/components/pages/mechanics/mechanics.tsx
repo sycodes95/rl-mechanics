@@ -52,7 +52,7 @@ function Mechanics() {
       !mechanicsData.length && setPaginationData({...paginationData, pageNumber: 0});
     };
   },[paginationData.totalCount]);
-  
+
   useEffect(()=>{
     fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-get?searchValue=${""}&filterValues=${JSON.stringify(null)}&selectedSortColumn=${JSON.stringify({ column: null, value: false})}&paginationData=${JSON.stringify({ pageNumber: 0, pageSize: 50, totalCount: null})}`)
     .then(res => res.json())
@@ -68,20 +68,22 @@ function Mechanics() {
   return (
     <div className="text-white w-full flex justify-center ">
       <div className="max-w-4xl w-full flex flex-col items-center">
-
-      <section className="mt-44">
-        <MechanicsTable mechanicsData={mechanicsData} selectedSortColumnContext={{selectedSortColumn, setSelectedSortColumn}}/>
-      </section>
-      {/* {
-      mechanicsData.map(mechanic => (
-        <div className="bg-black bg-opacity-30 w-full flex flex-col items-center">
-          <div>{mechanic.mech_name}</div>
-          <div>{mechanic.mech_url}</div>
-          <div hidden dangerouslySetInnerHTML={{__html: mechanic.mech_yt_url_controller}}></div>
+        <section>
           
-        </div>
-      ))
-      } */}
+        </section>
+        <section className="mt-44">
+          <MechanicsTable mechanicsData={mechanicsData} selectedSortColumnContext={{selectedSortColumn, setSelectedSortColumn}}/>
+        </section>
+        {/* {
+        mechanicsData.map(mechanic => (
+          <div className="bg-black bg-opacity-30 w-full flex flex-col items-center">
+            <div>{mechanic.mech_name}</div>
+            <div>{mechanic.mech_url}</div>
+            <div hidden dangerouslySetInnerHTML={{__html: mechanic.mech_yt_url_controller}}></div>
+            
+          </div>
+        ))
+        } */}
       </div>
     </div>
   )

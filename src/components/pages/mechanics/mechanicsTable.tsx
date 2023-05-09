@@ -36,7 +36,6 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
   ]
 
   const handleColumnSort = (column: string | null) => {
-    console.log(column);
     
     if(selectedSortColumn.column === column){
       return setSelectedSortColumn({...selectedSortColumn, value: !selectedSortColumn.value})
@@ -45,18 +44,17 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
     if(!selectedSortColumn.column || selectedSortColumn.column !== column){
       return setSelectedSortColumn({ column: column, value: true})
     } 
-  
   }
   
   return(
-    <table className=" overflow-scroll">
+    <table className=" overflow-scroll table-fixed">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
           
         {
           Object.keys(mechTableColumns).map((column, index) => (
           <th className={`text-gray-400 text-xs
-          cursor-pointer hover:text-gray-600 transition-all ${column === 'mech_name' && 'w-80'}`} key={index} 
+          cursor-pointer hover:text-gray-600 transition-all ${column === 'mech_name' ? 'w-80' : 'w-32'}`} key={index} 
           onClick={()=>handleColumnSort(column)}>
             {mechTableColumns[column as keyof typeof mechTableColumns]}
           </th>
