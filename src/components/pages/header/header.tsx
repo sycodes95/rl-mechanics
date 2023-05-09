@@ -38,7 +38,7 @@ function Header() {
 
   return(
     <div className=' h-16 w-full p-4 flex justify-center items-center 
-    bg-jet-plum-gradient border-b border-black border-opacity-10 z-40'>
+    bg-jet-dark border-b border-black border-opacity-10 z-40'>
 
       <div className='w-full max-w-7xl flex justify-between'>
 
@@ -59,15 +59,15 @@ function Header() {
         <section className='flex justify-end items-center w-full gap-x-4'>
 
           <Link to='/' className='h-6 w-20 flex justify-center items-center 
-          bg-yellow-500 bg-opacity-100 p-2 text-xs font-bold text-black rounded-lg
-          hover:bg-opacity-75 transition-all'>
+          bg-yellow-400 bg-opacity-100 p-2 text-xs font-bold text-black rounded-md
+          hover:bg-opacity-50 transition-all'>
             <p>MECHANICS</p>
           </Link>
 
           {
           userIsAdmin && 
           <Link to='/admin' className='h-6 w-20 flex justify-center items-center 
-          bg-black bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
+          bg-black bg-opacity-100 p-2 text-xs font-bold text-white rounded-md
           hover:bg-opacity-75 transition-all'>
             <p>ADMIN</p>
           </Link>
@@ -93,18 +93,18 @@ function Header() {
         <section className='flex justify-end items-center w-full gap-x-4'>
   
           <Link to='/log-in' className='h-6 w-20 flex justify-center items-center 
-          bg-gradient-green-blue bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
+          bg-gradient-green-blue bg-opacity-100 p-2 text-xs font-bold text-white rounded-md
           hover:bg-opacity-75 transition-all'>
             <p>LOG IN</p>
           </Link>
           
           <Link to='/register' className='h-6  w-20 flex justify-center items-center 
-          bg-gradient-orange-yellow bg-opacity-100 p-2 text-xs font-bold text-white rounded-lg
+          bg-gradient-orange-yellow bg-opacity-100 p-2 text-xs font-bold text-white rounded-md
           hover:bg-opacity-75 transition-all'>
             <p>REGISTER</p>
           </Link>
 
-          <button className='h-6 hidden sm:flex items-center bg-gradient-red-pink bg-opacity-100 p-2 text-xs text-white rounded-lg
+          <button className='h-6 hidden sm:flex items-center bg-gradient-red-pink bg-opacity-100 p-2 text-xs text-white rounded-md
           hover:bg-opacity-75 transition-all mw-768px-hidden'>
             <p>♥ SUPPORT ME ♥</p>
           </button>
