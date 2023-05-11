@@ -55,15 +55,30 @@ function Admin () {
 
   useEffect(()=>{
     //when Search, Filters, Column Sort, Page Number values change, refetch mechanics using those new params
-    getMechanics(debouncedSearch, filterData, selectedSortColumn, paginationData)
+
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-get?searchValue=${searchValue}&filterValues=${JSON.stringify(filterData)}&selectedSortColumn=${JSON.stringify(selectedSortColumn)}&paginationData=${JSON.stringify(paginationData)}`)
+    .then(res => res.json())
     .then(data => {
-      if(data && data.mechanics){
-        setMechanicsData(data.mechanics);
+      console.log(data);
+      if(data && data.mechanics && data.count) {
+        setMechanicsData(data.mechanics)
       } else {
-        setMechanicsData([]);
-      };
-      if(data && data.count) setPaginationData({...paginationData, totalCount: data.count});
+        setMechanicsData([])
+      }
+    })
+    .catch(err => {
+      console.error(err);
     });
+
+    // getMechanics(debouncedSearch, filterData, selectedSortColumn, paginationData)
+    // .then(data => {
+    //   if(data && data.mechanics){
+    //     setMechanicsData(data.mechanics);
+    //   } else {
+    //     setMechanicsData([]);
+    //   };
+    //   if(data && data.count) setPaginationData({...paginationData, totalCount: data.count});
+    // });
 
   },[debouncedSearch, filterData, selectedSortColumn, paginationData.pageNumber]);
 

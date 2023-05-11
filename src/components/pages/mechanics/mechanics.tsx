@@ -27,6 +27,11 @@ function Mechanics() {
     totalCount: null
   });
 
+  const mechanicsStatusOptions = {
+    'consistent': 2,
+    'inconsistent': 1,
+    'notlearned': 0,
+  }
   const handlePageChange = (page: number) => {
     setPaginationData({...paginationData, pageNumber: page});
   };
@@ -53,15 +58,20 @@ function Mechanics() {
   },[paginationData.totalCount]);
 
   useEffect(()=>{
-    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-get?searchValue=${""}&filterValues=${JSON.stringify(null)}&selectedSortColumn=${JSON.stringify({ column: null, value: false})}&paginationData=${JSON.stringify({ pageNumber: 0, pageSize: 50, totalCount: null})}`)
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-get?searchValue=${searchValue}&filterValues=${JSON.stringify(filterData)}&selectedSortColumn=${JSON.stringify(selectedSortColumn)}&paginationData=${JSON.stringify(paginationData)}`)
     .then(res => res.json())
     .then(data => {
-      setMechanicsData(data.mechanics)
-      
+      console.log(data);
+      if(data && data.mechanics && data.count) {
+        setMechanicsData(data.mechanics)
+      } else {
+        setMechanicsData([])
+      }
     })
     .catch(err => {
       console.error(err);
     });
+
   },[])
 
   useEffect(()=>{
@@ -69,28 +79,23 @@ function Mechanics() {
   },[searchValue])
 
   return (
-    <div className="text-white w-full flex justify-center ">
-      <div className="max-w-4xl w-full flex flex-col items-center p-8">
-        <section>
-          <div>
+    <div className="text-white w-full min-w-fit flex justify-center p-8">
+      <div className=" flex flex-col ">
+        <section className="w-full">
+          <section className="w-full">
             <input className="text-white bg-black bg-opacity-10 p-1 outline-none caret-white" 
             type="text" value={searchValue} placeholder="Search..." onChange={(e)=> setSearchValue(e.target.value)}/>
-          </div>
+          </section>
+          <section className="w-full">
+            <input className="text-white bg-black bg-opacity-10 p-1 outline-none caret-white" 
+            type="text" value={searchValue} placeholder="Search..." onChange={(e)=> setSearchValue(e.target.value)}/>
+          </section>
           
         </section>
-        <section className="">
+        <section className="overflow-x-auto">
           <MechanicsTable mechanicsData={mechanicsData} selectedSortColumnContext={{selectedSortColumn, setSelectedSortColumn}}/>
         </section>
-        {/* {
-        mechanicsData.map(mechanic => (
-          <div className="bg-black bg-opacity-30 w-full flex flex-col items-center">
-            <div>{mechanic.mech_name}</div>
-            <div>{mechanic.mech_url}</div>
-            <div hidden dangerouslySetInnerHTML={{__html: mechanic.mech_yt_url_controller}}></div>
-            
-          </div>
-        ))
-        } */}
+        
       </div>
     </div>
   )

@@ -47,7 +47,7 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
   }
   
   return(
-    <table className="">
+    <table className="overflow-x-auto">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
         {
