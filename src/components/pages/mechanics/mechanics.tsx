@@ -31,7 +31,6 @@ function Mechanics() {
     setPaginationData({...paginationData, pageNumber: page});
   };
 
-
   useEffect(()=>{
     //when Search, Filters, Column Sort, Page Number values change, refetch mechanics using those new params
     getMechanics(debouncedSearch, filterData, selectedSortColumn, paginationData)
@@ -65,13 +64,21 @@ function Mechanics() {
     });
   },[])
 
+  useEffect(()=>{
+    console.log(searchValue);
+  },[searchValue])
+
   return (
     <div className="text-white w-full flex justify-center ">
-      <div className="max-w-4xl w-full flex flex-col items-center">
+      <div className="max-w-4xl w-full flex flex-col items-center p-8">
         <section>
+          <div>
+            <input className="text-white bg-black bg-opacity-10 p-1 outline-none caret-white" 
+            type="text" value={searchValue} placeholder="Search..." onChange={(e)=> setSearchValue(e.target.value)}/>
+          </div>
           
         </section>
-        <section className="mt-44">
+        <section className="">
           <MechanicsTable mechanicsData={mechanicsData} selectedSortColumnContext={{selectedSortColumn, setSelectedSortColumn}}/>
         </section>
         {/* {

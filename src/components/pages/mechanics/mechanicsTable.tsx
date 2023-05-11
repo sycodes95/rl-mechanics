@@ -18,7 +18,7 @@ type MechanicsTableProps = {
 function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsTableProps) {
   const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext
   const mechTableColumns = {
-    status: 'Status',
+    mechanic_status: 'Status',
     mech_type: 'Type',
     mech_name: 'Name',
     mech_difficulty: 'Difficulty',
@@ -53,7 +53,10 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
         {
           Object.keys(mechTableColumns).map((column, index) => (
           <th className={`text-gray-400 text-xs pr-4 
-          cursor-pointer hover:text-gray-600 transition-all ${column === 'mech_name' ? 'min-w-80' : 'min-w-32'}`} key={index} 
+          cursor-pointer hover:text-gray-600 transition-all 
+          ${column === 'mech_name' ? 'min-w-80' : 'min-w-32'}
+          
+          `} key={index} 
           onClick={()=>handleColumnSort(column)}>
             {mechTableColumns[column as keyof typeof mechTableColumns]}
           </th>
@@ -67,7 +70,7 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
         mechanicsData.map((mech, i) => (
           <tr key={i} className="text-sm h-8">
             <td>  </td>
-            <td>{mech.mech_type}</td>
+            <td className="text-blue-400">{mech.mech_type}</td>
             <td className="">
               <Link className=" hover:text-blue-500 hover:cursor-pointer transition-all w-fit" 
               to={`/mechanics/${mech.mech_url}`}> 
