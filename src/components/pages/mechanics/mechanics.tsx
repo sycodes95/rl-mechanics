@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import getMechanics from "../../utils/getMechanics";
 import { FilterData, Mechanic, PaginationData, SelectedSortColumn } from "../../types/mechanicsAdmin/types";
 import MechanicsTable from "./mechanicsTable";
 import '../../../styles/mechanics.css'
 import useDebounce from "../../hooks/useDebounce";
+import { FilterValues } from "../../types/mechanics/types";
+import { MechanicsStatusOptions } from "./types";
+
+
 function Mechanics() {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
 
@@ -15,6 +19,8 @@ function Mechanics() {
   const debouncedSearch = useDebounce(searchValue, 300);
 
   const [filterData, setFilterData] = useState<FilterData | null>(null);
+
+  const statusFilterRef = useRef<HTMLDivElement>(null)
 
   const [selectedSortColumn, setSelectedSortColumn] = useState<SelectedSortColumn>({
     column: null,
@@ -27,11 +33,30 @@ function Mechanics() {
     totalCount: null
   });
 
-  const mechanicsStatusOptions = {
-    'consistent': 2,
-    'inconsistent': 1,
-    'notlearned': 0,
+  const [filterValues, setFilterValues] = useState<FilterValues>({
+    mechanic_status_value: 0,
+    mech_difficulty: 0,
+    mech_importance: 0,
+    rating_difficulty: 0,
+    rating_importance: 0,
+  })
+
+  const [statusFilter, setStatusFilter] = useState(false)
+
+  const mechanicsStatusOptions : MechanicsStatusOptions = {
+    'Consistent': 2,
+    'Inconsistent': 1,
+    'Not Learned': 0,
   }
+
+  const mechDifficultyOptions = {
+    'Very Easy': 1,
+    'Easy': 2,
+    'Medium': 3,
+    'Hard': 4,
+    'Insane': 5,
+  }
+
   const handlePageChange = (page: number) => {
     setPaginationData({...paginationData, pageNumber: page});
   };
@@ -74,22 +99,52 @@ function Mechanics() {
 
   },[])
 
-  useEffect(()=>{
-    console.log(searchValue);
-  },[searchValue])
+  const handleClickOutside = (e: any) => {
+    if(statusFilterRef.current && !statusFilterRef.current.contains(e.target)){
+      setStatusFilter(false)
+
+    }
+  }
+
+  const handleMechanicStatusOptionsClick = (option: string) => {
+    const value = mechanicsStatusOptions[option]
+    setFilterValues({...filterValues, mechanic_status_value: value})
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="text-white w-full min-w-fit flex justify-center p-8">
       <div className=" flex flex-col ">
         <section className="w-full">
           <section className="w-full">
+            <button className="relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
+            onClick={()=> setStatusFilter(!statusFilter)} >
+              <p>Status</p>
+              {
+              statusFilter &&
+              <div className="absolute top-full left-0 bg-jet-dark mt-1 p-2 rounded-sm" ref={statusFilterRef}>
+                {
+                Object.keys(mechanicsStatusOptions).map((option, index) => (
+                  <button key={index} className=" hover:bg-gray-700 w-full p-1" 
+                  onClick={()=> handleMechanicStatusOptionsClick(option)}
+                  >{option}</button>
+                  
+                ))
+                }
+               
+              </div>
+              }
+            </button>
             <input className="text-white bg-black bg-opacity-10 p-1 outline-none caret-white" 
             type="text" value={searchValue} placeholder="Search..." onChange={(e)=> setSearchValue(e.target.value)}/>
           </section>
-          <section className="w-full">
-            <input className="text-white bg-black bg-opacity-10 p-1 outline-none caret-white" 
-            type="text" value={searchValue} placeholder="Search..." onChange={(e)=> setSearchValue(e.target.value)}/>
-          </section>
+          
           
         </section>
         <section className="overflow-x-auto">
