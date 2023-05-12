@@ -6,7 +6,7 @@ import MechanicsTable from "./mechanicsTable";
 import '../../../styles/mechanics.css'
 import useDebounce from "../../hooks/useDebounce";
 import { FilterValues } from "../../types/mechanics/types";
-import { MechanicsStatusOptions } from "./types";
+import { MechanicsDifficultyOptions, MechanicsStatusOptions } from "./types";
 
 
 function Mechanics() {
@@ -20,7 +20,13 @@ function Mechanics() {
 
   const [filterData, setFilterData] = useState<FilterData | null>(null);
 
-  const statusFilterRef = useRef<HTMLDivElement>(null)
+  const [statusFilter, setStatusFilter] = useState(false)
+
+  const statusFilterRef = useRef<HTMLButtonElement>(null)
+
+  const [difficultyFilter, setDifficultyFilter] = useState(false)
+
+  const difficultyFilterRef = useRef<HTMLButtonElement>(null)
 
   const [selectedSortColumn, setSelectedSortColumn] = useState<SelectedSortColumn>({
     column: null,
@@ -41,7 +47,6 @@ function Mechanics() {
     rating_importance: 0,
   })
 
-  const [statusFilter, setStatusFilter] = useState(false)
 
   const mechanicsStatusOptions : MechanicsStatusOptions = {
     'Consistent': 2,
@@ -49,7 +54,7 @@ function Mechanics() {
     'Not Learned': 0,
   }
 
-  const mechDifficultyOptions = {
+  const mechanicsDifficultyOptions: MechanicsDifficultyOptions = {
     'Very Easy': 1,
     'Easy': 2,
     'Medium': 3,
@@ -102,14 +107,13 @@ function Mechanics() {
   const handleClickOutside = (e: any) => {
     if(statusFilterRef.current && !statusFilterRef.current.contains(e.target)){
       setStatusFilter(false)
+    }
 
+    if(difficultyFilterRef.current && !difficultyFilterRef.current.contains(e.target)){
+      setDifficultyFilter(false)
     }
   }
 
-  const handleMechanicStatusOptionsClick = (option: string) => {
-    const value = mechanicsStatusOptions[option]
-    setFilterValues({...filterValues, mechanic_status_value: value})
-  }
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -122,22 +126,38 @@ function Mechanics() {
     <div className="text-white w-full min-w-fit flex justify-center p-8">
       <div className=" flex flex-col ">
         <section className="w-full">
-          <section className="w-full">
+          <section className="w-full flex gap-2">
+
             <button className="relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
-            onClick={()=> setStatusFilter(!statusFilter)} >
+            onClick={()=> setStatusFilter(!statusFilter)} ref={statusFilterRef}>
               <p>Status</p>
               {
               statusFilter &&
-              <div className="absolute top-full left-0 bg-jet-dark mt-1 p-2 rounded-sm" ref={statusFilterRef}>
+              <div className="absolute top-full left-0 bg-jet-dark mt-1 p-2 rounded-sm" >
                 {
                 Object.keys(mechanicsStatusOptions).map((option, index) => (
                   <button key={index} className=" hover:bg-gray-700 w-full p-1" 
-                  onClick={()=> handleMechanicStatusOptionsClick(option)}
+                  onClick={()=> setFilterValues({...filterValues, mechanic_status_value: mechanicsStatusOptions[option]})}
                   >{option}</button>
-                  
                 ))
                 }
-               
+              </div>
+              }
+            </button>
+
+            <button className="relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
+            onClick={()=> setDifficultyFilter(!difficultyFilter)} ref={difficultyFilterRef}>
+              <p>Difficulty</p>
+              {
+              difficultyFilter &&
+              <div className="absolute top-full left-0 bg-jet-dark mt-1 p-2 rounded-sm" >
+                {
+                Object.keys(mechanicsDifficultyOptions).map((option, index) => (
+                  <button key={index} className=" hover:bg-gray-700 w-full p-1" 
+                  onClick={()=> setFilterValues({...filterValues, mech_difficulty: mechanicsDifficultyOptions[option]})}
+                  >{option}</button>
+                ))
+                }
               </div>
               }
             </button>
