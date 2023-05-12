@@ -7,6 +7,7 @@ import '../../../styles/mechanics.css'
 import useDebounce from "../../hooks/useDebounce";
 import { FilterValues } from "../../types/mechanics/types";
 import { MechanicsDifficultyOptions, MechanicsStatusOptions } from "./types";
+import MechanicsFilters from "./mechanicsFilters";
 
 
 function Mechanics() {
@@ -19,14 +20,6 @@ function Mechanics() {
   const debouncedSearch = useDebounce(searchValue, 300);
 
   const [filterData, setFilterData] = useState<FilterData | null>(null);
-
-  const [statusFilter, setStatusFilter] = useState(false)
-
-  const statusFilterRef = useRef<HTMLButtonElement>(null)
-
-  const [difficultyFilter, setDifficultyFilter] = useState(false)
-
-  const difficultyFilterRef = useRef<HTMLButtonElement>(null)
 
   const [selectedSortColumn, setSelectedSortColumn] = useState<SelectedSortColumn>({
     column: null,
@@ -48,19 +41,7 @@ function Mechanics() {
   })
 
 
-  const mechanicsStatusOptions : MechanicsStatusOptions = {
-    'Consistent': 2,
-    'Inconsistent': 1,
-    'Not Learned': 0,
-  }
-
-  const mechanicsDifficultyOptions: MechanicsDifficultyOptions = {
-    'Very Easy': 1,
-    'Easy': 2,
-    'Medium': 3,
-    'Hard': 4,
-    'Insane': 5,
-  }
+  
 
   const handlePageChange = (page: number) => {
     setPaginationData({...paginationData, pageNumber: page});
@@ -104,67 +85,14 @@ function Mechanics() {
 
   },[])
 
-  const handleClickOutside = (e: any) => {
-    if(statusFilterRef.current && !statusFilterRef.current.contains(e.target)){
-      setStatusFilter(false)
-    }
-
-    if(difficultyFilterRef.current && !difficultyFilterRef.current.contains(e.target)){
-      setDifficultyFilter(false)
-    }
-  }
-
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  
 
   return (
     <div className="text-white w-full min-w-fit flex justify-center p-8">
       <div className=" flex flex-col ">
         <section className="w-full">
-          <section className="w-full flex gap-2">
-
-            <button className="relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
-            onClick={()=> setStatusFilter(!statusFilter)} ref={statusFilterRef}>
-              <p>Status</p>
-              {
-              statusFilter &&
-              <div className="absolute top-full left-0 bg-jet-dark mt-1 p-2 rounded-sm" >
-                {
-                Object.keys(mechanicsStatusOptions).map((option, index) => (
-                  <button key={index} className=" hover:bg-gray-700 w-full p-1" 
-                  onClick={()=> setFilterValues({...filterValues, mechanic_status_value: mechanicsStatusOptions[option]})}
-                  >{option}</button>
-                ))
-                }
-              </div>
-              }
-            </button>
-
-            <button className="relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
-            onClick={()=> setDifficultyFilter(!difficultyFilter)} ref={difficultyFilterRef}>
-              <p>Difficulty</p>
-              {
-              difficultyFilter &&
-              <div className="absolute top-full left-0 bg-jet-dark mt-1 p-2 rounded-sm" >
-                {
-                Object.keys(mechanicsDifficultyOptions).map((option, index) => (
-                  <button key={index} className=" hover:bg-gray-700 w-full p-1" 
-                  onClick={()=> setFilterValues({...filterValues, mech_difficulty: mechanicsDifficultyOptions[option]})}
-                  >{option}</button>
-                ))
-                }
-              </div>
-              }
-            </button>
-            <input className="text-white bg-black bg-opacity-10 p-1 outline-none caret-white" 
-            type="text" value={searchValue} placeholder="Search..." onChange={(e)=> setSearchValue(e.target.value)}/>
-          </section>
           
+          <MechanicsFilters searchValueContext={{searchValue, setSearchValue}} filterValuesContext={{filterValues, setFilterValues}}/>
           
         </section>
         <section className="overflow-x-auto">
