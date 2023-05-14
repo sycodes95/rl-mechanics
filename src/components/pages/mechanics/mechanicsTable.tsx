@@ -16,7 +16,9 @@ type MechanicsTableProps = {
 }
 
 function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsTableProps) {
-  const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext
+
+  const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext;
+
   const mechTableColumns = {
     mechanic_status: 'Status',
     mech_type: 'Type',
@@ -33,7 +35,15 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
     <p className="text-yellow-400">Medium</p>,
     <p className="text-orange-400">Hard</p>,
     <p className="text-red-400">Insane</p>
-  ]
+  ];
+
+  const importanceSymbols = [
+    <p className="text-gray-100">Essential</p>,
+    <p className="text-gray-200">Important</p>,
+    <p className="text-gray-300">Situational</p>,
+    <p className="text-gray-400">Not Needed</p>,
+    <p className="text-gray-500">Not Useful</p>
+  ];
 
   const handleColumnSort = (column: string | null) => {
     
@@ -78,20 +88,7 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
               </Link>
             </td>
             <td>{difficultySymbols[mech.mech_difficulty - 1]}</td>
-            <td className="">
-              <div className="h-full flex min-w-fit"> 
-                <Icon className={`${mech.mech_importance >= 1 ? 'text-yellow-400' : 'text-gray-600'}`} 
-                path={mdiRhombusSplit} size={0.7}/>
-                <Icon className={`${mech.mech_importance >= 2 ? 'text-yellow-400' : 'text-gray-600'}`} 
-                path={mdiRhombusSplit} size={0.7}/>
-                <Icon className={`${mech.mech_importance >= 3 ? 'text-yellow-400' : 'text-gray-600'}`} 
-                path={mdiRhombusSplit} size={0.7}/>
-                <Icon className={`${mech.mech_importance >= 4 ? 'text-yellow-400' : 'text-gray-600'}`} 
-                path={mdiRhombusSplit} size={0.7}/>
-                <Icon className={`${mech.mech_importance >= 5 ? 'text-yellow-400' : 'text-gray-600'}`} 
-                path={mdiRhombusSplit} size={0.7}/>
-              </div>
-            </td>
+            <td className="">{importanceSymbols[mech.mech_importance - 1]}</td>
             <td>N/A</td>
             <td className="w-20">N/A</td>
           </tr>

@@ -8,6 +8,7 @@ import useDebounce from "../../hooks/useDebounce";
 import { FilterValues } from "../../types/mechanics/types";
 import { MechanicsDifficultyOptions, MechanicsStatusOptions } from "./types";
 import MechanicsFilters from "./mechanicsFilters";
+import getUserFromToken from "../../utils/getUserFromToken";
 
 
 function Mechanics() {
@@ -85,6 +86,14 @@ function Mechanics() {
 
   },[])
 
+  useEffect(()=> {
+    getUserFromToken()?.then(user => user && setUserIsLoggedIn(true))
+  },[])
+
+  useEffect(()=> {
+    console.log(userIsLoggedIn);
+  },[userIsLoggedIn])
+
   
 
   return (
@@ -92,7 +101,11 @@ function Mechanics() {
       <div className=" flex flex-col ">
         <section className="w-full">
           
-          <MechanicsFilters searchValueContext={{searchValue, setSearchValue}} filterValuesContext={{filterValues, setFilterValues}}/>
+          <MechanicsFilters 
+          searchValueContext={{searchValue, setSearchValue}} 
+          filterValuesContext={{filterValues, setFilterValues}}
+          userIsLoggedIn={userIsLoggedIn}
+          />
           
         </section>
         <section className="overflow-x-auto">
