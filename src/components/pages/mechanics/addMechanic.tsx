@@ -20,12 +20,12 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
   const [mechanicData, setMechanicData] = useState<MechanicData>({
     mech_name: "",
     mech_description: "",
-    mech_difficulty: 0,
-    mech_importance: 0,
+    mech_difficulty: "",
+    mech_importance: "",
     mech_yt_url_controller: "",
     mech_yt_url_kbm: "",
     mech_url: "",
-    mech_type: 0
+    mech_type: ""
   });
 
   
@@ -109,14 +109,14 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
           <select className="text-sm bg-black border border-slate-800 rounded-sm 
           outline-none focus:outline-none w-32" value={mechanicData.mech_difficulty}
           onChange={(e)=> e.target.value
-          ? setMechanicData({...mechanicData, mech_difficulty: parseInt(e.target.value)})
-          : setMechanicData({...mechanicData, mech_difficulty:  0})}>
+          ? setMechanicData({...mechanicData, mech_difficulty: e.target.value})
+          : setMechanicData({...mechanicData, mech_difficulty:  ""})}>
 
             <option value=""></option>
             {
-            Object.keys(mechanicsDifficultyOptions).map((option, index) => (
-            <option key={index} className={`${mechanicsDifficultyOptions[option].color} text-sm`} 
-            value={mechanicsDifficultyOptions[option].value} >{option}</option>
+            mechanicsDifficultyOptions.map((option, index) => (
+            <option key={index} className={`text-sm`} 
+            value={option} >{option}</option>
             ))
             }
           </select>
@@ -128,14 +128,14 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
           <select className="text-sm bg-black border border-slate-800 rounded-sm 
           outline-none focus:outline-none w-32" value={mechanicData.mech_importance}
           onChange={(e)=> e.target.value
-          ? setMechanicData({...mechanicData, mech_importance: parseInt(e.target.value)})
-          : setMechanicData({...mechanicData, mech_importance:  0})}>
+          ? setMechanicData({...mechanicData, mech_importance: e.target.value})
+          : setMechanicData({...mechanicData, mech_importance:  ""})}>
 
             <option value=""></option>
             {
-            Object.keys(mechanicsImportanceOptions).map((option, index) => (
-            <option key={index} className={`${mechanicsImportanceOptions[option].color} text-sm`} 
-            value={mechanicsImportanceOptions[option].value} >{option}</option>
+            mechanicsImportanceOptions.map((option, index) => (
+            <option key={index} className={`text-sm`} 
+            value={option}>{option}</option>
             ))
             }
           </select>
@@ -147,15 +147,15 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
           <select className="text-sm bg-black border border-slate-800 rounded-sm 
           outline-none focus:outline-none w-32" value={mechanicData.mech_type ?? ""} 
           onChange={(e)=> e.target.value
-          ? setMechanicData({...mechanicData, mech_type: parseInt(e.target.value)})
-          : setMechanicData({...mechanicData, mech_type:  0})}>
+          ? setMechanicData({...mechanicData, mech_type: e.target.value})
+          : setMechanicData({...mechanicData, mech_type:  ""})}>
 
             <option value=""></option>
             {
             
-            Object.keys(mechanicsTypeOptions).map((option, index) => (
+            mechanicsTypeOptions.map((option, index) => (
               <option key={index} className={`text-sm`} 
-              value={mechanicsTypeOptions[option].value} >{option}</option>
+              value={option} >{option}</option>
             ))
             }
           </select>

@@ -27,21 +27,21 @@ export type FilterValues = {
 export type MechanicData = {
   mech_name: string;
   mech_description: string;
-  mech_difficulty: number;
-  mech_importance: number;
+  mech_difficulty: string;
+  mech_importance: string;
   mech_yt_url_controller: string;
   mech_yt_url_kbm: string;
   mech_url: string;
-  mech_type: number;
+  mech_type: string;
 }
 
 export type Mechanic = {
   mech_id: number;
-  mech_type: number;
+  mech_type: string;
   mech_name: string;
   mech_description: string;
-  mech_difficulty: number;
-  mech_importance: number;
+  mech_difficulty: string;
+  mech_importance: string;
   mech_created_at: string;
   mech_yt_url_controller: string;
   mech_yt_url_kbm: string;

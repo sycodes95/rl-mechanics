@@ -14,18 +14,7 @@ export type MechTableColumns = {
   mech_importance: string;
 }
 
-export type Mechanic = {
-  mech_id: number;
-  mech_type: number;
-  mech_name: string;
-  mech_description: string;
-  mech_difficulty: number;
-  mech_importance: number;
-  mech_created_at: string;
-  mech_yt_url_controller: string;
-  mech_yt_url_kbm: string;
-  mech_url: string;
-}
+
 
 export type ColumnSortOrder = {
   [key: string]: number;

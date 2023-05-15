@@ -83,7 +83,7 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
           <tr key={i} className="text-sm h-8">
             <td>  </td>
             <td className="text-blue-400">
-              {Object.keys(mechanicsTypeOptions).find(key => mechanicsTypeOptions[key].value === mech.mech_type)}
+              {mech.mech_type}
             </td>
             <td className="">
               <Link className=" hover:text-blue-500 hover:cursor-pointer transition-all w-fit" 
@@ -91,12 +91,12 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
               {mech.mech_name}
               </Link>
             </td>
-            <td className={`
-            ${Object.values(mechanicsDifficultyOptions).find(item => item.value === mech.mech_difficulty)?.color}
-            `}>
-              {Object.keys(mechanicsDifficultyOptions).find(key => mechanicsDifficultyOptions[key].value === mech.mech_difficulty)}
+            <td className={``}>
+              {mech.mech_difficulty}
             </td>
-            <td className="">{importanceSymbols[mech.mech_importance - 1]}</td>
+            <td className="">
+              {mech.mech_importance}
+            </td>
             <td>N/A</td>
             <td className="w-20">N/A</td>
           </tr>
