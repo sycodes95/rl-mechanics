@@ -3,6 +3,7 @@ import { MechanicsDifficultyOptions, MechanicsFiltersProps, MechanicsImportanceO
 
 import Icon from '@mdi/react';
 import { mdiMagnify } from '@mdi/js';
+import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions } from "./options";
 
 
 
@@ -24,7 +25,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
   const importanceFilterRef = useRef<HTMLButtonElement>(null);
 
   const [typeFilter, setTypeFilter] = useState({
-    
+
   })
 
   const handleClickOutside = (e: any) => {
@@ -48,27 +49,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
     };
   }, []);
 
-  const mechanicsStatusOptions : MechanicsStatusOptions = {
-    'Consistent': { value : 2, color: 'text-blue-400'},
-    'Inconsistent': { value : 1, color: 'text-yellow-400'},
-    'Not Learned': { value : 0, color: 'text-gray-400'},
-  };
-
-  const mechanicsDifficultyOptions: MechanicsDifficultyOptions = {
-    'Insane': { value: 5, color: 'text-red-600'},
-    'Hard': { value: 4, color: 'text-orange-400'},
-    'Medium': { value: 3, color: 'text-yellow-400'},
-    'Easy': { value: 2, color: 'text-blue-400'},
-    'Very Easy': { value: 1, color: 'text-green-400'},
-  };
-
-  const mechanicsImportanceOptions: MechanicsImportanceOptions = {
-    'Essential': { value: 5, color: 'text-gray-100'},
-    'Important': { value: 4, color: 'text-gray-200'},
-    'Situational': { value: 3, color: 'text-gray-300'},
-    'Not Needed': { value: 2, color: 'text-gray-400'},
-    'Not Useful': { value: 1, color: 'text-gray-500'},
-  };
+  
 
   return (
     <div className="w-full flex gap-2">

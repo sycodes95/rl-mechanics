@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-import AddMechanic from "./addMechanic";
+import AddMechanic from "../mechanics/addMechanic";
 
 import getMechanics from "../../utils/getMechanics";
 

@@ -5,14 +5,16 @@ import { FilterData, Mechanic, PaginationData, SelectedSortColumn } from "../../
 import MechanicsTable from "./mechanicsTable";
 import '../../../styles/mechanics.css'
 import useDebounce from "../../hooks/useDebounce";
-import { FilterValues } from "../../types/mechanics/types";
-import { MechanicsDifficultyOptions, MechanicsStatusOptions } from "./types";
+import { FilterValues, MechanicsDifficultyOptions, MechanicsStatusOptions } from "./types";
 import MechanicsFilters from "./mechanicsFilters";
 import getUserFromToken from "../../utils/getUserFromToken";
+import AddMechanic from "./addMechanic";
 
 
 function Mechanics() {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
+
+  const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false)
 
   const [mechanicsData, setMechanicsData] = useState<Mechanic[]>([])
 
@@ -37,6 +39,7 @@ function Mechanics() {
     mechanic_status_value: 0,
     mech_difficulty: 0,
     mech_importance: 0,
+    mech_type: '',
     rating_difficulty: 0,
     rating_importance: 0,
   })
@@ -87,7 +90,12 @@ function Mechanics() {
   },[])
 
   useEffect(()=> {
-    getUserFromToken()?.then(user => user && setUserIsLoggedIn(true))
+    getUserFromToken()?.then(user => {
+      if(user){
+        setUserIsLoggedIn(true)
+
+      }
+    })
   },[])
 
   useEffect(()=> {
@@ -99,6 +107,22 @@ function Mechanics() {
   return (
     <div className="text-white w-full min-w-fit flex justify-center p-8">
       <div className=" flex flex-col ">
+        <section className="flex  justify-between pt-4 pb-4 ">
+          <div className="text-xl font-bold">MECHANICS LIST</div>
+          {
+          userIsLoggedIn &&
+          
+          <button className="bg-yellow-400 hover:bg-yellow-500 transition-colors
+           text-xs text-black rounded-sm p-2" onClick={()=> setAddMechanicIsOpen(true)}>
+            <p>ADD MECHANIC</p>
+          </button>
+          }
+
+          {
+          addMechanicIsOpen && <AddMechanic addMechanicIsOpenContext={{addMechanicIsOpen, setAddMechanicIsOpen}}/>
+          }
+        </section>
+
         <section className="w-full">
           
           <MechanicsFilters 
@@ -108,6 +132,7 @@ function Mechanics() {
           />
           
         </section>
+
         <section className="overflow-x-auto">
           <MechanicsTable mechanicsData={mechanicsData} selectedSortColumnContext={{selectedSortColumn, setSelectedSortColumn}}/>
         </section>
