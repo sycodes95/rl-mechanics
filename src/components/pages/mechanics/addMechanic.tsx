@@ -92,7 +92,7 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
       <div className="flex flex-col gap-4 bg-black rounded-md fixed 
       top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm: w-96 z-50">
 
-        <div className="flex justify-between text-xl text-orange-500">
+        <div className="flex justify-between text-xl text-yellow-500">
           <p>ADD MECH</p>
           <button className="text-white" onClick={()=> setAddMechanicIsOpen(false)}>X</button>
         </div>
@@ -173,7 +173,8 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
         name="mech_url" type="text" placeholder="MECH URL" 
         value={mechanicData.mech_url ?? ''} onChange={handleInputChange}/>
 
-        <button className="flex justify-center text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
+        <button className="flex justify-center text-sm text-black 
+        bg-yellow-500 hover:bg-yellow-400 transition-all p-1 rounded-sm" onClick={handleAddMechanicSubmit}>
           {
           !isFetching && !fetchSuccessful &&
           <p>SUBMIT</p>
@@ -197,7 +198,8 @@ function AddMechanic ({ addMechanicIsOpenContext }: AddMechanicProps) {
           
         </button>
 
-        <button className="text-sm bg-red-800 hover:bg-red-700 transition-all p-1 rounded-md" onClick={()=> setAddMechanicIsOpen(false)}>CANCEL</button>
+        <button className="text-sm bg-red-800 hover:bg-red-700 transition-all p-1 rounded-sm" 
+        onClick={()=> setAddMechanicIsOpen(false)}>CANCEL</button>
           
         <div id="add-mechanic-fetch-errors">
           {

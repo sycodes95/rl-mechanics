@@ -59,15 +59,13 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
         <p>Status</p>
         {
         statusFilter &&
-        <ul className="absolute top-full left-0 bg-jet-dark mt-1 p-1 rounded-sm" >
+        <ul className="absolute top-full left-0  bg-jet-dark mt-1 p-1 rounded-sm" >
           {
-          Object.keys(mechanicsStatusOptions).map((option, index) => (
-            <li key={index} className={`hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
-            ${mechanicsStatusOptions[option].color}`} 
-            onClick={()=> setFilterValues({...filterValues, mechanic_status_value: mechanicsStatusOptions[option].value}
-              
-            )}
+          mechanicsStatusOptions.map((option, index) => (
+            <li key={index} className={`hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
+            onClick={()=> setFilterValues({...filterValues, mechanic_status_value: option})}
             >{option}</li>
+            
           ))
           }
         </ul>
@@ -79,13 +77,17 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
         <p>Difficulty</p>
         {
         difficultyFilter &&
-        <ul className="absolute top-full left-0 bg-jet-dark mt-1 p-1 rounded-sm" >
+        <ul className="absolute top-full left-0 w-32 bg-jet-dark mt-1 p-1 rounded-sm" >
           {
-          Object.keys(mechanicsDifficultyOptions).map((option, index) => (
-            <li key={index} className={`hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
-            ${mechanicsDifficultyOptions[option].color}`} 
-            onClick={()=> setFilterValues({...filterValues, mech_difficulty: mechanicsDifficultyOptions[option].value})}
-            >{option}</li>
+          mechanicsDifficultyOptions.map((option, index) => (
+            <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
+            onClick={()=> setFilterValues({...filterValues, mech_difficulty: option})}>
+            <p>{option}</p>
+            {
+            filterValues.mech_difficulty === option && 
+            <p>CHECK</p>
+            }
+            </li>
           ))
           }
         </ul>
@@ -97,12 +99,11 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
         <p>Importance</p>
         {
         importanceFilter &&
-        <ul className="absolute top-full left-0 bg-jet-dark mt-1 p-1 rounded-sm" >
+        <ul className="absolute top-full left-0 w-32 bg-jet-dark mt-1 p-1 rounded-sm" >
           {
-          Object.keys(mechanicsImportanceOptions).map((option, index) => (
-            <li key={index} className={`hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
-            ${mechanicsImportanceOptions[option].color}`} 
-            onClick={()=> setFilterValues({...filterValues, mechanic_status_value: mechanicsImportanceOptions[option].value})}
+          mechanicsImportanceOptions.map((option, index) => (
+            <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`}
+            onClick={()=> setFilterValues({...filterValues, mech_importance: option})}
             >{option}</li>
           ))
           }

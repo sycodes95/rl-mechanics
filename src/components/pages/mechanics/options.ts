@@ -1,10 +1,10 @@
 import { MechanicsDifficultyOptions, MechanicsImportanceOptions, MechanicsStatusOptions, MechanicsTypeOptions } from "./types";
 
-export const mechanicsStatusOptions : MechanicsStatusOptions = {
-  'Consistent': { value : 2, color: 'text-blue-400'},
-  'Inconsistent': { value : 1, color: 'text-yellow-400'},
-  'Not Learned': { value : 0, color: 'text-gray-400'},
-};
+export const mechanicsStatusOptions : string[] = [
+  'Consistent',
+  'Inconsistent',
+  'Not Learned',
+];
 
 export const mechanicsDifficultyOptions: string[] = [
   'Insane',

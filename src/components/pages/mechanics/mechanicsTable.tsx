@@ -66,7 +66,9 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
           Object.keys(mechTableColumns).map((column, index) => (
           <th className={`text-gray-400 text-xs pr-4 
           cursor-pointer hover:text-gray-600 transition-all 
-          ${column === 'mech_name' ? 'min-w-80' : 'min-w-32'}
+          ${column !== 'mech_type' && column !== 'mech_name' && 'min-w-6rem'}
+          ${column === 'mech_name' && 'min-w-16rem'}
+          ${column === 'mech_type' && 'min-w-8rem'}
           
           `} key={index} 
           onClick={()=>handleColumnSort(column)}>
