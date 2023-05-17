@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MechanicsDifficultyOptions, MechanicsFiltersProps, MechanicsImportanceOptions, MechanicsStatusOptions } from "./types";
 
 import Icon from '@mdi/react';
-import { mdiMagnify, mdiCloseCircle, mdiCheck, mdiChevronDown } from '@mdi/js';
+import { mdiMagnify, mdiCloseCircle, mdiCheck, mdiChevronDown, mdiRotateLeft } from '@mdi/js';
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions, mechanicsTypeOptions } from "./options";
 import { difficultyColors, importanceColors } from "./colors";
 
@@ -46,6 +46,14 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
       setTypeFilter(false);
     };
   };
+
+  const handleResetFilterValues = () => {
+    const filterValuesCopy = {...filterValues}
+    Object.keys(filterValuesCopy).forEach(key => {
+      filterValuesCopy[key] = ""
+    });
+    setFilterValues(filterValuesCopy)
+  }
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -121,7 +129,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
                 <p>{option}</p>
                 {
                 filterValues.mech_importance === option &&
-                <div className="flex items-center text-blue-600"><Icon path={mdiCheck} size={0.6} /></div>
+                <div className={`flex items-center text-blue-600`}><Icon path={mdiCheck} size={0.6} /></div>
                 }
               </li>
               
@@ -162,13 +170,13 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
 
       </section>
 
-      <section>
+      <section className="flex justify-between">
         <div className="flex gap-2">
           {
           Object.keys(filterValues).map(key => (
             filterValues[key] && 
             <div className="flex items-center gap-x-2 text-xs p-1 rounded-sm bg-black">
-              <p>{filterValues[key]}</p> 
+              <p className={`${difficultyColors[filterValues[key]] || importanceColors[filterValues[key]]}`}>{filterValues[key]}</p> 
               <button onClick={()=> setFilterValues({...filterValues, [key]: "" })}>
                 <Icon path={mdiCloseCircle} size={0.6} />
               </button>
@@ -177,6 +185,14 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
           ))
           }
         </div>
+        {
+        Object.values(filterValues).some(value => value !== "") &&
+        <button className="flex gap-x-1 p-1 cursor-pointer" onClick={handleResetFilterValues}>
+          <p className="text-xs">Reset</p>
+          <Icon path={mdiRotateLeft} size={0.8} />
+        </button>
+        }
+        
       </section>
 
       
