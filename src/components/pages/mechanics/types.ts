@@ -16,13 +16,18 @@ export type MechanicsTypeOptions = {
 }
 
 export type FilterValues = {
-  mechanic_status_value: string,
-  mech_difficulty: string,
-  mech_importance: string,
-  mech_type: string,
-  rating_difficulty: string,
-  rating_importance: string,
+  [key: string] : string;
 }
+
+// export type FilterValues = {
+//   mechanic_status_value: string,
+//   mech_difficulty: string,
+//   mech_importance: string,
+//   mech_type: string,
+//   rating_difficulty: string,
+//   rating_importance: string,
+// }
+
 
 export type MechanicData = {
   mech_name: string;
