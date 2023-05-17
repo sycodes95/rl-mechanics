@@ -8,7 +8,7 @@ import { mdiDelete, mdiFileEdit } from '@mdi/js';
 import Rating from "react-rating";
 import { useEffect, useState } from "react";
 import DeleteMechanic from "./deleteMechanic";
-import EditMechanic from "./editMechanic";
+import EditMechanic from "../mechanics/editMechanic";
 
 import { 
   IsDeleteOpen, 

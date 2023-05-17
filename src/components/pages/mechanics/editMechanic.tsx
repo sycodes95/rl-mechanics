@@ -7,25 +7,26 @@ import { ThreeDots } from "react-loader-spinner";
 import { mdiCheckAll } from '@mdi/js';
 import { useNavigate } from "react-router-dom";
 import { IsEditMechanicOpen } from "../../types/mechanicsAdmin/types";
+import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
 
 interface EditMechanicProps {
   editMechanicIsOpenContext: {
     editMechanicIsOpen: IsEditMechanicOpen;
     setEditMechanicIsOpen: React.Dispatch<React.SetStateAction<IsEditMechanicOpen>>;
   };
-  mechanic: MechanicData
+  mechanic: EditMechanicData
 }
 
-interface MechanicData {
-  mech_id: number | null,
-  mech_name: string | null;
-  mech_description: string | null;
-  mech_difficulty: number | null;
-  mech_importance: number | null;
-  mech_yt_url_controller: string | null;
-  mech_yt_url_kbm: string | null;
-  mech_url: string | null;
-  mech_type: string | null; 
+type EditMechanicData = {
+  mech_id: number;
+  mech_name: string;
+  mech_description: string;
+  mech_difficulty: string;
+  mech_importance: string;
+  mech_yt_url_controller: string;
+  mech_yt_url_kbm: string;
+  mech_url: string;
+  mech_type: string; 
 }
 
 function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProps) {
@@ -39,16 +40,16 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
 
   const [fetchErrors, setFetchErrors] = useState<string[]>([]);
 
-  const [mechanicData, setMechanicData] = useState<MechanicData>({
-    mech_id: null,
-    mech_name: null,
-    mech_description: null,
-    mech_difficulty: null,
-    mech_importance: null,
-    mech_yt_url_controller: null,
-    mech_yt_url_kbm: null,
-    mech_url: null,
-    mech_type: null
+  const [mechanicData, setMechanicData] = useState<EditMechanicData>({
+    mech_id: 0,
+    mech_name: "",
+    mech_description: "",
+    mech_difficulty: "",
+    mech_importance: "",
+    mech_yt_url_controller: "",
+    mech_yt_url_kbm: "",
+    mech_url: "",
+    mech_type: ""
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -113,29 +114,59 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
         <div id="add-mechanic-difficulty"
         className="flex gap-4 justify-between items-center ">
           <label className="text-xs text-gray-400">DIFFICULTY :</label>
-          <Rating
-          className=' text-gray-400 flex justify-between'
-          initialRating={mechanicData.mech_difficulty ?? 0}
-          emptySymbol="fa fa-star-o"
-          fullSymbol="fa fa-star "
-          fractions={1}
-          stop={5}
-          onChange={(value: number)=> setMechanicData({...mechanicData, mech_difficulty: value})}
-          />
+          <select className="text-sm bg-black border border-slate-800 rounded-sm 
+          outline-none focus:outline-none w-32" value={mechanicData.mech_difficulty}
+          onChange={(e)=> e.target.value
+          ? setMechanicData({...mechanicData, mech_difficulty: e.target.value})
+          : setMechanicData({...mechanicData, mech_difficulty:  ""})}>
+
+            <option value=""></option>
+            {
+            mechanicsDifficultyOptions.map((option, index) => (
+            <option key={index} className={`text-sm`} 
+            value={option} >{option}</option>
+            ))
+            }
+          </select>
         </div>
 
         <div id="add-mechanic-importance" 
         className="flex gap-4 justify-between items-center ">
           <label className="text-xs text-gray-400">IMPORTANCE :</label>
-          <Rating
-          className=' text-gray-400 flex justify-between'
-          initialRating={mechanicData.mech_importance ?? 0}
-          emptySymbol="fa fa-star-o"
-          fullSymbol="fa fa-star "
-          fractions={1}
-          stop={5}
-          onChange={(value: number)=> setMechanicData({...mechanicData, mech_importance: value})}
-          />
+          <select className="text-sm bg-black border border-slate-800 rounded-sm 
+          outline-none focus:outline-none w-32" value={mechanicData.mech_importance}
+          onChange={(e)=> e.target.value
+          ? setMechanicData({...mechanicData, mech_importance: e.target.value})
+          : setMechanicData({...mechanicData, mech_importance:  ""})}>
+
+            <option value=""></option>
+            {
+            mechanicsImportanceOptions.map((option, index) => (
+            <option key={index} className={`text-sm`} 
+            value={option}>{option}</option>
+            ))
+            }
+          </select>
+        </div>
+
+        <div id="add-mechanic-type"
+        className="flex gap-4 justify-between items-center ">
+          <label className="text-xs text-gray-400 whitespace-nowrap">TYPE :</label>
+          <select className="text-sm bg-black border border-slate-800 rounded-sm 
+          outline-none focus:outline-none w-32" value={mechanicData.mech_type ?? ""} 
+          onChange={(e)=> e.target.value
+          ? setMechanicData({...mechanicData, mech_type: e.target.value})
+          : setMechanicData({...mechanicData, mech_type:  ""})}>
+
+            <option value=""></option>
+            {
+            
+            mechanicsTypeOptions.map((option, index) => (
+              <option key={index} className={`text-sm`} 
+              value={option} >{option}</option>
+            ))
+            }
+          </select>
         </div>
         
         <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm" 
@@ -149,10 +180,6 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
         <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm"
         name="mech_url" type="text" placeholder="MECH URL" 
         value={mechanicData.mech_url ?? ''} onChange={handleInputChange}/> 
-
-        <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm"
-        name="mech_type" type="text" placeholder="MECH TYPE" 
-        value={mechanicData.mech_type ?? ''} onChange={handleInputChange}/>
 
         <button className="flex justify-center text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
           {

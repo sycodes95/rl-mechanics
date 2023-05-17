@@ -3,10 +3,11 @@ import { SelectedSortColumn } from "../../types/mechanicsAdmin/types";
 import { Link, useSearchParams } from "react-router-dom";
 
 import Icon from '@mdi/react';
-import { mdiRhombusSplit } from '@mdi/js';
+import { mdiRhombusSplit, mdiPencil, mdiDelete } from '@mdi/js';
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
-import { Mechanic } from "./types";
+import { IsDeleteOpen, IsEditMechanicOpen, Mechanic } from "./types";
 import { difficultyColors, importanceColors } from "./colors";
+import EditMechanic from "./editMechanic";
 
 
 
@@ -22,8 +23,18 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
 
   const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext;
 
+  const [isDeleteOpen, setIsDeleteOpen] = useState<IsDeleteOpen>({
+    open: false,
+    mech_id: null
+  });
+
+  const [editMechanicIsOpen, setEditMechanicIsOpen] = useState<IsEditMechanicOpen>({
+    open: false, 
+    mech_id: null
+  })
+
   const mechTableColumns = {
-    mechanic_status: 'Status',
+    mech_status: 'Status',
     mech_type: 'Type',
     mech_name: 'Name',
     mech_difficulty: 'Difficulty',
@@ -58,11 +69,16 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
       return setSelectedSortColumn({ column: column, value: true})
     } 
   }
-  
+  useEffect(()=>{
+    console.log(mechanicsData);
+  },[mechanicsData])
   return(
     <table className="overflow-x-auto">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
+          <th className="text-gray-400 text-xs pr-4 pl-2 min-w-6rem">Admin</th>
+            
+          
         {
           Object.keys(mechTableColumns).map((column, index) => (
           <th className={`text-gray-400 text-xs pr-4 
@@ -71,6 +87,9 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
           ${column === 'mech_name' && 'min-w-16rem'}
           ${column === 'mech_type' && 'min-w-8rem'}
           
+          ${column === 'mech_status' && 'pointer-events-none'}
+          ${column === 'rating_difficulty' && 'pointer-events-none'}
+          ${column === 'rating_importance' && 'pointer-events-none'}
           `} key={index} 
           onClick={()=>handleColumnSort(column)}>
             {mechTableColumns[column as keyof typeof mechTableColumns]}
@@ -84,7 +103,23 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
         {
         mechanicsData.map((mech, i) => (
           <tr key={i} className="text-sm h-8">
-            <td>  </td>
+            <td className="pl-1">
+              <div className="flex items-center gap-x-1">
+                <button className=" hover:text-gray-400 transition-colors"><Icon path={mdiDelete} size={0.8} /></button>
+                <button className=" hover:text-gray-400 transition-colors" onClick={()=> setEditMechanicIsOpen({open: true, mech_id: mech.mech_id})}>
+                  <Icon path={mdiPencil} size={0.8} />
+                </button>
+                {
+                editMechanicIsOpen.open && editMechanicIsOpen.mech_id === mech.mech_id &&
+                <EditMechanic
+                editMechanicIsOpenContext={{editMechanicIsOpen, setEditMechanicIsOpen}}
+                mechanic={mech}
+                />
+                }
+              </div>
+              
+            </td>
+            <td></td>
             <td className="text-blue-400">
               {mech.mech_type}
             </td>
