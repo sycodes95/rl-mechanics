@@ -6,6 +6,7 @@ import Icon from '@mdi/react';
 import { mdiRhombusSplit } from '@mdi/js';
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
 import { Mechanic } from "./types";
+import { difficultyColors, importanceColors } from "./colors";
 
 
 
@@ -93,10 +94,10 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
               {mech.mech_name}
               </Link>
             </td>
-            <td className={``}>
+            <td className={`${difficultyColors[mech.mech_difficulty]}`}>
               {mech.mech_difficulty}
             </td>
-            <td className="">
+            <td className={`${importanceColors[mech.mech_importance]}`}>
               {mech.mech_importance}
             </td>
             <td>N/A</td>

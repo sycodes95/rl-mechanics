@@ -187,7 +187,9 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
         </div>
         {
         Object.values(filterValues).some(value => value !== "") &&
-        <button className="flex gap-x-1 p-1 cursor-pointer" onClick={handleResetFilterValues}>
+        <button className="flex items-center text-red-500 hover:text-red-600 
+        transition-colors gap-x-1 p-1 cursor-pointer" 
+        onClick={handleResetFilterValues}>
           <p className="text-xs">Reset</p>
           <Icon path={mdiRotateLeft} size={0.8} />
         </button>
