@@ -5,14 +5,14 @@ import { FilterData,  PaginationData, SelectedSortColumn } from "../../types/mec
 import MechanicsTable from "./mechanicsTable";
 import '../../../styles/mechanics.css'
 import useDebounce from "../../hooks/useDebounce";
-import { FilterValues, Mechanic, MechanicsDifficultyOptions, MechanicsStatusOptions } from "./types";
+import { FilterValues, Mechanic, MechanicsDifficultyOptions, MechanicsStatusOptions, User } from "./types";
 import MechanicsFilters from "./mechanicsFilters";
 import getUserFromToken from "../../utils/getUserFromToken";
 import AddMechanic from "./addMechanic";
 
 
 function Mechanics() {
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
+  const [user, setUser] = useState<User>(null)
 
   const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false)
 
@@ -81,22 +81,14 @@ function Mechanics() {
     };
   },[paginationData.totalCount]);
 
-  useEffect(()=>{
-    
-
-  },[])
-
   useEffect(()=> {
     getUserFromToken()?.then(user => {
+      console.log(user);
       if(user){
-        setUserIsLoggedIn(true)
+        setUser(user)
       }
     })
   },[])
-
-  useEffect(()=> {
-    console.log(userIsLoggedIn);
-  },[userIsLoggedIn])
 
   
 
@@ -106,7 +98,7 @@ function Mechanics() {
         <section className="flex  justify-between pt-4 pb-4 ">
           <div className="text-xl font-bold">MECHANICS LIST</div>
           {
-          userIsLoggedIn &&
+          user && user.user_is_admin &&
           
           <button className="bg-yellow-400 hover:bg-yellow-500 transition-colors
            text-xs text-black rounded-sm p-2" onClick={()=> setAddMechanicIsOpen(true)}>
@@ -124,13 +116,17 @@ function Mechanics() {
           <MechanicsFilters 
           searchValueContext={{searchValue, setSearchValue}} 
           filterValuesContext={{filterValues, setFilterValues}}
-          userIsLoggedIn={userIsLoggedIn}
+          user={user}
           />
           
         </section>
 
         <section className="overflow-x-auto">
-          <MechanicsTable mechanicsData={mechanicsData} selectedSortColumnContext={{selectedSortColumn, setSelectedSortColumn}}/>
+          <MechanicsTable 
+          mechanicsData={mechanicsData} 
+          selectedSortColumnContext={{selectedSortColumn, setSelectedSortColumn}}
+          user={user}
+          />
         </section>
         
       </div>

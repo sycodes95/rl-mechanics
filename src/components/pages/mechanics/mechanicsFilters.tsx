@@ -8,9 +8,10 @@ import { difficultyColors, importanceColors } from "./colors";
 
 
 
-function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLoggedIn } : MechanicsFiltersProps) {
+function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : MechanicsFiltersProps) {
   
   const {searchValue, setSearchValue} = searchValueContext;
+
   const {filterValues, setFilterValues} = filterValuesContext;
 
   const [statusFilter, setStatusFilter] = useState(false);
@@ -68,8 +69,8 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, userIsLogg
       
         <button id="status-filter" 
         className={`relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1 
-        ${userIsLoggedIn && 'cursor-not-allowed'}`}
-        onClick={()=> !userIsLoggedIn && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
+        ${user && 'cursor-not-allowed'}`}
+        onClick={()=> !user && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
           <p>Status</p>
           {
           statusFilter &&

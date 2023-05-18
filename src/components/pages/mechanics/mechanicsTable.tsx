@@ -5,7 +5,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import Icon from '@mdi/react';
 import { mdiRhombusSplit, mdiPencil, mdiDelete } from '@mdi/js';
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
-import { IsDeleteOpen, IsEditMechanicOpen, Mechanic } from "./types";
+import { IsDeleteOpen, IsEditMechanicOpen, Mechanic, User } from "./types";
 import { difficultyColors, importanceColors } from "./colors";
 import EditMechanic from "./editMechanic";
 
@@ -17,9 +17,10 @@ type MechanicsTableProps = {
     selectedSortColumn: SelectedSortColumn;
     setSelectedSortColumn: React.Dispatch<React.SetStateAction<SelectedSortColumn>>;
   }
+  user: User;
 }
 
-function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsTableProps) {
+function MechanicsTable ({mechanicsData, selectedSortColumnContext, user} : MechanicsTableProps) {
 
   const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext;
 
@@ -76,11 +77,14 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
     <table className="overflow-x-auto">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
-          <th className="text-gray-400 text-xs pr-4 pl-2 min-w-6rem">Admin</th>
-            
+          {
+            user && user.user_is_admin &&
+            <th className="text-gray-400 text-xs pr-4 pl-2 min-w-6rem">Admin</th>
+          }
           
         {
           Object.keys(mechTableColumns).map((column, index) => (
+          
           <th className={`text-gray-400 text-xs pr-4 
           cursor-pointer hover:text-gray-600 transition-all 
           ${column !== 'mech_type' && column !== 'mech_name' && 'min-w-6rem'}
@@ -103,6 +107,9 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
         {
         mechanicsData.map((mech, i) => (
           <tr key={i} className="text-sm h-8">
+            {
+            user && user.user_is_admin &&
+            
             <td className="pl-1">
               <div className="flex items-center gap-x-1">
                 <button className=" hover:text-gray-400 transition-colors"><Icon path={mdiDelete} size={0.8} /></button>
@@ -119,6 +126,7 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
               </div>
               
             </td>
+            }
             <td></td>
             <td className="text-blue-400">
               {mech.mech_type}

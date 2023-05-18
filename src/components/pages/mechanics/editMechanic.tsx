@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { IsEditMechanicOpen } from "../../types/mechanicsAdmin/types";
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
 
-interface EditMechanicProps {
+type EditMechanicProps = {
   editMechanicIsOpenContext: {
     editMechanicIsOpen: IsEditMechanicOpen;
     setEditMechanicIsOpen: React.Dispatch<React.SetStateAction<IsEditMechanicOpen>>;
@@ -103,7 +103,7 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
       
       <div className="flex flex-col gap-4 bg-black rounded-md fixed 
       top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm: w-96">
-        <div className="flex justify-between text-xl text-orange-500">
+        <div className="flex justify-between text-xl text-yellow-500">
           <p>EDIT MECH</p>
           <button className="text-white" onClick={()=> setEditMechanicIsOpen({...editMechanicIsOpen, open:false})}>X</button>
         </div>
@@ -181,7 +181,7 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
         name="mech_url" type="text" placeholder="MECH URL" 
         value={mechanicData.mech_url ?? ''} onChange={handleInputChange}/> 
 
-        <button className="flex justify-center text-sm bg-orange-500 hover:bg-orange-400 transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
+        <button className="flex justify-center text-sm bg-yellow-500 hover:bg-yellow-400 text-black transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
           {
           !isFetching && !fetchSuccessful &&
           <p>EDIT</p>

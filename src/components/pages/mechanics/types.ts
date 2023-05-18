@@ -37,6 +37,17 @@ export type IsEditMechanicOpen = {
   mech_id: null | number;
 }
 
+export type User = {
+  user_id: number;
+  user_created_at: string;
+  user_email: string;
+  user_first_name: string;
+  user_last_name: string;
+  user_is_admin: boolean;
+  user_is_verified: boolean;
+  user_rank: string;
+} | null;
+
 
 // export type FilterValues = {
 //   mechanic_status_value: string,
@@ -105,7 +116,7 @@ export type MechanicsFiltersProps = {
     searchValue:  string;
     setSearchValue: React.Dispatch<React.SetStateAction<string>>
   }
-  userIsLoggedIn: boolean;
+  user: User;
 }
 
 type EditMechanicProps = {
