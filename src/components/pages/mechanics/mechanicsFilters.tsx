@@ -116,9 +116,13 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
         </button>
 
         <button id="importance-filter" 
-        className="relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
+        className="relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
         onClick={()=> setImportanceFilter(!importanceFilter)} ref={importanceFilterRef}>
           <p>Importance</p>
+          <div className="flex">
+            <Icon className={`text-sm transition-transform ${importanceFilter && 'rotate-180'}`} 
+            path={mdiChevronDown} size={0.6} />
+          </div>
           {
           importanceFilter &&
           <ul className="absolute top-full left-0 w-32 bg-jet-dark mt-1 p-1 rounded-sm" >
@@ -141,9 +145,13 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
         </button>
 
         <button id="type-filter" 
-        className="relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
+        className="relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
         onClick={()=> setTypeFilter(!typeFilter)} ref={typeFilterRef}>
           <p>Type</p>
+          <div className="">
+            <Icon className={`text-sm transition-transform ${typeFilter && 'rotate-180'}`} 
+            path={mdiChevronDown} size={0.6} />
+          </div>
           {
           typeFilter &&
           <ul className="absolute top-full left-0 w-44 bg-jet-dark mt-1 p-1 rounded-sm" >
@@ -176,9 +184,10 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
           {
           Object.keys(filterValues).map(key => (
             filterValues[key] && 
-            <div className="flex items-center gap-x-2 text-xs p-1 rounded-sm bg-black">
+            <div className="flex items-center gap-x-2 text-xs p-1 rounded-sm bg-black bg-opacity-50">
               <p className={`${difficultyColors[filterValues[key]] || importanceColors[filterValues[key]]}`}>{filterValues[key]}</p> 
-              <button onClick={()=> setFilterValues({...filterValues, [key]: "" })}>
+              <button className="text-gray-600 hover:text-gray-400 transition-colors" 
+              onClick={()=> setFilterValues({...filterValues, [key]: "" })}>
                 <Icon path={mdiCloseCircle} size={0.6} />
               </button>
               

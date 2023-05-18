@@ -181,7 +181,9 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
         name="mech_url" type="text" placeholder="MECH URL" 
         value={mechanicData.mech_url ?? ''} onChange={handleInputChange}/> 
 
-        <button className="flex justify-center text-sm bg-yellow-500 hover:bg-yellow-400 text-black transition-all p-1 rounded-md" onClick={handleAddMechanicSubmit}>
+        <button className="flex justify-center text-sm bg-yellow-500 hover:bg-yellow-400 
+        text-black transition-all p-1 rounded-sm" 
+        onClick={handleAddMechanicSubmit}>
           {
           !isFetching && !fetchSuccessful &&
           <p>EDIT</p>
@@ -205,7 +207,8 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
           
         </button>
 
-        <button className="text-sm bg-red-800 hover:bg-red-700 transition-all p-1 rounded-md" onClick={()=> setEditMechanicIsOpen({...editMechanicIsOpen, open:false})}>CANCEL</button>
+        <button className="text-sm bg-red-800 hover:bg-red-700 transition-all p-1 rounded-sm" 
+        onClick={()=> setEditMechanicIsOpen({...editMechanicIsOpen, open:false})}>CANCEL</button>
           
         <div id="add-mechanic-fetch-errors">
           {
