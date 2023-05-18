@@ -68,10 +68,14 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
       <section id="filter-selections" className="w-full flex gap-2">
       
         <button id="status-filter" 
-        className={`relative text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1 
+        className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1 
         ${user && 'cursor-not-allowed'}`}
         onClick={()=> !user && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
           <p>Status</p>
+          <div className="">
+            <Icon className={`text-sm transition-transform ${statusFilter && 'rotate-180'}`} 
+            path={mdiChevronDown} size={0.6} />
+          </div>
           {
           statusFilter &&
           <ul className="absolute top-full left-0  bg-jet-dark mt-1 p-1 rounded-sm" >
