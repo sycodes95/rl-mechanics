@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-import getMechanics from "../../utils/getMechanics";
 import {
   FilterData,
   PaginationData,
@@ -57,16 +56,7 @@ function Mechanics() {
   };
 
   useEffect(() => {
-    //when Search, Filters, Column Sort, Page Number values change, refetch mechanics using those new params
-    // getMechanics(debouncedSearch, filterData, selectedSortColumn, paginationData)
-    // .then(data => {
-    //   if(data && data.mechanics){
-    //     setMechanicsData(data.mechanics);
-    //   } else {
-    //     setMechanicsData([]);
-    //   };
-    //   if(data && data.count) setPaginationData({...paginationData, totalCount: data.count});
-    // });
+    
     fetch(
       `${
         import.meta.env.VITE_API_HOST_URL

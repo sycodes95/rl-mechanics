@@ -64,11 +64,11 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
   }, []);
 
   return (
-    <div className="w-full flex flex-col gap-2">
-      <section id="filter-selections" className="w-full flex gap-2">
+    <div className="flex flex-col w-full gap-2">
+      <section id="filter-selections" className="flex w-full gap-2 ">
       
         <button id="status-filter" 
-        className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1 
+        className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm bg-opacity-25 p-1 
         ${user && 'cursor-not-allowed'}`}
         onClick={()=> !user && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
           <p>Status</p>
@@ -78,7 +78,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
           </div>
           {
           statusFilter &&
-          <ul className="absolute top-full left-0  bg-jet-dark mt-1 p-1 rounded-sm" >
+          <ul className="absolute left-0 p-1 mt-1 rounded-sm top-full bg-jet-dark" >
             {
             mechanicsStatusOptions.map((option, index) => (
               <li key={index} className={`hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
@@ -92,7 +92,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
         </button>
 
         <button id="difficulty-filter"
-        className="relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
+        className="relative flex items-center p-1 text-sm text-gray-400 bg-opacity-25 rounded-sm gap-x-1 bg-jet-dark"
         onClick={()=> setDifficultyFilter(!difficultyFilter)} ref={difficultyFilterRef}>
           <p>Difficulty</p>
           <div className="">
@@ -101,7 +101,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
           </div>
           {
           difficultyFilter &&
-          <ul className="absolute top-full left-0 w-32 bg-jet-dark mt-1 p-1 rounded-sm" >
+          <ul className="absolute left-0 w-32 p-1 mt-1 rounded-sm top-full bg-jet-dark" >
             {
             mechanicsDifficultyOptions.map((option, index) => (
               <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
@@ -120,7 +120,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
         </button>
 
         <button id="importance-filter" 
-        className="relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
+        className="relative flex items-center p-1 text-sm text-gray-400 bg-opacity-25 rounded-sm gap-x-1 bg-jet-dark"
         onClick={()=> setImportanceFilter(!importanceFilter)} ref={importanceFilterRef}>
           <p>Importance</p>
           <div className="flex">
@@ -129,7 +129,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
           </div>
           {
           importanceFilter &&
-          <ul className="absolute top-full left-0 w-32 bg-jet-dark mt-1 p-1 rounded-sm" >
+          <ul className="absolute left-0 w-32 p-1 mt-1 rounded-sm top-full bg-jet-dark" >
             {
             mechanicsImportanceOptions.map((option, index) => (
               <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
@@ -149,7 +149,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
         </button>
 
         <button id="type-filter" 
-        className="relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm  bg-opacity-25 p-1"
+        className="relative flex items-center p-1 text-sm text-gray-400 bg-opacity-25 rounded-sm gap-x-1 bg-jet-dark"
         onClick={()=> setTypeFilter(!typeFilter)} ref={typeFilterRef}>
           <p>Type</p>
           <div className="">
@@ -158,7 +158,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
           </div>
           {
           typeFilter &&
-          <ul className="absolute top-full left-0 w-44 bg-jet-dark mt-1 p-1 rounded-sm" >
+          <ul className="absolute left-0 p-1 mt-1 rounded-sm top-full w-44 bg-jet-dark" >
             {
             mechanicsTypeOptions.map((option, index) => (
               <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`}
@@ -175,9 +175,9 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
           }
         </button>
 
-        <div className="flex items-center gap-x-2 p-1 bg-black bg-opacity-25">
+        <div className="flex items-center p-1 bg-black bg-opacity-25 gap-x-2">
           <Icon className="text-gray-500" path={mdiMagnify} size={0.6} />
-          <input className="text-white bg-black bg-opacity-0 outline-none caret-white placeholder-gray-600" 
+          <input className="text-white placeholder-gray-600 bg-black bg-opacity-0 outline-none caret-white" 
           type="text" value={searchValue} placeholder="Search..." onChange={(e)=> setSearchValue(e.target.value)}/>
         </div>
 
@@ -188,9 +188,9 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
           {
           Object.keys(filterValues).map(key => (
             filterValues[key] && 
-            <div className="flex items-center gap-x-2 text-xs p-1 rounded-sm bg-black bg-opacity-50">
+            <div className="flex items-center p-1 text-xs bg-black bg-opacity-50 rounded-sm gap-x-2">
               <p className={`${difficultyColors[filterValues[key]] || importanceColors[filterValues[key]]}`}>{filterValues[key]}</p> 
-              <button className="text-gray-600 hover:text-gray-400 transition-colors" 
+              <button className="text-gray-600 transition-colors hover:text-gray-400" 
               onClick={()=> setFilterValues({...filterValues, [key]: "" })}>
                 <Icon path={mdiCloseCircle} size={0.6} />
               </button>
@@ -201,8 +201,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
         </div>
         {
         Object.values(filterValues).some(value => value !== "") &&
-        <button className="flex items-center text-red-500 hover:text-red-600 
-        transition-colors gap-x-1 p-1 cursor-pointer" 
+        <button className="flex items-center p-1 text-red-500 transition-colors cursor-pointer hover:text-red-600 gap-x-1" 
         onClick={handleResetFilterValues}>
           <p className="text-xs">Reset</p>
           <Icon path={mdiRotateLeft} size={0.8} />
