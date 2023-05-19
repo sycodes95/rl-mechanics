@@ -8,6 +8,8 @@ import Admin from './components/pages/mechanicsAdmin/admin';
 import 'react-tooltip/dist/react-tooltip.css'
 import MechanicDetails from './components/pages/mechanics/mechanicDetails';
 
+
+
 function App() {
 
   return (

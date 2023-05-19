@@ -7,16 +7,16 @@ import { mdiDelete, mdiFileEdit } from '@mdi/js';
 
 import Rating from "react-rating";
 import { useEffect, useState } from "react";
-import DeleteMechanic from "./deleteMechanic";
+import DeleteMechanic from "../mechanics/deleteMechanic";
 import EditMechanic from "../mechanics/editMechanic";
 
 import { 
   IsDeleteOpen, 
   IsEditMechanicOpen, 
   ColumnSortOrder, 
-  Mechanic, 
   SelectedSortColumn
 } from "../../types/mechanicsAdmin/types";
+import { Mechanic } from "../mechanics/types";
 
 type AdminMechTableProps = {
   mechanicsDataContext: {
@@ -72,11 +72,11 @@ function AdminMechTable({mechanicsDataContext, selectedSortColumnContext} :Admin
 
   return(
     
-    <table className="overflow-auto table-fixed w-full">
+    <table className="w-full overflow-auto table-fixed">
       <thead>
         <tr className="text-sm bg-slate-800">
-          <th id="tab" className="border-r border-black p-1 text-xs text-red-900 w-12">D</th>
-          <th className="border-l-2 border-black border-opacity-10 p-1 text-xs text-yellow-900 w-12">E</th>
+          <th id="tab" className="w-12 p-1 text-xs text-red-900 border-r border-black">D</th>
+          <th className="w-12 p-1 text-xs text-yellow-900 border-l-2 border-black border-opacity-10">E</th>
           {
           Object.keys(mechTableColumns).map((column, index) => (
           <th className={`text-gray-400 text-xs border-l-2 border-black border-opacity-10 p-1
@@ -94,11 +94,11 @@ function AdminMechTable({mechanicsDataContext, selectedSortColumnContext} :Admin
         {
         mechanicsData.length > 0 &&
         mechanicsData.map((mechanic: Mechanic, index) => (
-          <tr className="text-center text-xs" key={index}>
+          <tr className="text-xs text-center" key={index}>
             <td className="bg-red-900 bg-opacity-10">
               <div className="flex justify-center " >
                 <button onClick={()=> setIsDeleteOpen({ open: true, mech_id: mechanic.mech_id})}>
-                <Icon className="flex justify-center hover:text-red-200 transition-all cursor-pointer" path={mdiDelete} size={0.7} />
+                <Icon className="flex justify-center transition-all cursor-pointer hover:text-red-200" path={mdiDelete} size={0.7} />
 
                 </button>
                 {
@@ -112,7 +112,7 @@ function AdminMechTable({mechanicsDataContext, selectedSortColumnContext} :Admin
               </div>
             </td>
             <td className="bg-yellow-900 bg-opacity-10">
-              <div className="flex justify-center hover:text-yellow-200 transition-all ">
+              <div className="flex justify-center transition-all hover:text-yellow-200 ">
                 <button onClick={()=> setEditMechanicIsOpen({ open: true, mech_id: mechanic.mech_id})}>
                 <Icon className="flex justify-center" path={mdiFileEdit} size={0.6} />
                 </button>
@@ -132,7 +132,7 @@ function AdminMechTable({mechanicsDataContext, selectedSortColumnContext} :Admin
             <td>{mechanic.mech_description}</td>
             <td>
               <Rating
-              className='  flex justify-between'
+              className='flex justify-between '
               initialRating={mechanic.mech_difficulty}
               emptySymbol="fa fa-star-o"
               fullSymbol="fa fa-star "
@@ -143,7 +143,7 @@ function AdminMechTable({mechanicsDataContext, selectedSortColumnContext} :Admin
             </td>
             <td>
               <Rating
-              className='  flex justify-between'
+              className='flex justify-between '
               initialRating={mechanic.mech_importance && mechanic.mech_importance}
               emptySymbol="fa fa-star-o"
               fullSymbol="fa fa-star "

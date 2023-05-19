@@ -20,14 +20,14 @@ import getUserFromToken from "../../utils/getUserFromToken";
 import AddMechanic from "./addMechanic";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../../redux/slices/userSlice';
+import { setUserDetails } from '../../../redux/slices/userSlice';
 import { RootState } from "../../../redux/store";
 // import { RootState } from "../../../redux/store";
 
 function Mechanics() {
   const dispatch = useDispatch();
 
-  const user = useSelector((state: RootState) => state.user.userDetails)
+  const { user_details } = useSelector((state: RootState) => state.user)
 
   const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false);
 
@@ -100,15 +100,11 @@ function Mechanics() {
     }
   }, [paginationData.totalCount]);
 
-  useEffect(()=>{
-
-    console.log(user);
-    console.log(user?.user_is_admin);
-  },[user])
+  
 
   useEffect(() => {
     getUserFromToken()?.then((user) => {
-      user && dispatch(setUser(user));
+      user && dispatch(setUserDetails(user));
     });
   }, []);
 
@@ -117,24 +113,24 @@ function Mechanics() {
       <div className="flex flex-col ">
         <section className="flex justify-between pt-4 pb-4 ">
           <div className="text-xl font-bold">MECHANICS LIST</div>
-          {
-          user && user.user_is_admin && 
+            {
+            user_details && user_details.user_is_admin && 
             <button
               className="p-2 text-xs text-black transition-colors bg-yellow-400 rounded-sm hover:bg-yellow-500"
               onClick={() => setAddMechanicIsOpen(true)}>
             
               <p>ADD MECHANIC</p>
             </button>
-          }
+            }
 
-          {addMechanicIsOpen && (
+            {addMechanicIsOpen && (
             <AddMechanic
               addMechanicIsOpenContext={{
                 addMechanicIsOpen,
                 setAddMechanicIsOpen,
               }}
             />
-          )}
+            )}
         </section>
 
         <section className="w-full">

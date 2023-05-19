@@ -1,19 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "../../components/pages/mechanics/types";
 
-const initialState: { userDetails: User } = {
-  userDetails: null,
+type UserSlice = {
+  user_details: User;
+}
+
+const initialState: UserSlice = {
+  user_details: null,
 }
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: 'userSlice',
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.userDetails = action.payload
+    setUserDetails: (state, action) => {
+      state.user_details = action.payload
     },
   }
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUserDetails } = userSlice.actions;
 export default userSlice.reducer;

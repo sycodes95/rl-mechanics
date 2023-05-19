@@ -5,7 +5,8 @@ import { Oval } from "react-loader-spinner";
 import Icon from '@mdi/react';
 import { mdiCheckAll } from '@mdi/js';
 
-import { IsDeleteOpen, Mechanic } from "../../types/mechanicsAdmin/types";
+import { IsDeleteOpen } from "../../types/mechanicsAdmin/types";
+import { Mechanic } from "./types";
 
 interface DeleteMechanicProps {
   isDeleteOpenContext: {
@@ -16,6 +17,7 @@ interface DeleteMechanicProps {
 }
 
 function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps) {
+
   const navigate = useNavigate()
 
   const { isDeleteOpen, setIsDeleteOpen } = isDeleteOpenContext
@@ -54,20 +56,20 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
 
   return(
     <div  className="z-50">
-      <div id="delete-mechanic-modal-overlay" className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-25 " onClick={handleClose}></div>
+      <div id="delete-mechanic-modal-overlay" className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-25 " onClick={handleClose}></div>
       
       {
       mechanic &&
       <div id="delete-mechanic-modal-container" 
-      className="flex flex-col bg-black text-white fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-md">
-        <section className="flex justify-between items-center pl-4 pr-4 rounded-sm text-xl bg-red-800">
-          <p className="text-black font-bold">DELETE MECHANIC</p>
-          <button className="text-black text-sm font-bold" onClick={handleClose}>X</button>
+      className="fixed flex flex-col text-white -translate-x-1/2 -translate-y-1/2 bg-black rounded-md top-1/2 left-1/2">
+        <section className="flex items-center justify-between pl-4 pr-4 text-xl bg-red-800 rounded-sm">
+          <p className="font-bold text-black">DELETE MECHANIC</p>
+          <button className="text-sm font-bold text-black" onClick={handleClose}>X</button>
           
         </section>
         
-        <section className="flex flex-col gap-6 p-4 w-full">
-          <div className="flex whitespace-pre-wrap text-red-500">Are you sure you want to delete this mechanic?</div>
+        <section className="flex flex-col w-full gap-6 p-4">
+          <div className="flex text-red-500 whitespace-pre-wrap">Are you sure you want to delete this mechanic?</div>
 
           <div className="flex flex-col gap-2"> 
             
@@ -78,8 +80,8 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
           </div>
           
           <div className="flex justify-end gap-4">
-            <button className="text-gray-400 hover:text-gray-200 transition-all w-24" onClick={handleClose}>CANCEL</button>
-            <button className="flex justify-center bg-red-800 hover:bg-red-900 text-black rounded-sm p-2 transition-all w-24"
+            <button className="w-24 text-gray-400 transition-all hover:text-gray-200" onClick={handleClose}>CANCEL</button>
+            <button className="flex justify-center w-24 p-2 text-black transition-all bg-red-800 rounded-sm hover:bg-red-900"
             onClick={handleDeleteMechanicSubmit}>
               {
                 !deleteIsLoading && !deleteIsSuccessful &&
