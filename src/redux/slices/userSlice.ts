@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../../components/pages/mechanics/types";
 
-const initialState = {
-  user: null,
+const initialState: { userDetails: User } = {
+  userDetails: null,
 }
 
 export const userSlice = createSlice({
@@ -9,7 +10,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload
+      state.userDetails = action.payload
     },
   }
 });

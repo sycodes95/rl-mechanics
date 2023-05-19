@@ -19,8 +19,15 @@ import MechanicsFilters from "./mechanicsFilters";
 import getUserFromToken from "../../utils/getUserFromToken";
 import AddMechanic from "./addMechanic";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../../redux/slices/userSlice';
+import { RootState } from "../../../redux/store";
+// import { RootState } from "../../../redux/store";
+
 function Mechanics() {
-  const [user, setUser] = useState<User>(null);
+  const dispatch = useDispatch();
+
+  const user = useSelector((state: RootState) => state.user.userDetails)
 
   const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false);
 
@@ -93,12 +100,15 @@ function Mechanics() {
     }
   }, [paginationData.totalCount]);
 
+  useEffect(()=>{
+
+    console.log(user);
+    console.log(user?.user_is_admin);
+  },[user])
+
   useEffect(() => {
     getUserFromToken()?.then((user) => {
-      console.log(user);
-      if (user) {
-        setUser(user);
-      }
+      user && dispatch(setUser(user));
     });
   }, []);
 
@@ -107,14 +117,15 @@ function Mechanics() {
       <div className="flex flex-col ">
         <section className="flex justify-between pt-4 pb-4 ">
           <div className="text-xl font-bold">MECHANICS LIST</div>
-          {user && user.user_is_admin && (
+          {
+          user && user.user_is_admin && 
             <button
               className="p-2 text-xs text-black transition-colors bg-yellow-400 rounded-sm hover:bg-yellow-500"
-              onClick={() => setAddMechanicIsOpen(true)}
-            >
+              onClick={() => setAddMechanicIsOpen(true)}>
+            
               <p>ADD MECHANIC</p>
             </button>
-          )}
+          }
 
           {addMechanicIsOpen && (
             <AddMechanic
