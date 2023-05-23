@@ -8,19 +8,23 @@ import { mdiCheckAll } from '@mdi/js';
 import { IsDeleteOpen } from "../../types/mechanicsAdmin/types";
 import { Mechanic } from "./types";
 
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../redux/store";
+
+import { setDeleteMechanicIsOpen } from "../../../redux/slices/modalSlice";
+
 interface DeleteMechanicProps {
-  isDeleteOpenContext: {
-    isDeleteOpen: IsDeleteOpen;
-    setIsDeleteOpen: React.Dispatch<React.SetStateAction<IsDeleteOpen>>
-  };
+  
   mechanic: Mechanic
 }
 
-function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps) {
+function DeleteMechanic ({ mechanic } : DeleteMechanicProps) {
 
   const navigate = useNavigate()
 
-  const { isDeleteOpen, setIsDeleteOpen } = isDeleteOpenContext
+  const dispatch = useDispatch()
+
+  const { deleteMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
 
   const [deleteIsSuccessful, setDeleteIsSuccessful] = useState(false)
 
@@ -51,7 +55,7 @@ function DeleteMechanic ({ isDeleteOpenContext, mechanic } : DeleteMechanicProps
   }
 
   const handleClose = () => {
-    setIsDeleteOpen({...isDeleteOpen, open : false});
+    dispatch(setDeleteMechanicIsOpen({...deleteMechanicIsOpen, open : false}));
   }
 
   return(

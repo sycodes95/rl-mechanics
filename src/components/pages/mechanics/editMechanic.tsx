@@ -9,11 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { IsEditMechanicOpen } from "../../types/mechanicsAdmin/types";
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
 
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../redux/store";
+
+import { setEditMechanicIsOpen } from "../../../redux/slices/modalSlice";
+
 type EditMechanicProps = {
-  editMechanicIsOpenContext: {
-    editMechanicIsOpen: IsEditMechanicOpen;
-    setEditMechanicIsOpen: React.Dispatch<React.SetStateAction<IsEditMechanicOpen>>;
-  };
   mechanic: EditMechanicData
 }
 
@@ -29,10 +30,13 @@ type EditMechanicData = {
   mech_type: string; 
 }
 
-function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProps) {
+function EditMechanic ({ mechanic }: EditMechanicProps) {
+
   const navigate = useNavigate()
 
-  const { editMechanicIsOpen, setEditMechanicIsOpen } = editMechanicIsOpenContext;
+  const dispatch = useDispatch()
+
+  const { editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice);
 
   const [isFetching, setIsFetching] = useState(false);
 
@@ -101,21 +105,19 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
       <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50" id="add-mechanic-overlay" >
       </div>
       
-      <div className="flex flex-col gap-4 bg-black rounded-md fixed 
-      top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 sm: w-96">
+      <div className="fixed flex flex-col gap-4 p-6 -translate-x-1/2 -translate-y-1/2 bg-black rounded-md top-1/2 left-1/2 sm: w-96">
         <div className="flex justify-between text-xl text-yellow-500">
           <p>EDIT MECH</p>
-          <button className="text-white" onClick={()=> setEditMechanicIsOpen({...editMechanicIsOpen, open:false})}>X</button>
+          <button className="text-white" onClick={()=> dispatch(setEditMechanicIsOpen({...editMechanicIsOpen, open:false}))}>X</button>
         </div>
-        <input className="text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800 p-1" 
+        <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
         name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
-        <textarea className="h-32 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800 p-1"  
+        <textarea className="h-32 p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"  
         name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleInputChange}/>
         <div id="add-mechanic-difficulty"
-        className="flex gap-4 justify-between items-center ">
+        className="flex items-center justify-between gap-4 ">
           <label className="text-xs text-gray-400">DIFFICULTY :</label>
-          <select className="text-sm bg-black border border-slate-800 rounded-sm 
-          outline-none focus:outline-none w-32" value={mechanicData.mech_difficulty}
+          <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_difficulty}
           onChange={(e)=> e.target.value
           ? setMechanicData({...mechanicData, mech_difficulty: e.target.value})
           : setMechanicData({...mechanicData, mech_difficulty:  ""})}>
@@ -131,10 +133,9 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
         </div>
 
         <div id="add-mechanic-importance" 
-        className="flex gap-4 justify-between items-center ">
+        className="flex items-center justify-between gap-4 ">
           <label className="text-xs text-gray-400">IMPORTANCE :</label>
-          <select className="text-sm bg-black border border-slate-800 rounded-sm 
-          outline-none focus:outline-none w-32" value={mechanicData.mech_importance}
+          <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_importance}
           onChange={(e)=> e.target.value
           ? setMechanicData({...mechanicData, mech_importance: e.target.value})
           : setMechanicData({...mechanicData, mech_importance:  ""})}>
@@ -150,10 +151,9 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
         </div>
 
         <div id="add-mechanic-type"
-        className="flex gap-4 justify-between items-center ">
+        className="flex items-center justify-between gap-4 ">
           <label className="text-xs text-gray-400 whitespace-nowrap">TYPE :</label>
-          <select className="text-sm bg-black border border-slate-800 rounded-sm 
-          outline-none focus:outline-none w-32" value={mechanicData.mech_type ?? ""} 
+          <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_type ?? ""} 
           onChange={(e)=> e.target.value
           ? setMechanicData({...mechanicData, mech_type: e.target.value})
           : setMechanicData({...mechanicData, mech_type:  ""})}>
@@ -169,20 +169,19 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
           </select>
         </div>
         
-        <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm" 
+        <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
         name="mech_yt_url_controller" type="text" placeholder="YOUTUBE URL CONTROLLER" 
         value={mechanicData.mech_yt_url_controller ?? ''} onChange={handleInputChange}/>
 
-        <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm"
+        <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
         name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
         value={mechanicData.mech_yt_url_kbm ?? ''} onChange={handleInputChange}/>
 
-        <input className="text-xs text-white bg-black p-1 outline outline-1 outline-slate-800 rounded-sm"
+        <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
         name="mech_url" type="text" placeholder="MECH URL" 
         value={mechanicData.mech_url ?? ''} onChange={handleInputChange}/> 
 
-        <button className="flex justify-center text-sm bg-yellow-500 hover:bg-yellow-400 
-        text-black transition-all p-1 rounded-sm" 
+        <button className="flex justify-center p-1 text-sm text-black transition-all bg-yellow-500 rounded-sm hover:bg-yellow-400" 
         onClick={handleAddMechanicSubmit}>
           {
           !isFetching && !fetchSuccessful &&
@@ -207,13 +206,13 @@ function EditMechanic ({ editMechanicIsOpenContext, mechanic }: EditMechanicProp
           
         </button>
 
-        <button className="text-sm bg-red-800 hover:bg-red-700 transition-all p-1 rounded-sm" 
-        onClick={()=> setEditMechanicIsOpen({...editMechanicIsOpen, open:false})}>CANCEL</button>
+        <button className="p-1 text-sm transition-all bg-red-800 rounded-sm hover:bg-red-700" 
+        onClick={()=> dispatch(setEditMechanicIsOpen({...editMechanicIsOpen, open:false}))}>CANCEL</button>
           
         <div id="add-mechanic-fetch-errors">
           {
           fetchErrors.map((err, index) => (
-            <p className="text-red-600 text-xs" key={index}>{err}</p>
+            <p className="text-xs text-red-600" key={index}>{err}</p>
           ))
           }
         </div>

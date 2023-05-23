@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { SelectedSortColumn } from "../../types/mechanicsAdmin/types";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Icon from '@mdi/react';
 import { mdiRhombusSplit, mdiPencil, mdiDelete } from '@mdi/js';
-import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
 import { IsDeleteOpen, IsEditMechanicOpen, Mechanic, User } from "./types";
 import { difficultyColors, importanceColors } from "./colors";
 import EditMechanic from "./editMechanic";
+import DeleteMechanic from "./deleteMechanic";
 
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../redux/store";
 
+import { setEditMechanicIsOpen, setDeleteMechanicIsOpen } from "../../../redux/slices/modalSlice";
 
 type MechanicsTableProps = {
   mechanicsData: Mechanic[];
@@ -20,19 +24,16 @@ type MechanicsTableProps = {
   user: User;
 }
 
-function MechanicsTable ({mechanicsData, selectedSortColumnContext, user} : MechanicsTableProps) {
+function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsTableProps) {
+
+  const dispatch = useDispatch()
+
+  const { user_details } = useSelector((state: RootState) => state.userSlice)
+
+  const { deleteMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
 
   const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext;
-
-  const [isDeleteOpen, setIsDeleteOpen] = useState<IsDeleteOpen>({
-    open: false,
-    mech_id: null
-  });
-
-  const [editMechanicIsOpen, setEditMechanicIsOpen] = useState<IsEditMechanicOpen>({
-    open: false, 
-    mech_id: null
-  })
+  
 
   const mechTableColumns = {
     mech_status: 'Status',
@@ -71,15 +72,19 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext, user} : Mech
     } 
   }
   useEffect(()=>{
-    console.log(mechanicsData);
-  },[mechanicsData])
+    console.log(deleteMechanicIsOpen);
+  },[deleteMechanicIsOpen])
+
+  useEffect(()=>{
+    console.log(editMechanicIsOpen);
+  },[editMechanicIsOpen])
   return(
     <table className="overflow-x-auto">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
           {
-            user && user.user_is_admin &&
-            <th className="text-gray-400 text-xs pr-4 pl-2 min-w-6rem">Admin</th>
+            user_details && user_details.user_is_admin &&
+            <th className="pl-2 pr-4 text-xs text-gray-400 min-w-6rem">Admin</th>
           }
           
         {
@@ -106,20 +111,27 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext, user} : Mech
       <tbody>
         {
         mechanicsData.map((mech, i) => (
-          <tr key={i} className="text-sm h-8">
+          <tr key={i} className="h-8 text-sm">
             {
-            user && user.user_is_admin &&
+            user_details && user_details.user_is_admin &&
             
             <td className="pl-1">
               <div className="flex items-center gap-x-1">
-                <button className=" hover:text-gray-400 transition-colors"><Icon path={mdiDelete} size={0.8} /></button>
-                <button className=" hover:text-gray-400 transition-colors" onClick={()=> setEditMechanicIsOpen({open: true, mech_id: mech.mech_id})}>
+                <button className="transition-colors hover:text-gray-400" onClick={()=> dispatch(setDeleteMechanicIsOpen({open: true, mech_id: mech.mech_id}))}>
+                  <Icon path={mdiDelete} size={0.8} />
+                </button>
+                <button className="transition-colors hover:text-gray-400" onClick={()=> dispatch(setEditMechanicIsOpen({open: true, mech_id: mech.mech_id}))}>
                   <Icon path={mdiPencil} size={0.8} />
                 </button>
                 {
+                deleteMechanicIsOpen.open && deleteMechanicIsOpen.mech_id === mech.mech_id &&
+                <DeleteMechanic
+                mechanic={mech}
+                />
+                }
+                {
                 editMechanicIsOpen.open && editMechanicIsOpen.mech_id === mech.mech_id &&
                 <EditMechanic
-                editMechanicIsOpenContext={{editMechanicIsOpen, setEditMechanicIsOpen}}
                 mechanic={mech}
                 />
                 }
@@ -132,7 +144,7 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext, user} : Mech
               {mech.mech_type}
             </td>
             <td className="">
-              <Link className=" hover:text-blue-500 hover:cursor-pointer transition-all w-fit" 
+              <Link className="transition-all hover:text-blue-500 hover:cursor-pointer w-fit" 
               to={`/mechanics/${mech.mech_url}`}> 
               {mech.mech_name}
               </Link>

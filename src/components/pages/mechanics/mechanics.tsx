@@ -21,15 +21,16 @@ import AddMechanic from "./addMechanic";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserDetails } from '../../../redux/slices/userSlice';
+import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../../redux/slices/modalSlice';
 import { RootState } from "../../../redux/store";
 // import { RootState } from "../../../redux/store";
 
 function Mechanics() {
   const dispatch = useDispatch();
 
-  const { user_details } = useSelector((state: RootState) => state.user)
+  const { user_details } = useSelector((state: RootState) => state.userSlice)
 
-  const [addMechanicIsOpen, setAddMechanicIsOpen] = useState(false);
+  const { addMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
 
   const [mechanicsData, setMechanicsData] = useState<Mechanic[]>([]);
 
@@ -117,19 +118,14 @@ function Mechanics() {
             user_details && user_details.user_is_admin && 
             <button
               className="p-2 text-xs text-black transition-colors bg-yellow-400 rounded-sm hover:bg-yellow-500"
-              onClick={() => setAddMechanicIsOpen(true)}>
+              onClick={() => dispatch(setAddMechanicIsOpen(true))}>
             
               <p>ADD MECHANIC</p>
             </button>
             }
 
             {addMechanicIsOpen && (
-            <AddMechanic
-              addMechanicIsOpenContext={{
-                addMechanicIsOpen,
-                setAddMechanicIsOpen,
-              }}
-            />
+            <AddMechanic/>
             )}
         </section>
 
@@ -137,7 +133,7 @@ function Mechanics() {
           <MechanicsFilters
             searchValueContext={{ searchValue, setSearchValue }}
             filterValuesContext={{ filterValues, setFilterValues }}
-            user={user}
+            user={user_details}
           />
         </section>
 
@@ -148,7 +144,7 @@ function Mechanics() {
               selectedSortColumn,
               setSelectedSortColumn,
             }}
-            user={user}
+            user={user_details}
           />
         </section>
       </div>
