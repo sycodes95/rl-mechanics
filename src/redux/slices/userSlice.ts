@@ -1,8 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "../../components/pages/mechanics/types";
 
 type UserSlice = {
-  user_details: User;
+  user_details: {
+    user_id: number;
+    user_created_at: string;
+    user_email: string;
+    user_first_name: string;
+    user_last_name: string;
+    user_is_admin: boolean;
+    user_is_verified: boolean;
+    user_rank: string;
+  } | null;
 }
 
 const initialState: UserSlice = {

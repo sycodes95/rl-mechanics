@@ -125,6 +125,12 @@
   .mw-768px-hidden{
     display: none;
   }
+  .mw-768px-flex-col{
+    flex-direction: column;
+  }
+  .mw-768px-w-full{
+    width: 100%;
+  }
 }
 
 /*-----------------------------*/

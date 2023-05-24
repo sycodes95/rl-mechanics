@@ -5,8 +5,7 @@ import { Oval } from "react-loader-spinner";
 import Icon from '@mdi/react';
 import { mdiCheckAll } from '@mdi/js';
 
-import { IsDeleteOpen } from "../../types/mechanicsAdmin/types";
-import { Mechanic } from "./types";
+import { MechanicData } from "./types";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -14,8 +13,7 @@ import { RootState } from "../../../redux/store";
 import { setDeleteMechanicIsOpen } from "../../../redux/slices/modalSlice";
 
 interface DeleteMechanicProps {
-  
-  mechanic: Mechanic
+  mechanic: MechanicData
 }
 
 function DeleteMechanic ({ mechanic } : DeleteMechanicProps) {

@@ -14,8 +14,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div id='app' className='flex flex-col min-h-screen bg-brown-plum-gradient'>
-        <Header/>
+      <div id='app' className='flex flex-col w-full min-h-screen bg-brown-plum-gradient'>
+        <div>
+          <Header/>
+        </div>
+        <div className='w-full p-12'>
         <Routes>
           <Route path='/' element={<Mechanics/>}/>
           <Route path='/mechanics' element={<Mechanics/>}/>
@@ -24,6 +27,7 @@ function App() {
           <Route path='/register' element={<Register/>}/>
           <Route path='/log-in' element={<Login/>}/>
         </Routes>
+        </div>
       </div>
     </BrowserRouter>
   )

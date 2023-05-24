@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import { SelectedSortColumn } from "../../types/mechanicsAdmin/types";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Icon from '@mdi/react';
-import { mdiRhombusSplit, mdiPencil, mdiDelete } from '@mdi/js';
-import { IsDeleteOpen, IsEditMechanicOpen, Mechanic, User } from "./types";
+import {  mdiPencil, mdiDelete } from '@mdi/js';
 import { difficultyColors, importanceColors } from "./colors";
 import EditMechanic from "./editMechanic";
 import DeleteMechanic from "./deleteMechanic";
@@ -14,17 +12,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
 
 import { setEditMechanicIsOpen, setDeleteMechanicIsOpen } from "../../../redux/slices/modalSlice";
+import { setSortColumn } from "../../../redux/slices/filterSlice";
 
-type MechanicsTableProps = {
-  mechanicsData: Mechanic[];
-  selectedSortColumnContext: {
-    selectedSortColumn: SelectedSortColumn;
-    setSelectedSortColumn: React.Dispatch<React.SetStateAction<SelectedSortColumn>>;
-  }
-  user: User;
-}
-
-function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsTableProps) {
+function MechanicsTable () {
 
   const dispatch = useDispatch()
 
@@ -32,8 +22,27 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
 
   const { deleteMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
 
-  const {selectedSortColumn, setSelectedSortColumn} = selectedSortColumnContext;
-  
+  const { sortColumn } = useSelector((state: RootState) => state.filterSlice)
+
+  const { mechanicsData } = useSelector((state: RootState) => state.mechanicSlice)
+
+  const handleColumnSort = (column: string | null) => {
+    
+    if(sortColumn.column === column){
+      return dispatch(setSortColumn({...sortColumn, value: !sortColumn.value}))
+    }  
+
+    if(!sortColumn.column || sortColumn.column !== column){
+      return dispatch(setSortColumn({ column: column, value: true}))
+    } 
+  }
+  useEffect(()=>{
+    console.log(deleteMechanicIsOpen);
+  },[deleteMechanicIsOpen])
+
+  useEffect(()=>{
+    console.log(editMechanicIsOpen);
+  },[editMechanicIsOpen])
 
   const mechTableColumns = {
     mech_status: 'Status',
@@ -44,42 +53,8 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
     rating_difficulty: 'Rated Difficulty',
     rating_importance: 'Rated Importance'
   };
-
-  const difficultySymbols = [
-    <p className="text-green-400">Basic</p>,
-    <p className="text-blue-400">Easy</p>,
-    <p className="text-yellow-400">Medium</p>,
-    <p className="text-orange-400">Hard</p>,
-    <p className="text-red-400">Insane</p>
-  ];
-
-  const importanceSymbols = [
-    <p className="text-gray-100">Essential</p>,
-    <p className="text-gray-200">Important</p>,
-    <p className="text-gray-300">Situational</p>,
-    <p className="text-gray-400">Not Needed</p>,
-    <p className="text-gray-500">Not Useful</p>
-  ];
-
-  const handleColumnSort = (column: string | null) => {
-    
-    if(selectedSortColumn.column === column){
-      return setSelectedSortColumn({...selectedSortColumn, value: !selectedSortColumn.value})
-    }  
-
-    if(!selectedSortColumn.column || selectedSortColumn.column !== column){
-      return setSelectedSortColumn({ column: column, value: true})
-    } 
-  }
-  useEffect(()=>{
-    console.log(deleteMechanicIsOpen);
-  },[deleteMechanicIsOpen])
-
-  useEffect(()=>{
-    console.log(editMechanicIsOpen);
-  },[editMechanicIsOpen])
   return(
-    <table className="overflow-x-auto">
+    <table className="overflow-x-auto ">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
           {
@@ -110,6 +85,7 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
       </thead>
       <tbody>
         {
+        mechanicsData &&
         mechanicsData.map((mech, i) => (
           <tr key={i} className="h-8 text-sm">
             {
@@ -149,10 +125,10 @@ function MechanicsTable ({mechanicsData, selectedSortColumnContext} : MechanicsT
               {mech.mech_name}
               </Link>
             </td>
-            <td className={`${difficultyColors[mech.mech_difficulty]}`}>
+            <td className={`${mech.mech_difficulty && difficultyColors[mech.mech_difficulty]}`}>
               {mech.mech_difficulty}
             </td>
-            <td className={`${importanceColors[mech.mech_importance]}`}>
+            <td className={`${mech.mech_importance && importanceColors[mech.mech_importance]}`}>
               {mech.mech_importance}
             </td>
             <td>N/A</td>

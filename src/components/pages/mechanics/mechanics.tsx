@@ -1,19 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
-import {
-  FilterData,
-  PaginationData,
-  SelectedSortColumn,
-} from "../../types/mechanicsAdmin/types";
 import MechanicsTable from "./mechanicsTable";
 import "../../../styles/mechanics.css";
 import useDebounce from "../../hooks/useDebounce";
 import {
-  FilterValues,
-  Mechanic,
+  MechanicData,
   MechanicsDifficultyOptions,
   MechanicsStatusOptions,
-  User,
 } from "./types";
 import MechanicsFilters from "./mechanicsFilters";
 import getUserFromToken from "../../utils/getUserFromToken";
@@ -23,7 +16,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserDetails } from '../../../redux/slices/userSlice';
 import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../../redux/slices/modalSlice';
 import { RootState } from "../../../redux/store";
+import { clearMechanicsData, setMechanicsData } from "../../../redux/slices/mechanicSlice";
 // import { RootState } from "../../../redux/store";
+
+export type PaginationData = {
+  pageNumber: number;
+  pageSize: number;
+  totalCount: null | number;
+}
 
 function Mechanics() {
   const dispatch = useDispatch();
@@ -32,31 +32,16 @@ function Mechanics() {
 
   const { addMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
 
-  const [mechanicsData, setMechanicsData] = useState<Mechanic[]>([]);
+  const { filterValues, searchValue, sortColumn } = useSelector((state: RootState) => state.filterSlice)
 
-  const [searchValue, setSearchValue] = useState<string>("");
+  const { mechanicsData } = useSelector((state: RootState) => state.mechanicSlice)
 
   const debouncedSearch = useDebounce(searchValue, 300);
-
-  const [selectedSortColumn, setSelectedSortColumn] =
-    useState<SelectedSortColumn>({
-      column: null,
-      value: false,
-    });
-
+  
   const [paginationData, setPaginationData] = useState<PaginationData>({
     pageNumber: 0,
     pageSize: 50,
     totalCount: null,
-  });
-
-  const [filterValues, setFilterValues] = useState<FilterValues>({
-    mechanic_status_value: "",
-    mech_difficulty: "",
-    mech_importance: "",
-    mech_type: "",
-    rating_difficulty: "",
-    rating_importance: "",
   });
 
   const handlePageChange = (page: number) => {
@@ -70,17 +55,17 @@ function Mechanics() {
         import.meta.env.VITE_API_HOST_URL
       }/mechanics-get?searchValue=${debouncedSearch}&filterValues=${JSON.stringify(
         filterValues
-      )}&selectedSortColumn=${JSON.stringify(
-        selectedSortColumn
+      )}&sortColumn=${JSON.stringify(
+        sortColumn
       )}&paginationData=${JSON.stringify(paginationData)}`
     )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         if (data && data.mechanics && data.count) {
-          setMechanicsData(data.mechanics);
+          dispatch(setMechanicsData(data.mechanics));
         } else {
-          setMechanicsData([]);
+          dispatch(clearMechanicsData());
         }
       })
       .catch((err) => {
@@ -89,7 +74,7 @@ function Mechanics() {
   }, [
     debouncedSearch,
     filterValues,
-    selectedSortColumn,
+    sortColumn,
     paginationData.pageNumber,
   ]);
 
@@ -104,15 +89,15 @@ function Mechanics() {
   
 
   useEffect(() => {
-    getUserFromToken()?.then((user) => {
-      user && dispatch(setUserDetails(user));
+    getUserFromToken()?.then((user_details) => {
+      user_details && dispatch(setUserDetails(user_details));
     });
   }, []);
 
   return (
-    <div className="flex justify-center w-full p-8 text-white min-w-fit">
-      <div className="flex flex-col ">
-        <section className="flex justify-between pt-4 pb-4 ">
+    <div className="flex justify-center text-white">
+      <div className="flex flex-col w-full max-w-fit">
+        <section className="flex justify-between">
           <div className="text-xl font-bold">MECHANICS LIST</div>
             {
             user_details && user_details.user_is_admin && 
@@ -129,23 +114,12 @@ function Mechanics() {
             )}
         </section>
 
-        <section className="w-full">
-          <MechanicsFilters
-            searchValueContext={{ searchValue, setSearchValue }}
-            filterValuesContext={{ filterValues, setFilterValues }}
-            user={user_details}
-          />
+        <section className="flex">
+          <MechanicsFilters/>
         </section>
 
-        <section className="overflow-x-auto">
-          <MechanicsTable
-            mechanicsData={mechanicsData}
-            selectedSortColumnContext={{
-              selectedSortColumn,
-              setSelectedSortColumn,
-            }}
-            user={user_details}
-          />
+        <section className="overflow-x-auto ">
+          <MechanicsTable/>
         </section>
       </div>
     </div>

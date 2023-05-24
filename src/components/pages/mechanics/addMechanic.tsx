@@ -3,7 +3,7 @@ import Icon from '@mdi/react';
 
 import { ThreeDots } from "react-loader-spinner";
 import { mdiCheckAll } from '@mdi/js';
-import { AddMechanicProps, MechanicData } from "./types";
+import { MechanicData } from "./types";
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,7 +61,7 @@ function AddMechanic () {
       if(data && data.mechanic) {
         setFetchSuccessful(true);
         setTimeout(()=>{
-          window.location.href = '/admin'
+          window.location.href = '/'
         },1000);
       };
 

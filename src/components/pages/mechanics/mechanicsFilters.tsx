@@ -1,18 +1,21 @@
 import { useEffect, useRef, useState } from "react";
-import { MechanicsDifficultyOptions, MechanicsFiltersProps, MechanicsImportanceOptions, MechanicsStatusOptions } from "./types";
 
 import Icon from '@mdi/react';
 import { mdiMagnify, mdiCloseCircle, mdiCheck, mdiChevronDown, mdiRotateLeft } from '@mdi/js';
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions, mechanicsTypeOptions } from "./options";
 import { difficultyColors, importanceColors } from "./colors";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { setFilterValues, setSearchValue } from "../../../redux/slices/filterSlice";
 
 
+function MechanicsFilters () {
 
-function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : MechanicsFiltersProps) {
+  const dispatch = useDispatch()
+
+  const { user_details } = useSelector((state: RootState) => state.userSlice)
   
-  const {searchValue, setSearchValue} = searchValueContext;
-
-  const {filterValues, setFilterValues} = filterValuesContext;
+  const {filterValues, searchValue} = useSelector((state: RootState) => state.filterSlice);
 
   const [statusFilter, setStatusFilter] = useState(false);
 
@@ -53,7 +56,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
     Object.keys(filterValuesCopy).forEach(key => {
       filterValuesCopy[key] = ""
     });
-    setFilterValues(filterValuesCopy)
+    dispatch(setFilterValues(filterValuesCopy))
   }
 
   useEffect(() => {
@@ -65,12 +68,12 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
 
   return (
     <div className="flex flex-col w-full gap-2">
-      <section id="filter-selections" className="flex w-full gap-2 ">
+      <section id="filter-selections" className="flex flex-wrap w-full gap-2 ">
       
         <button id="status-filter" 
         className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm bg-opacity-25 p-1 
-        ${user && 'cursor-not-allowed'}`}
-        onClick={()=> !user && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
+        ${user_details && 'cursor-not-allowed'}`}
+        onClick={()=> !user_details && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
           <p>Status</p>
           <div className="">
             <Icon className={`text-sm transition-transform ${statusFilter && 'rotate-180'}`} 
@@ -82,7 +85,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
             {
             mechanicsStatusOptions.map((option, index) => (
               <li key={index} className={`hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
-              onClick={()=> setFilterValues({...filterValues, mechanic_status_value: option})}
+              onClick={()=> dispatch(setFilterValues({...filterValues, mechanic_status_value: option}))}
               >{option}</li>
               
             ))
@@ -106,7 +109,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
             mechanicsDifficultyOptions.map((option, index) => (
               <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
               ${difficultyColors[option]}`} 
-              onClick={()=> setFilterValues({...filterValues, mech_difficulty: option})}>
+              onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option}))}>
                 <p>{option}</p>
                 {
                 filterValues.mech_difficulty === option && 
@@ -134,7 +137,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
             mechanicsImportanceOptions.map((option, index) => (
               <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
               ${importanceColors[option]}`}
-              onClick={()=> setFilterValues({...filterValues, mech_importance: option})}>
+              onClick={()=> dispatch(setFilterValues({...filterValues, mech_importance: option}))}>
                 <p>{option}</p>
                 {
                 filterValues.mech_importance === option &&
@@ -162,7 +165,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
             {
             mechanicsTypeOptions.map((option, index) => (
               <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`}
-              onClick={()=> setFilterValues({...filterValues, mech_type: option})}>
+              onClick={()=> dispatch(setFilterValues({...filterValues, mech_type: option}))}>
                 <p>{option}</p>
                 {
                 filterValues.mech_type === option &&
@@ -178,7 +181,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
         <div className="flex items-center p-1 bg-black bg-opacity-25 gap-x-2">
           <Icon className="text-gray-500" path={mdiMagnify} size={0.6} />
           <input className="text-white placeholder-gray-600 bg-black bg-opacity-0 outline-none caret-white" 
-          type="text" value={searchValue} placeholder="Search..." onChange={(e)=> setSearchValue(e.target.value)}/>
+          type="text" value={searchValue} placeholder="Search..." onChange={(e)=> dispatch(setSearchValue(e.target.value))}/>
         </div>
 
       </section>
@@ -191,7 +194,7 @@ function MechanicsFilters ({ filterValuesContext ,searchValueContext, user } : M
             <div className="flex items-center p-1 text-xs bg-black bg-opacity-50 rounded-sm gap-x-2">
               <p className={`${difficultyColors[filterValues[key]] || importanceColors[filterValues[key]]}`}>{filterValues[key]}</p> 
               <button className="text-gray-600 transition-colors hover:text-gray-400" 
-              onClick={()=> setFilterValues({...filterValues, [key]: "" })}>
+              onClick={()=> dispatch(setFilterValues({...filterValues, [key]: "" }))}>
                 <Icon path={mdiCloseCircle} size={0.6} />
               </button>
               

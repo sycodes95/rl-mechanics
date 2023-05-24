@@ -6,28 +6,16 @@ import Icon from '@mdi/react';
 import { ThreeDots } from "react-loader-spinner";
 import { mdiCheckAll } from '@mdi/js';
 import { useNavigate } from "react-router-dom";
-import { IsEditMechanicOpen } from "../../types/mechanicsAdmin/types";
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
 
 import { setEditMechanicIsOpen } from "../../../redux/slices/modalSlice";
+import { MechanicData } from "./types";
 
 type EditMechanicProps = {
-  mechanic: EditMechanicData
-}
-
-type EditMechanicData = {
-  mech_id: number;
-  mech_name: string;
-  mech_description: string;
-  mech_difficulty: string;
-  mech_importance: string;
-  mech_yt_url_controller: string;
-  mech_yt_url_kbm: string;
-  mech_url: string;
-  mech_type: string; 
+  mechanic: MechanicData;
 }
 
 function EditMechanic ({ mechanic }: EditMechanicProps) {
@@ -44,7 +32,7 @@ function EditMechanic ({ mechanic }: EditMechanicProps) {
 
   const [fetchErrors, setFetchErrors] = useState<string[]>([]);
 
-  const [mechanicData, setMechanicData] = useState<EditMechanicData>({
+  const [mechanicData, setMechanicData] = useState<MechanicData>({
     mech_id: 0,
     mech_name: "",
     mech_description: "",
