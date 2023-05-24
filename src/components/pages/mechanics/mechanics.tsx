@@ -95,8 +95,8 @@ function Mechanics() {
   }, []);
 
   return (
-    <div className="flex justify-center text-white">
-      <div className="flex flex-col w-full max-w-fit">
+    <div className="flex justify-center flex-1 text-white">
+      <div className="flex flex-col w-full gap-4 max-w-fit">
         <section className="flex justify-between">
           <div className="text-xl font-bold">MECHANICS LIST</div>
             {
@@ -118,7 +118,7 @@ function Mechanics() {
           <MechanicsFilters/>
         </section>
 
-        <section className="overflow-x-auto ">
+        <section className="flex overflow-x-auto">
           <MechanicsTable/>
         </section>
       </div>

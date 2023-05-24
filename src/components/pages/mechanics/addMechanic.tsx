@@ -31,27 +31,52 @@ function AddMechanic () {
     mech_yt_url_controller: "",
     mech_yt_url_kbm: "",
     mech_url: "",
-    mech_type: ""
+    mech_type: "",
+    mech_gif: ""
   });
 
   
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    //reset fetch errors
+    setFetchErrors([]);
+
+    const { name, value, files } = e.target;
+
+    if (name === 'mech_gif' && files && files.length > 0) {
+      // Update the mechanicData with the selected file
+      setMechanicData({ ...mechanicData, mech_gif: files[0] });
+    } else {
+      // Update other input values as before
+      setMechanicData({ ...mechanicData, [name]: value });
+    }
+  };
+
+  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+
     //reset fetch errors
     setFetchErrors([]);
 
     const { name, value } = e.target;
-    setMechanicData({...mechanicData, [name]: value});
+      
+    setMechanicData({ ...mechanicData, [name]: value });
+    
   };
 
   const handleAddMechanicSubmit = () => {
 
     setIsFetching(true);
 
+    const formData = new FormData();
+
+    Object.keys(mechanicData).forEach((field, index) => {
+      formData.append(field, mechanicData[field])
+    })
+
     fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-post`, {
       method: 'POST',
-      body: JSON.stringify(mechanicData),
-      headers: {'Content-Type': 'application/json'}
+      body: formData,
     })
     .then(res => res.json())
     .then(data => {
@@ -106,7 +131,7 @@ function AddMechanic () {
         name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
 
         <textarea className="h-32 p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"  
-        name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleInputChange}/>
+        name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleTextAreaChange}/>
 
         <div id="add-mechanic-difficulty"
         className="flex items-center justify-between gap-4 ">
@@ -165,15 +190,19 @@ function AddMechanic () {
         
         <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
         name="mech_yt_url_controller" type="text" placeholder="YOUTUBE URL CONTROLLER" 
-        value={mechanicData.mech_yt_url_controller ?? ''} onChange={handleInputChange}/>
+        value={mechanicData.mech_yt_url_controller} onChange={handleInputChange}/>
 
         <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
         name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
-        value={mechanicData.mech_yt_url_kbm ?? ''} onChange={handleInputChange}/>
+        value={mechanicData.mech_yt_url_kbm} onChange={handleInputChange}/>
 
         <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
         name="mech_url" type="text" placeholder="MECH URL" 
-        value={mechanicData.mech_url ?? ''} onChange={handleInputChange}/>
+        value={mechanicData.mech_url} onChange={handleInputChange}/>
+        <div className="flex items-center justify-between w-full">
+          <p className="text-xs text-gray-400 whitespace-nowrap">MECH GIF:</p>
+          <input className="text-xs w-44" type="file" name="mech_gif" onChange={handleInputChange}/>
+        </div>
 
         <button className="flex justify-center p-1 text-sm text-black transition-all bg-yellow-500 rounded-sm hover:bg-yellow-400" onClick={handleAddMechanicSubmit}>
           {

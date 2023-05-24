@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Icon from '@mdi/react';
@@ -13,6 +13,7 @@ import { RootState } from "../../../redux/store";
 
 import { setEditMechanicIsOpen, setDeleteMechanicIsOpen } from "../../../redux/slices/modalSlice";
 import { setSortColumn } from "../../../redux/slices/filterSlice";
+import { set } from "date-fns/fp";
 
 function MechanicsTable () {
 
@@ -25,6 +26,12 @@ function MechanicsTable () {
   const { sortColumn } = useSelector((state: RootState) => state.filterSlice)
 
   const { mechanicsData } = useSelector((state: RootState) => state.mechanicSlice)
+
+  const [mechanicHoverGif, setMechanicHoverGif] = useState({
+    hover: false,
+    mech_id: 0,
+    gif_url: ""
+  })
 
   const handleColumnSort = (column: string | null) => {
     
@@ -53,8 +60,12 @@ function MechanicsTable () {
     rating_difficulty: 'Rated Difficulty',
     rating_importance: 'Rated Importance'
   };
+
+  useEffect(()=>{
+    console.log(mechanicHoverGif);
+  },[mechanicHoverGif])
   return(
-    <table className="overflow-x-auto ">
+    <table className="flex-1">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
           {
@@ -119,11 +130,26 @@ function MechanicsTable () {
             <td className="text-blue-400">
               {mech.mech_type}
             </td>
-            <td className="">
-              <Link className="transition-all hover:text-blue-500 hover:cursor-pointer w-fit" 
-              to={`/mechanics/${mech.mech_url}`}> 
-              {mech.mech_name}
-              </Link>
+            <td className="overflow-visible">
+              <div className="relative overflow-visible">
+                <Link className="relative transition-all hover:text-blue-500 hover:cursor-pointer w-fit" 
+                onMouseOver={()=> setMechanicHoverGif({ hover: true, mech_id: mech.mech_id ?? 0, gif_url: mech.mech_gif_url ?? ""})} 
+                onMouseLeave={()=> setMechanicHoverGif({ hover: false, mech_id: 0, gif_url: ""})}
+                onLoad={(e) => {
+                  const imageElement = e.target as HTMLImageElement;
+                  imageElement.src = mechanicHoverGif.gif_url;
+                }} 
+                to={`/mechanics/${mech.mech_url}`}> 
+                {mech.mech_name}
+                </Link>
+                {
+                  mechanicHoverGif.hover && mechanicHoverGif.mech_id === mech.mech_id && mechanicHoverGif.gif_url &&
+                <div className="absolute left-0 z-50 p-2 rounded-md bg-jet-dark w-96 top-full">
+                  <img className="" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} />
+                </div>
+                }
+                
+              </div>
             </td>
             <td className={`${mech.mech_difficulty && difficultyColors[mech.mech_difficulty]}`}>
               {mech.mech_difficulty}

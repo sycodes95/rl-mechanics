@@ -18,7 +18,7 @@ function App() {
         <div>
           <Header/>
         </div>
-        <div className='w-full p-12'>
+        <div className='flex-1 w-full h-full p-12'>
         <Routes>
           <Route path='/' element={<Mechanics/>}/>
           <Route path='/mechanics' element={<Mechanics/>}/>

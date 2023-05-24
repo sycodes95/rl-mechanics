@@ -71,7 +71,7 @@ function MechanicsFilters () {
       <section id="filter-selections" className="flex flex-wrap w-full gap-2 ">
       
         <button id="status-filter" 
-        className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm bg-opacity-25 p-1 
+        className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm bg-opacity-25 p-1 flex-1 w-full justify-between z-10 
         ${user_details && 'cursor-not-allowed'}`}
         onClick={()=> !user_details && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
           <p>Status</p>
@@ -95,7 +95,7 @@ function MechanicsFilters () {
         </button>
 
         <button id="difficulty-filter"
-        className="relative flex items-center p-1 text-sm text-gray-400 bg-opacity-25 rounded-sm gap-x-1 bg-jet-dark"
+        className="relative z-10 flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black bg-opacity-25 rounded-sm gap-x-1 hover:bg-opacity-40"
         onClick={()=> setDifficultyFilter(!difficultyFilter)} ref={difficultyFilterRef}>
           <p>Difficulty</p>
           <div className="">
@@ -123,7 +123,7 @@ function MechanicsFilters () {
         </button>
 
         <button id="importance-filter" 
-        className="relative flex items-center p-1 text-sm text-gray-400 bg-opacity-25 rounded-sm gap-x-1 bg-jet-dark"
+        className="relative z-10 flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black bg-opacity-25 rounded-sm gap-x-1 hover:bg-opacity-40"
         onClick={()=> setImportanceFilter(!importanceFilter)} ref={importanceFilterRef}>
           <p>Importance</p>
           <div className="flex">
@@ -152,7 +152,7 @@ function MechanicsFilters () {
         </button>
 
         <button id="type-filter" 
-        className="relative flex items-center p-1 text-sm text-gray-400 bg-opacity-25 rounded-sm gap-x-1 bg-jet-dark"
+        className="relative z-10 flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black bg-opacity-25 rounded-sm gap-x-1 hover:bg-opacity-40"
         onClick={()=> setTypeFilter(!typeFilter)} ref={typeFilterRef}>
           <p>Type</p>
           <div className="">
@@ -178,9 +178,9 @@ function MechanicsFilters () {
           }
         </button>
 
-        <div className="flex items-center p-1 bg-black bg-opacity-25 gap-x-2">
+        <div className="flex items-center flex-1 w-full p-1 bg-black bg-opacity-25 gap-x-2">
           <Icon className="text-gray-500" path={mdiMagnify} size={0.6} />
-          <input className="text-white placeholder-gray-600 bg-black bg-opacity-0 outline-none caret-white" 
+          <input className="text-white placeholder-gray-600 bg-black bg-opacity-0 outline-none caret-white w-96" 
           type="text" value={searchValue} placeholder="Search..." onChange={(e)=> dispatch(setSearchValue(e.target.value))}/>
         </div>
 
