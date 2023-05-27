@@ -43,7 +43,7 @@ export const filterSlice = createSlice({
       state.searchValue = action.payload
     },
     setSortColumn: (state, action) => {
-      state.filterValues = action.payload
+      state.sortColumn = action.payload
     },
     clearSortColumn: (state) => {
       state.sortColumn = { column: null, value: false}

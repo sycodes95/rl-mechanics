@@ -118,7 +118,7 @@ function Mechanics() {
           <MechanicsFilters/>
         </section>
 
-        <section className="flex overflow-x-auto">
+        <section className="flex overflow-auto">
           <MechanicsTable/>
         </section>
       </div>

@@ -144,8 +144,8 @@ function MechanicsTable () {
                 </Link>
                 {
                   mechanicHoverGif.hover && mechanicHoverGif.mech_id === mech.mech_id && mechanicHoverGif.gif_url &&
-                <div className="absolute left-0 z-50 p-2 rounded-md bg-jet-dark w-96 top-full">
-                  <img className="" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} />
+                <div className="fixed z-50 p-2 rounded-md bg-jet-dark w-96 ">
+                  <img className="z-50" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} />
                 </div>
                 }
                 
