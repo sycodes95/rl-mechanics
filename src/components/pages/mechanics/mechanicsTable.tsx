@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 import Icon from '@mdi/react';
 import {  mdiPencil, mdiDelete } from '@mdi/js';
 import { difficultyColors, importanceColors } from "./colors";
-import EditMechanic from "./editMechanic";
 import DeleteMechanic from "./deleteMechanic";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
 
-import { setEditMechanicIsOpen, setDeleteMechanicIsOpen } from "../../../redux/slices/modalSlice";
+import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } from "../../../redux/slices/modalSlice";
 import { setSortColumn } from "../../../redux/slices/filterSlice";
 import { set } from "date-fns/fp";
+import AddEditMechanic from "./addEditMechanic";
 
 function MechanicsTable () {
 
@@ -118,7 +118,7 @@ function MechanicsTable () {
                 }
                 {
                 editMechanicIsOpen.open && editMechanicIsOpen.mech_id === mech.mech_id &&
-                <EditMechanic
+                <AddEditMechanic
                 mechanic={mech}
                 />
                 }

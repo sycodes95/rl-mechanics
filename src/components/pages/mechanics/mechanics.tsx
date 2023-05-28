@@ -10,7 +10,7 @@ import {
 } from "./types";
 import MechanicsFilters from "./mechanicsFilters";
 import getUserFromToken from "../../utils/getUserFromToken";
-import AddMechanic from "./addMechanic";
+import AddMechanic from "./addEditMechanic";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserDetails } from '../../../redux/slices/userSlice';

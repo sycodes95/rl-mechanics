@@ -11,11 +11,15 @@ import { RootState } from "../../../redux/store";
 
 import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../../redux/slices/modalSlice';
 
-function AddMechanic () {
+type AddEditMechanicProps = {
+  mechanic?: MechanicData;
+}
+
+function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
   const dispatch = useDispatch()
 
-  const { addMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
+  const { addMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
 
   const [isFetching, setIsFetching] = useState(false);
 
@@ -24,6 +28,7 @@ function AddMechanic () {
   const [fetchErrors, setFetchErrors] = useState<string[]>([]);
 
   const [mechanicData, setMechanicData] = useState<MechanicData>({
+    mech_id: 0,
     mech_name: "",
     mech_description: "",
     mech_difficulty: "",
@@ -34,8 +39,6 @@ function AddMechanic () {
     mech_type: "",
     mech_gif: ""
   });
-
-  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -64,7 +67,7 @@ function AddMechanic () {
     
   };
 
-  const handleAddMechanicSubmit = () => {
+  const handleMechanicSubmit = () => {
 
     setIsFetching(true);
 
@@ -73,9 +76,11 @@ function AddMechanic () {
     Object.keys(mechanicData).forEach((field, index) => {
       formData.append(field, mechanicData[field])
     })
-
-    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-post`, {
-      method: 'POST',
+    const URL = addMechanicIsOpen ? `mechanics-post` : `mechanics-patch`;
+    const method = addMechanicIsOpen ? `POST` : `PATCH`;
+    console.log(URL, method, mechanicData);
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/${URL}`, {
+      method: `${method}`,
       body: formData,
     })
     .then(res => res.json())
@@ -110,8 +115,11 @@ function AddMechanic () {
   };
 
   useEffect(()=>{
-    console.log(mechanicData);
-  },[mechanicData]);
+    if(mechanic){
+      console.log(mechanic);
+      setMechanicData(mechanic)
+    } 
+  },[mechanic])
   
 
   return (
@@ -123,8 +131,11 @@ function AddMechanic () {
       <div className="fixed z-50 flex flex-col gap-4 p-6 -translate-x-1/2 -translate-y-1/2 bg-black rounded-md top-1/2 left-1/2 sm: w-96">
 
         <div className="flex justify-between text-xl text-yellow-500">
-          <p>ADD MECH</p>
-          <button className="text-white" onClick={()=> dispatch(setAddMechanicIsOpen(false))}>X</button>
+          {
+          addMechanicIsOpen ? <p>ADD MECH</p> : <p>EDIT MECH</p>
+          }
+          <button className="text-white" 
+          onClick={()=> addMechanicIsOpen ? dispatch(setAddMechanicIsOpen(false)) : dispatch(setEditMechanicIsOpen(false))}>X</button>
         </div>
 
         <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
@@ -199,12 +210,13 @@ function AddMechanic () {
         <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
         name="mech_url" type="text" placeholder="MECH URL" 
         value={mechanicData.mech_url} onChange={handleInputChange}/>
+
         <div className="flex items-center justify-between w-full">
           <p className="text-xs text-gray-400 whitespace-nowrap">MECH GIF:</p>
           <input className="text-xs w-44" type="file" name="mech_gif" onChange={handleInputChange}/>
         </div>
 
-        <button className="flex justify-center p-1 text-sm text-black transition-all bg-yellow-500 rounded-sm hover:bg-yellow-400" onClick={handleAddMechanicSubmit}>
+        <button className="flex justify-center p-1 text-sm text-black transition-all bg-yellow-500 rounded-sm hover:bg-yellow-400" onClick={handleMechanicSubmit}>
           {
           !isFetching && !fetchSuccessful &&
           <p>SUBMIT</p>
@@ -229,7 +241,7 @@ function AddMechanic () {
         </button>
 
         <button className="p-1 text-sm transition-all bg-red-800 rounded-sm hover:bg-red-700" 
-        onClick={()=> dispatch(setAddMechanicIsOpen(false))}>CANCEL</button>
+        onClick={()=> addMechanicIsOpen ? dispatch(setAddMechanicIsOpen(false)) : dispatch(setEditMechanicIsOpen(false))}>CANCEL</button>
           
         <div id="add-mechanic-fetch-errors">
           {
@@ -244,4 +256,4 @@ function AddMechanic () {
   )
 }
 
-export default AddMechanic;
+export default AddEditMechanic;

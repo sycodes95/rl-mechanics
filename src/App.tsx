@@ -4,7 +4,6 @@ import Header from './components/pages/header/header';
 import Register from './components/pages/register/register';
 import Login from './components/pages/login/login';
 import Mechanics from './components/pages/mechanics/mechanics';
-import Admin from './components/pages/mechanicsAdmin/admin';
 import 'react-tooltip/dist/react-tooltip.css'
 import MechanicDetails from './components/pages/mechanics/mechanicDetails';
 
@@ -23,7 +22,6 @@ function App() {
           <Route path='/' element={<Mechanics/>}/>
           <Route path='/mechanics' element={<Mechanics/>}/>
           <Route path='/mechanics/:mech_url' element={<MechanicDetails/>}/>
-          <Route path='/admin' element={<Admin/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/log-in' element={<Login/>}/>
         </Routes>

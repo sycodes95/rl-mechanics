@@ -37,16 +37,14 @@ function Header() {
   },[user_details])
 
   return(
-    <div className=' h-16 w-full p-4 flex justify-center items-center 
-    bg-jet-dark border-b border-black border-opacity-10 z-40'>
+    <div className='z-40 flex items-center justify-center w-full h-16 p-4 border-b border-black  bg-jet-dark border-opacity-10'>
 
-      <div className='w-full max-w-7xl flex justify-between'>
+      <div className='flex justify-between w-full max-w-7xl'>
 
         <section className='flex items-center w-full gap-x-2' >
 
           <img className='h-8' src={triangleneon} alt=''/>
-          <p className='sm:flex items-center hidden text-white text-3xl font-rajdhani font-bold
-          '>
+          <p className='items-center hidden text-3xl font-bold text-white sm:flex font-rajdhani '>
             RL MECHANICS
           </p>
 
@@ -56,28 +54,16 @@ function Header() {
 
         isLoggedIn ?
 
-        <section className='flex justify-end items-center w-full gap-x-4'>
+        <section className='flex items-center justify-end w-full gap-x-4'>
 
-          <Link to='/' className='h-6 w-20 flex justify-center items-center 
-          bg-yellow-400 bg-opacity-100 p-2 text-xs font-bold text-black rounded-md
-          hover:bg-opacity-50 transition-all'>
+          <Link to='/' className='flex items-center justify-center w-20 h-6 p-2 text-xs font-bold text-black transition-all bg-yellow-400 bg-opacity-100 rounded-md hover:bg-opacity-50'>
             <p>MECHANICS</p>
           </Link>
 
           {
-          userIsAdmin && 
-          <Link to='/admin' className='h-6 w-20 flex justify-center items-center 
-          bg-black bg-opacity-100 p-2 text-xs font-bold text-white rounded-md
-          hover:bg-opacity-75 transition-all'>
-            <p>ADMIN</p>
-          </Link>
-
-          }
-          {
           !userIsAdmin &&
           
-          <button className='h-6 flex items-center bg-gradient-red-pink bg-opacity-100 p-2 text-xs text-white rounded-lg
-          hover:bg-opacity-75 transition-all'>
+          <button className='flex items-center h-6 p-2 text-xs text-white transition-all bg-opacity-100 rounded-lg bg-gradient-red-pink hover:bg-opacity-75'>
             <p>♥ SUPPORT ME ♥</p>
           </button>
           }
@@ -90,22 +76,17 @@ function Header() {
 
         :
         
-        <section className='flex justify-end items-center w-full gap-x-4'>
+        <section className='flex items-center justify-end w-full gap-x-4'>
   
-          <Link to='/log-in' className='h-6 w-20 flex justify-center items-center 
-          bg-gradient-green-blue bg-opacity-100 p-2 text-xs font-bold text-white rounded-md
-          hover:bg-opacity-75 transition-all'>
+          <Link to='/log-in' className='flex items-center justify-center w-20 h-6 p-2 text-xs font-bold text-white transition-all bg-opacity-100 rounded-md bg-gradient-green-blue hover:bg-opacity-75'>
             <p>LOG IN</p>
           </Link>
           
-          <Link to='/register' className='h-6  w-20 flex justify-center items-center 
-          bg-gradient-orange-yellow bg-opacity-100 p-2 text-xs font-bold text-white rounded-md
-          hover:bg-opacity-75 transition-all'>
+          <Link to='/register' className='flex items-center justify-center w-20 h-6 p-2 text-xs font-bold text-white transition-all bg-opacity-100 rounded-md bg-gradient-orange-yellow hover:bg-opacity-75'>
             <p>REGISTER</p>
           </Link>
 
-          <button className='h-6 hidden sm:flex items-center bg-gradient-red-pink bg-opacity-100 p-2 text-xs text-white rounded-md
-          hover:bg-opacity-75 transition-all mw-768px-hidden'>
+          <button className='items-center hidden h-6 p-2 text-xs text-white transition-all bg-opacity-100 rounded-md sm:flex bg-gradient-red-pink hover:bg-opacity-75 mw-768px-hidden'>
             <p>♥ SUPPORT ME ♥</p>
           </button>
             
