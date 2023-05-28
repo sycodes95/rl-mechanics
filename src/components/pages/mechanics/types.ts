@@ -28,7 +28,7 @@ export type MechanicData = {
   mech_type?: string;
   mech_name?: string;
   mech_description?: string;
-  mech_difficulty?: string;
+  mech_difficulty?: number;
   mech_importance?: string;
   mech_created_at?: string;
   mech_yt_url_controller?: string;

@@ -14,6 +14,7 @@ import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } 
 import { setSortColumn } from "../../../redux/slices/filterSlice";
 import { set } from "date-fns/fp";
 import AddEditMechanic from "./addEditMechanic";
+import { mechanicsDifficultyOptions } from "./options";
 
 function MechanicsTable () {
 
@@ -152,7 +153,7 @@ function MechanicsTable () {
               </div>
             </td>
             <td className={`${mech.mech_difficulty && difficultyColors[mech.mech_difficulty]}`}>
-              {mech.mech_difficulty}
+              {mechanicsDifficultyOptions.find(option => option.value === mech.mech_difficulty)?.name}
             </td>
             <td className={`${mech.mech_importance && importanceColors[mech.mech_importance]}`}>
               {mech.mech_importance}

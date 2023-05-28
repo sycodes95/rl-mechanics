@@ -6,12 +6,12 @@ export const mechanicsStatusOptions : string[] = [
   'Not Learned',
 ];
 
-export const mechanicsDifficultyOptions: string[] = [
-  'Insane',
-  'Hard',
-  'Medium',
-  'Easy',
-  'Very Easy',
+export const mechanicsDifficultyOptions = [
+  { name: 'Very Easy', value: 1 },
+  { name: 'Easy', value: 2 },
+  { name: 'Medium', value: 3 },
+  { name: 'Hard', value: 4 },
+  { name: 'Insane', value: 5 },
 ];
 
 export const mechanicsImportanceOptions: string[] = [

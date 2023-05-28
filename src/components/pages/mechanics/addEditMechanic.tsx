@@ -31,7 +31,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     mech_id: 0,
     mech_name: "",
     mech_description: "",
-    mech_difficulty: "",
+    mech_difficulty: 0,
     mech_importance: "",
     mech_yt_url_controller: "",
     mech_yt_url_kbm: "",
@@ -119,8 +119,12 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
       console.log(mechanic);
       setMechanicData(mechanic)
     } 
+    
   },[mechanic])
   
+  useEffect(()=>{
+    console.log(mechanicData);
+  },[mechanicData])
 
   return (
     <div className="absolute">
@@ -149,14 +153,14 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
           <label className="text-xs text-gray-400 whitespace-nowrap">DIFFICULTY :</label>
           <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_difficulty}
           onChange={(e)=> e.target.value
-          ? setMechanicData({...mechanicData, mech_difficulty: e.target.value})
-          : setMechanicData({...mechanicData, mech_difficulty:  ""})}>
+          ? setMechanicData({...mechanicData, mech_difficulty: parseInt(e.target.value)})
+          : setMechanicData({...mechanicData, mech_difficulty:  0})}>
 
             <option value=""></option>
             {
             mechanicsDifficultyOptions.map((option, index) => (
             <option key={index} className={`text-sm`} 
-            value={option} >{option}</option>
+            value={option.value} >{option.name}</option>
             ))
             }
           </select>

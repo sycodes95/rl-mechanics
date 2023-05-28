@@ -108,11 +108,11 @@ function MechanicsFilters () {
             {
             mechanicsDifficultyOptions.map((option, index) => (
               <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
-              ${difficultyColors[option]}`} 
-              onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option}))}>
-                <p>{option}</p>
+              ${difficultyColors[option.value]}`} 
+              onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option.value}))}>
+                <p>{option.name}</p>
                 {
-                filterValues.mech_difficulty === option && 
+                filterValues.mech_difficulty === option.name && 
                 <div className="flex items-center text-blue-600"><Icon path={mdiCheck} size={0.6} /></div>
                 }
               </li>

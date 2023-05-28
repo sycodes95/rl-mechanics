@@ -1,11 +1,11 @@
 import { DifficultyColors, ImportanceColors } from "./types"
 
 export const difficultyColors: DifficultyColors = {
-  'Insane': 'text-red-500',
-  'Hard' : 'text-orange-400',
-  'Medium' : 'text-yellow-400',
-  'Easy' : 'text-green-400',
-  'Very Easy' : 'text-blue-400'
+  5: 'text-red-500',
+  4 : 'text-orange-400',
+  3 : 'text-yellow-400',
+  2 : 'text-green-400',
+  1 : 'text-blue-400'
 }
 
 export const importanceColors: ImportanceColors = {
