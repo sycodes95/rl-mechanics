@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 type FilterSlice = {
-  filterValues: { [key: string] : string };
+  filterValues: { [key: string] : string | number };
   searchValue: string;
   sortColumn: { column: null | string,  value: boolean}
 }
@@ -42,6 +42,9 @@ export const filterSlice = createSlice({
     setSearchValue: (state, action) => {
       state.searchValue = action.payload
     },
+    clearSearchValue: (state) => {
+      state.searchValue = ""
+    },
     setSortColumn: (state, action) => {
       state.sortColumn = action.payload
     },
@@ -55,6 +58,7 @@ export const {
   setFilterValues, 
   clearFilterValues,
   setSearchValue,
+  clearSearchValue,
   setSortColumn,
   clearSortColumn
   

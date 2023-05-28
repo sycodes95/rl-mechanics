@@ -31,8 +31,8 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     mech_id: 0,
     mech_name: "",
     mech_description: "",
-    mech_difficulty: 0,
-    mech_importance: "",
+    mech_difficulty: null,
+    mech_importance: null,
     mech_yt_url_controller: "",
     mech_yt_url_kbm: "",
     mech_url: "",
@@ -150,17 +150,15 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
         <div id="add-mechanic-difficulty"
         className="flex items-center justify-between gap-4 ">
-          <label className="text-xs text-gray-400 whitespace-nowrap">DIFFICULTY :</label>
+          <label className="text-xs text-gray-400 whitespace-nowrap">DIFFICULTY :</label> 
           <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_difficulty}
-          onChange={(e)=> e.target.value
-          ? setMechanicData({...mechanicData, mech_difficulty: parseInt(e.target.value)})
-          : setMechanicData({...mechanicData, mech_difficulty:  0})}>
+          onChange={(e)=> setMechanicData({...mechanicData, mech_difficulty: parseInt(e.target.value)})}> 
 
-            <option value=""></option>
+            <option value="0"></option>
             {
-            mechanicsDifficultyOptions.map((option, index) => (
+            Object.keys(mechanicsDifficultyOptions).map((option, index) => (
             <option key={index} className={`text-sm`} 
-            value={option.value} >{option.name}</option>
+            value={option} >{mechanicsDifficultyOptions[Number(option)]}</option>
             ))
             }
           </select>
@@ -170,15 +168,13 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
         className="flex items-center justify-between gap-4 ">
           <label className="text-xs text-gray-400 whitespace-nowrap">IMPORTANCE :</label>
           <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_importance}
-          onChange={(e)=> e.target.value
-          ? setMechanicData({...mechanicData, mech_importance: e.target.value})
-          : setMechanicData({...mechanicData, mech_importance:  ""})}>
+          onChange={(e)=> setMechanicData({...mechanicData, mech_importance: parseInt(e.target.value)})}>
 
-            <option value=""></option>
+            <option value="0"></option>
             {
-            mechanicsImportanceOptions.map((option, index) => (
+            Object.keys(mechanicsImportanceOptions).map((option, index) => (
             <option key={index} className={`text-sm`} 
-            value={option}>{option}</option>
+            value={option} >{mechanicsImportanceOptions[Number(option)]}</option>
             ))
             }
           </select>
@@ -253,7 +249,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
             <p className="text-xs text-red-600" key={index}>{err}</p>
           ))
           }
-        </div>
+        </div> 
       </div>
 
     </div>

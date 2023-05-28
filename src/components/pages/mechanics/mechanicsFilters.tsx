@@ -6,7 +6,7 @@ import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatus
 import { difficultyColors, importanceColors } from "./colors";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { setFilterValues, setSearchValue } from "../../../redux/slices/filterSlice";
+import { setFilterValues, setSearchValue ,clearSearchValue } from "../../../redux/slices/filterSlice";
 
 
 function MechanicsFilters () {
@@ -70,7 +70,7 @@ function MechanicsFilters () {
     <div className="flex flex-col w-full gap-2">
       <section id="filter-selections" className="flex flex-wrap w-full gap-2 ">
       
-        <button id="status-filter" 
+        {/* <button id="status-filter" 
         className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm bg-opacity-25 p-1 flex-1 w-full justify-between z-10 
         ${user_details && 'cursor-not-allowed'}`}
         onClick={()=> !user_details && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
@@ -93,7 +93,7 @@ function MechanicsFilters () {
             }
           </ul>
           }
-        </button>
+        </button> */}
 
         <button id="difficulty-filter"
         className="relative z-10 flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black bg-opacity-25 rounded-sm gap-x-1 hover:bg-opacity-40"
@@ -109,7 +109,7 @@ function MechanicsFilters () {
             {
             Object.keys(mechanicsDifficultyOptions).map((option, i) => (
               <li className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
-               onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option}))}>{mechanicsDifficultyOptions[option]}</li>
+              onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option}))}>{mechanicsDifficultyOptions[Number(option)]}</li>
             ))
             }
             
@@ -129,11 +129,10 @@ function MechanicsFilters () {
           importanceFilter &&
           <ul className="absolute left-0 w-32 p-1 mt-1 rounded-sm top-full bg-jet-dark" >
             {
-            mechanicsImportanceOptions.map((option, index) => (
-              <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
-              ${importanceColors[option]}`}
+            Object.keys(mechanicsImportanceOptions).map((option, index) => (
+              <li className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
               onClick={()=> dispatch(setFilterValues({...filterValues, mech_importance: option}))}>
-                <p>{option}</p>
+                <p>{mechanicsImportanceOptions[Number(option)]}</p>
                 {
                 filterValues.mech_importance === option &&
                 <div className={`flex items-center text-blue-600`}><Icon path={mdiCheck} size={0.6} /></div>
@@ -184,12 +183,12 @@ function MechanicsFilters () {
       <section className="flex justify-between">
         <div className="flex gap-2">
           {
-          Object.keys(filterValues).map(key => (
+          Object.keys(filterValues).map((key, index) => (
             filterValues[key] && 
-            <div className="flex items-center p-1 text-xs bg-black bg-opacity-50 rounded-sm gap-x-2">
+            <div className="flex items-center p-1 text-xs bg-black bg-opacity-50 rounded-sm gap-x-2" key={index}>
               {
               key === 'mech_difficulty' &&
-              <p className={`${difficultyColors[filterValues[key]] || importanceColors[filterValues[key]]}`}>{mechanicsDifficultyOptions[filterValues[key]]}</p> 
+              <p className={`${difficultyColors[filterValues[key]] || importanceColors[filterValues[key]]}`}>{mechanicsDifficultyOptions[Number(filterValues[key])]}</p> 
               }
               {
               key !== 'mech_difficulty' &&
@@ -203,6 +202,18 @@ function MechanicsFilters () {
               
             </div>
           ))
+          }
+          {
+          searchValue &&
+          <div className="flex items-center p-1 text-xs bg-black bg-opacity-50 rounded-sm gap-x-2">
+              
+              <p className="">{searchValue}</p> 
+              <button className="text-gray-600 transition-colors hover:text-gray-400" 
+              onClick={()=> dispatch(clearSearchValue())}>
+                <Icon path={mdiCloseCircle} size={0.6} />
+              </button>
+              
+            </div>
           }
         </div>
         {

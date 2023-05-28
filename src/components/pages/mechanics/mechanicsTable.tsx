@@ -12,7 +12,6 @@ import { RootState } from "../../../redux/store";
 
 import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } from "../../../redux/slices/modalSlice";
 import { setSortColumn } from "../../../redux/slices/filterSlice";
-import { set } from "date-fns/fp";
 import AddEditMechanic from "./addEditMechanic";
 import { mechanicsDifficultyOptions } from "./options";
 
@@ -76,7 +75,7 @@ function MechanicsTable () {
           
         {
           Object.keys(mechTableColumns).map((column, index) => (
-          
+          column !== 'mech_status' &&
           <th className={`text-gray-400 text-xs pr-4 
           cursor-pointer hover:text-gray-600 transition-all 
           ${column !== 'mech_type' && column !== 'mech_name' && 'min-w-6rem'}
@@ -127,7 +126,7 @@ function MechanicsTable () {
               
             </td>
             }
-            <td></td>
+            {/* <td>status...</td> */}
             <td className="text-blue-400">
               {mech.mech_type}
             </td>

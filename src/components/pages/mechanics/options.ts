@@ -22,13 +22,13 @@ export const mechanicsDifficultyOptions: {[key: number]: string} = {
   5 : 'Insane',
 };
 
-export const mechanicsImportanceOptions: string[] = [
-  'Essential',
-  'Important',
-  'Situational',
-  'Not Needed',
-  'Not Useful',
-];
+export const mechanicsImportanceOptions: {[key: number]: string} = {
+  1 : 'Not Useful',
+  2 : 'Not Needed',
+  3 : 'Situational',
+  4 : 'Important',
+  5 : 'Essential',
+};
 
 export const mechanicsTypeOptions: string[] = [
   'Aerial Takeoffs',
