@@ -98,7 +98,7 @@ function MechanicsTable () {
       <tbody>
         {
         mechanicsData &&
-        mechanicsData.map((mech, i) => (
+        mechanicsData.map((mech: any, i) => (
           <tr key={i} className="h-8 text-sm">
             {
             user_details && user_details.user_is_admin &&
@@ -153,7 +153,7 @@ function MechanicsTable () {
               </div>
             </td>
             <td className={`${mech.mech_difficulty && difficultyColors[mech.mech_difficulty]}`}>
-              {mechanicsDifficultyOptions.find(option => option.value === mech.mech_difficulty)?.name}
+              {mechanicsDifficultyOptions[mech.mech_difficulty]}
             </td>
             <td className={`${mech.mech_importance && importanceColors[mech.mech_importance]}`}>
               {mech.mech_importance}

@@ -49,7 +49,7 @@ function Mechanics() {
   };
 
   useEffect(() => {
-    
+    console.log(filterValues);
     fetch(
       `${
         import.meta.env.VITE_API_HOST_URL

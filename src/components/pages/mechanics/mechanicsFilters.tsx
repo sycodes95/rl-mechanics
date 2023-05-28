@@ -82,6 +82,7 @@ function MechanicsFilters () {
           {
           statusFilter &&
           <ul className="absolute left-0 p-1 mt-1 rounded-sm top-full bg-jet-dark" >
+            
             {
             mechanicsStatusOptions.map((option, index) => (
               <li key={index} className={`hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
@@ -106,18 +107,12 @@ function MechanicsFilters () {
           difficultyFilter &&
           <ul className="absolute left-0 w-32 p-1 mt-1 rounded-sm top-full bg-jet-dark" >
             {
-            mechanicsDifficultyOptions.map((option, index) => (
-              <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap
-              ${difficultyColors[option.value]}`} 
-              onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option.value}))}>
-                <p>{option.name}</p>
-                {
-                filterValues.mech_difficulty === option.name && 
-                <div className="flex items-center text-blue-600"><Icon path={mdiCheck} size={0.6} /></div>
-                }
-              </li>
+            Object.keys(mechanicsDifficultyOptions).map((option, i) => (
+              <li className={`flex justify-between hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
+               onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option}))}>{mechanicsDifficultyOptions[option]}</li>
             ))
             }
+            
           </ul>
           }
         </button>
@@ -192,7 +187,15 @@ function MechanicsFilters () {
           Object.keys(filterValues).map(key => (
             filterValues[key] && 
             <div className="flex items-center p-1 text-xs bg-black bg-opacity-50 rounded-sm gap-x-2">
+              {
+              key === 'mech_difficulty' &&
+              <p className={`${difficultyColors[filterValues[key]] || importanceColors[filterValues[key]]}`}>{mechanicsDifficultyOptions[filterValues[key]]}</p> 
+              }
+              {
+              key !== 'mech_difficulty' &&
               <p className={`${difficultyColors[filterValues[key]] || importanceColors[filterValues[key]]}`}>{filterValues[key]}</p> 
+              }
+              
               <button className="text-gray-600 transition-colors hover:text-gray-400" 
               onClick={()=> dispatch(setFilterValues({...filterValues, [key]: "" }))}>
                 <Icon path={mdiCloseCircle} size={0.6} />
