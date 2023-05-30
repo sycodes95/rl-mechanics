@@ -37,28 +37,25 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     mech_yt_url_kbm: "",
     mech_url: "",
     mech_type: "",
-    mech_gif: ""
+    mech_training_packs: Array(8).fill(""),
+    mech_gif: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    //reset fetch errors
     setFetchErrors([]);
 
     const { name, value, files } = e.target;
 
     if (name === 'mech_gif' && files && files.length > 0) {
-      // Update the mechanicData with the selected file
       setMechanicData({ ...mechanicData, mech_gif: files[0] });
     } else {
-      // Update other input values as before
       setMechanicData({ ...mechanicData, [name]: value });
     }
   };
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 
-    //reset fetch errors
     setFetchErrors([]);
 
     const { name, value } = e.target;
@@ -74,7 +71,13 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     const formData = new FormData();
 
     Object.keys(mechanicData).forEach((field, index) => {
-      formData.append(field, mechanicData[field])
+      if (field === 'mech_training_packs') {
+        formData.append(field, JSON.stringify(mechanicData[field]));
+      }
+      else {
+        formData.append(field, mechanicData[field]);
+      }
+      
     })
     const URL = addMechanicIsOpen ? `mechanics-post` : `mechanics-patch`;
     const method = addMechanicIsOpen ? `POST` : `PATCH`;
@@ -115,11 +118,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
   };
 
   useEffect(()=>{
-    if(mechanic){
-      console.log(mechanic);
-      setMechanicData(mechanic)
-    } 
-    
+    mechanic && setMechanicData(mechanic)
   },[mechanic])
   
   useEffect(()=>{
@@ -127,14 +126,14 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
   },[mechanicData])
 
   return (
-    <div className="absolute">
+    <div className="absolute ">
             
       <div className="fixed top-0 left-0 z-40 w-full h-full bg-black bg-opacity-50" id="add-mechanic-overlay" >
       </div>
       
-      <div className="fixed z-50 flex flex-col gap-4 p-6 -translate-x-1/2 -translate-y-1/2 bg-black rounded-md top-1/2 left-1/2 sm: w-96">
+      <div className="fixed z-50 flex flex-col gap-4 p-6 overflow-y-auto -translate-x-1/2 -translate-y-1/2 bg-black rounded-md w-96 backdrop-blur-sm bg-opacity-80 mw-480px-w-screen top-96 left-1/2 max-h-75pct">
 
-        <div className="flex justify-between text-xl text-yellow-500">
+        <div className="sticky top-0 flex justify-between text-xl text-green-400 bg-black">
           {
           addMechanicIsOpen ? <p>ADD MECH</p> : <p>EDIT MECH</p>
           }
@@ -144,9 +143,11 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
         <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
         name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
-
-        <textarea className="h-32 p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"  
-        name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleTextAreaChange}/>
+        
+        <div className="w-full h-32">
+          <textarea className="w-full h-32 p-1 overflow-y-auto text-xs text-white bg-black rounded-sm resize-none outline outline-1 outline-slate-800"  
+          name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleTextAreaChange}/>
+        </div>
 
         <div id="add-mechanic-difficulty"                                                                               
         className="flex items-center justify-between gap-4 ">
@@ -211,12 +212,31 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
         name="mech_url" type="text" placeholder="MECH URL" 
         value={mechanicData.mech_url} onChange={handleInputChange}/>
 
+        {
+        mechanicData.mech_training_packs.map((pack: string, index: number) => (
+          <input
+            className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+            name={`mech_training_packs${index}`}
+            type="text"
+            placeholder={`Training pack ${index + 1}`}
+            value={pack}
+            onChange={e => {
+              let newMechTrainingPacks = [...mechanicData.mech_training_packs];
+              newMechTrainingPacks[index] = e.target.value;
+              setMechanicData({
+                ...mechanicData,
+                mech_training_packs: newMechTrainingPacks
+              });
+            }}
+          />
+        ))}
+
         <div className="flex items-center justify-between w-full">
           <p className="text-xs text-gray-400 whitespace-nowrap">MECH GIF:</p>
           <input className="text-xs w-44" type="file" name="mech_gif" onChange={handleInputChange}/>
         </div>
 
-        <button className="flex justify-center p-1 text-sm text-black transition-all bg-yellow-500 rounded-sm hover:bg-yellow-400" onClick={handleMechanicSubmit}>
+        <button className="flex justify-center p-1 text-sm text-black transition-all bg-green-400 rounded-sm hover:bg-green-600" onClick={handleMechanicSubmit}>
           {
           !isFetching && !fetchSuccessful &&
           <p>SUBMIT</p>
@@ -235,7 +255,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
           }
           {
           fetchSuccessful && 
-          <Icon path={mdiCheckAll} size={1} />
+          <Icon path={mdiCheckAll} size={0.8} />
           }
           
         </button>

@@ -20,6 +20,7 @@ type MechanicDetails = {
   mech_url: string;
   mech_yt_url_controller: string;
   mech_yt_url_kbm: string;
+  mech_training_packs: string[];
 };
 
 function MechanicDetails() {
@@ -34,6 +35,7 @@ function MechanicDetails() {
     mech_url: "", 
     mech_yt_url_controller: "",
     mech_yt_url_kbm: "",
+    mech_training_packs: Array(8).fill("")
   });
   const [descriptionReadMore, setDescriptionReadMore] = useState(false)
   useEffect(() => {
@@ -92,31 +94,16 @@ function MechanicDetails() {
           <div className="flex flex-col gap-2 p-2 overflow-x-hidden overflow-y-auto bg-black bg-opacity-25 rounded-md w-80">
             <p className="flex justify-center p-2 text-sm text-white bg-opacity-50 border border-green-400 rounded-md whitespace-nowrap">Training Packs</p>
             <div className="flex flex-col gap-2 ">
-              <div className="flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md cursor-pointer hover:bg-gray-200 hover:bg-opacity-10">
-                <Icon path={mdiContentCopy} size={0.6} />
-                <p>B5AC-17E0-4133-B8A4</p>
-              </div>
-              <div className="flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md cursor-pointer hover:bg-gray-200 hover:bg-opacity-10">
-                <Icon path={mdiContentCopy} size={0.6} />
-                <p>B5AC-17E0-4133-B8A4</p>
-              </div>
-              <div className="flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md cursor-pointer hover:bg-gray-200 hover:bg-opacity-10">
-                <Icon path={mdiContentCopy} size={0.6} />
-                <p>B5AC-17E0-4133-B8A4</p>
-              </div>
-              <div className="flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md cursor-pointer hover:bg-gray-200 hover:bg-opacity-10">
-                <Icon path={mdiContentCopy} size={0.6} />
-                <p>B5AC-17E0-4133-B8A4</p>
-              </div>
-              <div className="flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md cursor-pointer hover:bg-gray-200 hover:bg-opacity-10">
-                <Icon path={mdiContentCopy} size={0.6} />
-                <p>B5AC-17E0-4133-B8A4</p>
-              </div>
-              <div className="flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md cursor-pointer hover:bg-gray-200 hover:bg-opacity-10">
-                <Icon path={mdiContentCopy} size={0.6} />
-                <p>B5AC-17E0-4133-B8A4</p>
-              </div>
-              
+              {
+              mechanicDetails.mech_training_packs.map((packCode, index) => (
+                packCode !== "" && (
+                  <div className="flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md cursor-pointer hover:bg-gray-200 hover:bg-opacity-10" key={index}>
+                    <Icon path={mdiContentCopy} size={0.6} />
+                    <p>{packCode}</p>
+                  </div>
+                )
+              ))
+              }
               
             </div>
           </div>
@@ -130,7 +117,7 @@ function MechanicDetails() {
             <p className="p-2 text-xl font-bold text-gray-500 text-opacity-25">
               DESCRIPTION
             </p>
-            <p className="p-2 text-sm overflow-ellipsis">
+            <p className="p-2 text-sm whitespace-pre-line overflow-ellipsis">
               {mechanicDetails?.mech_description}
             </p>
           </div>

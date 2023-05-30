@@ -35,7 +35,9 @@ export type MechanicData = {
   mech_yt_url_kbm?: string;
   mech_url?: string;
   mech_gif?: File | string;
+  mech_training_packs: string[];
   mech_gif_url?: string;
+
   [key: string] : any;
 }  
 
