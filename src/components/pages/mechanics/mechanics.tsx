@@ -3,11 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import MechanicsTable from "./mechanicsTable";
 import "../../../styles/mechanics.css";
 import useDebounce from "../../hooks/useDebounce";
-import {
-  MechanicData,
-  MechanicsDifficultyOptions,
-  MechanicsStatusOptions,
-} from "./types";
+
 import MechanicsFilters from "./mechanicsFilters";
 import getUserFromToken from "../../utils/getUserFromToken";
 import AddMechanic from "./addEditMechanic";
@@ -17,6 +13,7 @@ import { setUserDetails } from '../../../redux/slices/userSlice';
 import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../../redux/slices/modalSlice';
 import { RootState } from "../../../redux/store";
 import { clearMechanicsData, setMechanicsData } from "../../../redux/slices/mechanicSlice";
+import octane from "../../../assets/images/octane.webp"
 // import { RootState } from "../../../redux/store";
 
 export type PaginationData = {
@@ -96,13 +93,16 @@ function Mechanics() {
 
   return (
     <div className="flex justify-center flex-1 text-white">
-      <div className="flex flex-col w-full gap-4 max-w-fit">
+      <div className="flex flex-col w-full max-w-4xl gap-4">
+        <section className="relative flex overflow-hidden rounded-md h-44">
+          <img className="absolute -translate-y-1/2 opacity-50 top-1/2" src={octane}/>
+        </section>
         <section className="flex justify-between">
-          <div className="text-xl font-bold">MECHANICS LIST</div>
+          <div className="text-xl font-bold">ROCKET LEAGUE MECHANICS LIST</div>
             {
             user_details && user_details.user_is_admin && 
             <button
-              className="p-2 text-xs text-black transition-colors bg-yellow-400 rounded-sm hover:bg-yellow-500"
+              className="p-2 text-xs text-black transition-colors bg-green-400 rounded-sm hover:bg-green-500"
               onClick={() => dispatch(setAddMechanicIsOpen(true))}>
             
               <p>ADD MECHANIC</p>

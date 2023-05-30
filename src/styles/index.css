@@ -7,6 +7,18 @@
   src: url(/src/assets/fonts/ChakraPetch-Regular.ttf);
 }
 
+@font-face {
+  font-family: Ocera;
+  src: url(/src/assets/fonts/OCERA.ttf);
+}
+
+@font-face {
+  font-family: Enigma;
+  src: url(/src/assets/fonts/Enigma.ttf);
+}
+
+
+
 
 :root {
   font-family: Chakra, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

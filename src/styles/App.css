@@ -19,16 +19,36 @@
   font-family: Rajdhani, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
+.font-science{
+  font-family: Science, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.font-ocera{
+  font-family: Ocera, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.font-enigma{
+  font-family: Enigma, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.font-white-outline{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+
 .font-black-outline{
   text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, rgb(0, 0, 0) 1px 0 4px,
   rgb(0, 0, 0) 1px 0 1px ; 
 }
 
+.font-1vw{
+  font-size: clamp(1.25rem, 1.5vw, 5rem);
+}
 
 /* SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR */
 
 ::-webkit-scrollbar{
-  width: 14px;
+  width: 8px;
   height: 10px;
 }
 
@@ -39,7 +59,7 @@
 }
 
 ::-webkit-scrollbar-thumb{
-  background-color: rgb(177, 177, 177);
+  background-color: rgb(0, 255, 128);
   border-radius: 4px;
 }
 
@@ -87,8 +107,12 @@
   background: rgb(39, 38, 45)
 }
 
+/* .bg-gradient{
+  background:linear-gradient(rgba(39, 38, 45, 0.8), rgba(39, 38, 45, 0.8)), url(../../src/assets/bg-patterns/subtle_carbon.webp);
+} */
+
 .bg-gradient{
-  background:linear-gradient(rgb(0, 0, 0), rgb(48, 48, 48))
+  background:linear-gradient(rgba(51, 70, 76, 0.8), rgba(51, 70, 76, 0.6)), url(../../src/assets/bg-patterns/subtle_carbon.webp);
 }
 
 .bg-gradient-green-blue{

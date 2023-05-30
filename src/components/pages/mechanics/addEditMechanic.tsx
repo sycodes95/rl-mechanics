@@ -31,8 +31,8 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     mech_id: 0,
     mech_name: "",
     mech_description: "",
-    mech_difficulty: null,
-    mech_importance: null,
+    mech_difficulty: 0,
+    mech_importance: 0,
     mech_yt_url_controller: "",
     mech_yt_url_kbm: "",
     mech_url: "",
@@ -148,7 +148,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
         <textarea className="h-32 p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"  
         name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleTextAreaChange}/>
 
-        <div id="add-mechanic-difficulty"
+        <div id="add-mechanic-difficulty"                                                                               
         className="flex items-center justify-between gap-4 ">
           <label className="text-xs text-gray-400 whitespace-nowrap">DIFFICULTY :</label> 
           <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_difficulty}

@@ -13,7 +13,7 @@ import { RootState } from "../../../redux/store";
 import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } from "../../../redux/slices/modalSlice";
 import { setSortColumn } from "../../../redux/slices/filterSlice";
 import AddEditMechanic from "./addEditMechanic";
-import { mechanicsDifficultyOptions } from "./options";
+import { mechanicsDifficultyOptions, mechanicsImportanceOptions } from "./options";
 
 function MechanicsTable () {
 
@@ -127,7 +127,7 @@ function MechanicsTable () {
             </td>
             }
             {/* <td>status...</td> */}
-            <td className="text-blue-400">
+            <td className="text-pink-500">
               {mech.mech_type}
             </td>
             <td className="overflow-visible">
@@ -144,7 +144,7 @@ function MechanicsTable () {
                 </Link>
                 {
                   mechanicHoverGif.hover && mechanicHoverGif.mech_id === mech.mech_id && mechanicHoverGif.gif_url &&
-                <div className="fixed z-50 p-2 rounded-md bg-jet-dark w-96 ">
+                <div className="fixed z-50 p-2 bg-black bg-opacity-25 rounded-md backdrop-blur-lg w-96 ">
                   <img className="z-50" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} />
                 </div>
                 }
@@ -155,7 +155,7 @@ function MechanicsTable () {
               {mechanicsDifficultyOptions[mech.mech_difficulty]}
             </td>
             <td className={`${mech.mech_importance && importanceColors[mech.mech_importance]}`}>
-              {mech.mech_importance}
+              {mechanicsImportanceOptions[mech.mech_importance]}
             </td>
             <td>N/A</td>
             <td className="w-20">N/A</td>

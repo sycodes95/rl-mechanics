@@ -13,7 +13,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div id='app' className='flex flex-col w-full min-h-screen bg-brown-plum-gradient'>
+      <div id='app' className='flex flex-col w-full min-h-screen bg-gradient'>
         <div>
           <Header/>
         </div>

@@ -37,16 +37,15 @@ function Header() {
   },[user_details])
 
   return(
-    <div className='z-40 flex items-center justify-center w-full h-16 p-4 border-b border-black  bg-jet-dark border-opacity-10'>
+    <div className='z-40 flex items-center justify-center w-full h-16 pl-16 pr-16 bg-black border-b border-black bg-opacity-30 border-opacity-30'>
 
       <div className='flex justify-between w-full max-w-7xl'>
 
-        <section className='flex items-center w-full gap-x-2' >
+        <section className='flex items-center w-full h-full gap-x-2' >
 
-          <img className='h-8' src={triangleneon} alt=''/>
-          <p className='items-center hidden text-3xl font-bold text-white sm:flex font-rajdhani '>
+          <Link to='/' className='items-center hidden text-white text-opacity-0 transition-all duration-500 font-1vw sm:flex font-ocera font-white-outline hover:text-opacity-25'>
             RL MECHANICS
-          </p>
+          </Link>
 
         </section>
 
@@ -56,7 +55,7 @@ function Header() {
 
         <section className='flex items-center justify-end w-full gap-x-4'>
 
-          <Link to='/' className='flex items-center justify-center w-20 h-6 p-2 text-xs font-bold text-black transition-all bg-yellow-400 bg-opacity-100 rounded-md hover:bg-opacity-50'>
+          <Link to='/' className='flex items-center justify-center w-20 h-6 p-2 text-xs font-bold text-black transition-all bg-green-400 bg-opacity-100 rounded-sm hover:bg-opacity-50'>
             <p>MECHANICS</p>
           </Link>
 
