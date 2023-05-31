@@ -14,6 +14,7 @@ import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../../redux/slice
 import { RootState } from "../../../redux/store";
 import { clearMechanicsData, setMechanicsData } from "../../../redux/slices/mechanicSlice";
 import octane from "../../../assets/images/octane.webp"
+import AddEditMechanic from "./addEditMechanic";
 // import { RootState } from "../../../redux/store";
 
 export type PaginationData = {
@@ -103,14 +104,17 @@ function Mechanics() {
             user_details && user_details.user_is_admin && 
             <button
               className="p-2 text-xs text-black transition-colors bg-green-400 rounded-sm hover:bg-green-500"
-              onClick={() => dispatch(setAddMechanicIsOpen(true))}>
+              onClick={() => {
+                dispatch(setAddMechanicIsOpen(true))
+              }}>
             
               <p>ADD MECHANIC</p>
             </button>
             }
 
-            {addMechanicIsOpen && (
-            <AddMechanic/>
+            {
+            addMechanicIsOpen && (
+            <AddEditMechanic/>
             )}
         </section>
 

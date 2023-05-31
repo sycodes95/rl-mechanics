@@ -126,24 +126,19 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
   },[mechanicData])
 
   return (
-    <div className="absolute ">
-            
-      <div className="fixed top-0 left-0 z-40 w-full h-full bg-black bg-opacity-50" id="add-mechanic-overlay" >
-      </div>
-      
-      <div  className="fixed z-50 gap-4 overflow-y-auto -translate-x-1/2 -translate-y-1/2 bg-black rounded-md bg-opacity-60 w-96 backdrop-blur-sm mw-480px-w-95pct top-96 left-1/2 max-h-480px">
+    <div className="absolute top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
 
-        <div className="sticky top-0 flex justify-between p-4 text-xl text-green-400 bg-black">
+      <div  className="max-h-full gap-4 overflow-y-auto bg-black rounded-md h-3/4 bg-opacity-60 w-96 backdrop-blur-sm mw-480px-w-95pct">
+
+        <section className="sticky top-0 flex justify-between p-4 text-xl text-green-400 bg-black">
           {
           addMechanicIsOpen ? <p>ADD MECH</p> : <p>EDIT MECH</p>
           }
           <button className="text-white " 
           onClick={()=> addMechanicIsOpen ? dispatch(setAddMechanicIsOpen(false)) : dispatch(setEditMechanicIsOpen(false))}>X</button>
-        </div>
+        </section>
 
-        <div className="flex flex-col w-full gap-2 p-6">
-
-        
+        <section className="flex flex-col w-full gap-2 p-6">
 
           <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
           name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
@@ -275,7 +270,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
             }
           </div> 
 
-        </div>
+        </section>
       </div>
 
     </div>
