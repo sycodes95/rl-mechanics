@@ -131,145 +131,151 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
       <div className="fixed top-0 left-0 z-40 w-full h-full bg-black bg-opacity-50" id="add-mechanic-overlay" >
       </div>
       
-      <div className="fixed z-50 flex flex-col gap-4 p-6 overflow-y-auto -translate-x-1/2 -translate-y-1/2 bg-black rounded-md w-96 backdrop-blur-sm bg-opacity-80 mw-480px-w-screen top-96 left-1/2 max-h-75pct">
+      <div  className="fixed z-50 gap-4 overflow-y-auto -translate-x-1/2 -translate-y-1/2 bg-black rounded-md bg-opacity-60 w-96 backdrop-blur-sm mw-480px-w-95pct top-96 left-1/2 max-h-480px">
 
-        <div className="sticky top-0 flex justify-between text-xl text-green-400 bg-black">
+        <div className="sticky top-0 flex justify-between p-4 text-xl text-green-400 bg-black">
           {
           addMechanicIsOpen ? <p>ADD MECH</p> : <p>EDIT MECH</p>
           }
-          <button className="text-white" 
+          <button className="text-white " 
           onClick={()=> addMechanicIsOpen ? dispatch(setAddMechanicIsOpen(false)) : dispatch(setEditMechanicIsOpen(false))}>X</button>
         </div>
 
-        <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
-        name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
+        <div className="flex flex-col w-full gap-2 p-6">
+
         
-        <div className="w-full h-32">
-          <textarea className="w-full h-32 p-1 overflow-y-auto text-xs text-white bg-black rounded-sm resize-none outline outline-1 outline-slate-800"  
-          name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleTextAreaChange}/>
-        </div>
 
-        <div id="add-mechanic-difficulty"                                                                               
-        className="flex items-center justify-between gap-4 ">
-          <label className="text-xs text-gray-400 whitespace-nowrap">DIFFICULTY :</label> 
-          <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_difficulty}
-          onChange={(e)=> setMechanicData({...mechanicData, mech_difficulty: parseInt(e.target.value)})}> 
+          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
+          name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
+          
+          <div className="w-full h-32">
+            <textarea className="w-full h-32 p-1 overflow-y-auto text-xs text-white bg-black rounded-sm resize-none outline outline-1 outline-slate-800"  
+            name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleTextAreaChange}/>
+          </div>
 
-            <option value="0"></option>
-            {
-            Object.keys(mechanicsDifficultyOptions).map((option, index) => (
-            <option key={index} className={`text-sm`} 
-            value={option} >{mechanicsDifficultyOptions[Number(option)]}</option>
-            ))
-            }
-          </select>
-        </div>
+          <div id="add-mechanic-difficulty"                                                                               
+          className="flex items-center justify-between gap-4 ">
+            <label className="text-xs text-gray-400 whitespace-nowrap">DIFFICULTY :</label> 
+            <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_difficulty}
+            onChange={(e)=> setMechanicData({...mechanicData, mech_difficulty: parseInt(e.target.value)})}> 
 
-        <div id="add-mechanic-importance"
-        className="flex items-center justify-between gap-4 ">
-          <label className="text-xs text-gray-400 whitespace-nowrap">IMPORTANCE :</label>
-          <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_importance}
-          onChange={(e)=> setMechanicData({...mechanicData, mech_importance: parseInt(e.target.value)})}>
-
-            <option value="0"></option>
-            {
-            Object.keys(mechanicsImportanceOptions).map((option, index) => (
-            <option key={index} className={`text-sm`} 
-            value={option} >{mechanicsImportanceOptions[Number(option)]}</option>
-            ))
-            }
-          </select>
-        </div>
-
-        <div id="add-mechanic-type"
-        className="flex items-center justify-between gap-4 ">
-          <label className="text-xs text-gray-400 whitespace-nowrap">TYPE :</label>
-          <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_type ?? ""} 
-          onChange={(e)=> e.target.value
-          ? setMechanicData({...mechanicData, mech_type: e.target.value})
-          : setMechanicData({...mechanicData, mech_type:  ""})}>
-
-            <option value=""></option>
-            {
-            
-            mechanicsTypeOptions.map((option, index) => (
+              <option value="0"></option>
+              {
+              Object.keys(mechanicsDifficultyOptions).map((option, index) => (
               <option key={index} className={`text-sm`} 
-              value={option} >{option}</option>
+              value={option} >{mechanicsDifficultyOptions[Number(option)]}</option>
+              ))
+              }
+            </select>
+          </div>
+
+          <div id="add-mechanic-importance"
+          className="flex items-center justify-between gap-4 ">
+            <label className="text-xs text-gray-400 whitespace-nowrap">IMPORTANCE :</label>
+            <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_importance}
+            onChange={(e)=> setMechanicData({...mechanicData, mech_importance: parseInt(e.target.value)})}>
+
+              <option value="0"></option>
+              {
+              Object.keys(mechanicsImportanceOptions).map((option, index) => (
+              <option key={index} className={`text-sm`} 
+              value={option} >{mechanicsImportanceOptions[Number(option)]}</option>
+              ))
+              }
+            </select>
+          </div>
+
+          <div id="add-mechanic-type"
+          className="flex items-center justify-between gap-4 ">
+            <label className="text-xs text-gray-400 whitespace-nowrap">TYPE :</label>
+            <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_type ?? ""} 
+            onChange={(e)=> e.target.value
+            ? setMechanicData({...mechanicData, mech_type: e.target.value})
+            : setMechanicData({...mechanicData, mech_type:  ""})}>
+
+              <option value=""></option>
+              {
+              
+              mechanicsTypeOptions.map((option, index) => (
+                <option key={index} className={`text-sm`} 
+                value={option} >{option}</option>
+              ))
+              }
+            </select>
+          </div>
+          
+          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
+          name="mech_yt_url_controller" type="text" placeholder="YOUTUBE URL CONTROLLER" 
+          value={mechanicData.mech_yt_url_controller} onChange={handleInputChange}/>
+
+          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+          name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
+          value={mechanicData.mech_yt_url_kbm} onChange={handleInputChange}/>
+
+          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+          name="mech_url" type="text" placeholder="MECH URL" 
+          value={mechanicData.mech_url} onChange={handleInputChange}/>
+
+          {
+          mechanicData.mech_training_packs.map((pack: string, index: number) => (
+            <input
+              className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+              name={`mech_training_packs${index}`}
+              type="text"
+              placeholder={`Training pack ${index + 1}`}
+              value={pack}
+              onChange={e => {
+                let newMechTrainingPacks = [...mechanicData.mech_training_packs];
+                newMechTrainingPacks[index] = e.target.value;
+                setMechanicData({
+                  ...mechanicData,
+                  mech_training_packs: newMechTrainingPacks
+                });
+              }}
+            />
+          ))}
+
+          <div className="flex items-center justify-between w-full">
+            <p className="text-xs text-gray-400 whitespace-nowrap">MECH GIF:</p>
+            <input className="text-xs w-44" type="file" name="mech_gif" onChange={handleInputChange}/>
+          </div>
+
+          <button className="flex justify-center p-1 text-sm text-black transition-all bg-green-400 rounded-sm hover:bg-green-600" onClick={handleMechanicSubmit}>
+            {
+            !isFetching && !fetchSuccessful &&
+            <p>SUBMIT</p>
+            }
+            {
+            isFetching &&
+            <ThreeDots 
+            height="24" 
+            width="24" 
+            radius="9"
+            color="#000000" 
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            visible={true}
+            />
+            }
+            {
+            fetchSuccessful && 
+            <Icon path={mdiCheckAll} size={0.8} />
+            }
+            
+          </button>
+
+          <button className="p-1 text-sm transition-all bg-red-800 rounded-sm hover:bg-red-700" 
+          onClick={()=> addMechanicIsOpen ? dispatch(setAddMechanicIsOpen(false)) : dispatch(setEditMechanicIsOpen(false))}>CANCEL</button>
+            
+          <div id="add-mechanic-fetch-errors">
+            {
+            fetchErrors.map((err, index) => (
+              <p className="text-xs text-red-600" key={index}>{err}</p>
             ))
             }
-          </select>
+          </div> 
+
         </div>
-        
-        <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
-        name="mech_yt_url_controller" type="text" placeholder="YOUTUBE URL CONTROLLER" 
-        value={mechanicData.mech_yt_url_controller} onChange={handleInputChange}/>
-
-        <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-        name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
-        value={mechanicData.mech_yt_url_kbm} onChange={handleInputChange}/>
-
-        <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-        name="mech_url" type="text" placeholder="MECH URL" 
-        value={mechanicData.mech_url} onChange={handleInputChange}/>
-
-        {
-        mechanicData.mech_training_packs.map((pack: string, index: number) => (
-          <input
-            className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-            name={`mech_training_packs${index}`}
-            type="text"
-            placeholder={`Training pack ${index + 1}`}
-            value={pack}
-            onChange={e => {
-              let newMechTrainingPacks = [...mechanicData.mech_training_packs];
-              newMechTrainingPacks[index] = e.target.value;
-              setMechanicData({
-                ...mechanicData,
-                mech_training_packs: newMechTrainingPacks
-              });
-            }}
-          />
-        ))}
-
-        <div className="flex items-center justify-between w-full">
-          <p className="text-xs text-gray-400 whitespace-nowrap">MECH GIF:</p>
-          <input className="text-xs w-44" type="file" name="mech_gif" onChange={handleInputChange}/>
-        </div>
-
-        <button className="flex justify-center p-1 text-sm text-black transition-all bg-green-400 rounded-sm hover:bg-green-600" onClick={handleMechanicSubmit}>
-          {
-          !isFetching && !fetchSuccessful &&
-          <p>SUBMIT</p>
-          }
-          {
-          isFetching &&
-          <ThreeDots 
-          height="24" 
-          width="24" 
-          radius="9"
-          color="#000000" 
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          visible={true}
-          />
-          }
-          {
-          fetchSuccessful && 
-          <Icon path={mdiCheckAll} size={0.8} />
-          }
-          
-        </button>
-
-        <button className="p-1 text-sm transition-all bg-red-800 rounded-sm hover:bg-red-700" 
-        onClick={()=> addMechanicIsOpen ? dispatch(setAddMechanicIsOpen(false)) : dispatch(setEditMechanicIsOpen(false))}>CANCEL</button>
-          
-        <div id="add-mechanic-fetch-errors">
-          {
-          fetchErrors.map((err, index) => (
-            <p className="text-xs text-red-600" key={index}>{err}</p>
-          ))
-          }
-        </div> 
       </div>
 
     </div>

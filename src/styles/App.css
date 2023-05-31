@@ -130,7 +130,7 @@
   width: 95%;
 } 
 
-.max-h-75pct{
+.max-h-480px{
   max-height: 480px;
 }
 
@@ -162,6 +162,9 @@
 @media (max-width: 480px) {
   .mw-480px-w-screen{
     max-width: 100vw;
+  }
+  .mw-480px-w-95pct{
+    max-width: 95vw;
   }
 }
 

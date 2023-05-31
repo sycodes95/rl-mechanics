@@ -92,7 +92,7 @@ function MechanicDetails() {
           </div>
 
           <div className="flex flex-col gap-2 p-2 overflow-x-hidden overflow-y-auto bg-black bg-opacity-25 rounded-md w-80">
-            <p className="flex justify-center p-2 text-sm text-white bg-opacity-50 border border-green-400 rounded-md whitespace-nowrap">Training Packs</p>
+            <p className="flex justify-center p-2 text-sm text-white bg-opacity-50 border border-green-400 rounded-md whitespace-nowrap">Related Training Packs</p>
             <div className="flex flex-col gap-2 ">
               {
               mechanicDetails.mech_training_packs.map((packCode, index) => (
