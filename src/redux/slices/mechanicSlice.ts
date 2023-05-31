@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { MechanicData } from "../../components/pages/mechanics/types";
+import { MechanicData } from "../../pages/mechanics/types";
 
 
 

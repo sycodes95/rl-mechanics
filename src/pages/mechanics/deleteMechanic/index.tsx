@@ -5,7 +5,7 @@ import { Oval } from "react-loader-spinner";
 import Icon from '@mdi/react';
 import { mdiCheckAll } from '@mdi/js';
 
-import { MechanicData } from "./types";
+import { MechanicData } from "../types";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";

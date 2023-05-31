@@ -8,10 +8,10 @@ import DeleteMechanic from "./deleteMechanic";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../redux/store";
 
-import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } from "../../../redux/slices/modalSlice";
-import { setSortColumn } from "../../../redux/slices/filterSlice";
+import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } from "../../redux/slices/modalSlice";
+import { setSortColumn } from "../../redux/slices/filterSlice";
 import AddEditMechanic from "./addEditMechanic";
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions } from "./options";
 

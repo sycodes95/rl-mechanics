@@ -1,11 +1,11 @@
 import './styles/App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/pages/header/header';
-import Register from './components/pages/register/register';
-import Login from './components/pages/login/login';
-import Mechanics from './components/pages/mechanics/mechanics';
+import Header from './pages/header';
+import Register from './pages/register/register';
+import Login from './pages/login/login';
+import Mechanics from './pages/mechanics';
 import 'react-tooltip/dist/react-tooltip.css'
-import MechanicDetails from './components/pages/mechanics/mechanicDetails';
+import MechanicDetails from './pages/mechanics/mechanicDetails';
 
 
 

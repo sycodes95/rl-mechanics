@@ -6,14 +6,6 @@ export const mechanicsStatusOptions : string[] = [
   'Not Learned',
 ];
 
-// export const mechanicsDifficultyOptions = [
-//   { name: 'Very Easy', value: 1 },
-//   { name: 'Easy', value: 2 },
-//   { name: 'Medium', value: 3 },
-//   { name: 'Hard', value: 4 },
-//   { name: 'Insane', value: 5 },
-// ];
-
 export const mechanicsDifficultyOptions: {[key: number]: string} = {
   1 : 'Very Easy' ,
   2 : 'Easy',
@@ -46,10 +38,3 @@ export const mechanicsTypeOptions: string[] = [
   'Flip Reset',
   'Backboard',
 ]
-
-// export const mechanicsTypeOptions: string[] = [
-//   'Aerial Takeoffs', 'Aerial Movements', 'Power Slides', 
-//   'Wave Dashes', 'Flips', 'Basics', 'Shooting',
-//   'Dribbling', 'Flicks', 'Pinches', 'Kick Offs',
-//   'Air Dribbles', 'Flip Reset', 'Backboard'
-// ]

@@ -3,8 +3,8 @@ import Icon from '@mdi/react';
 
 import { ThreeDots } from "react-loader-spinner";
 import { mdiCheckAll } from '@mdi/js';
-import { MechanicData } from "./types";
-import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "./options";
+import { MechanicData } from "../types";
+import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "../options";
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../../redux/store";
@@ -33,11 +33,11 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     mech_description: "",
     mech_difficulty: 0,
     mech_importance: 0,
-    mech_yt_url_controller: "",
-    mech_yt_url_kbm: "",
     mech_url: "",
     mech_type: "",
     mech_training_packs: Array(8).fill(""),
+    mech_yt_url_controller: Array(3).fill(""),
+    mech_yt_url_kbm: Array(3).fill(""),
     mech_gif: "",
   });
 
@@ -71,7 +71,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     const formData = new FormData();
 
     Object.keys(mechanicData).forEach((field, index) => {
-      if (field === 'mech_training_packs') {
+      if (field === 'mech_training_packs' || field === 'mech_yt_url_controller' || field === 'mech_yt_url_kbm') {
         formData.append(field, JSON.stringify(mechanicData[field]));
       }
       else {
@@ -143,9 +143,32 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
           <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
           name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
           
+          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+          name="mech_url" type="text" placeholder="MECH URL" 
+          value={mechanicData.mech_url} onChange={handleInputChange}/>
+
           <div className="w-full h-32">
             <textarea className="w-full h-32 p-1 overflow-y-auto text-xs text-white bg-black rounded-sm resize-none outline outline-1 outline-slate-800"  
             name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleTextAreaChange}/>
+          </div>
+
+          <div id="add-mechanic-type"
+          className="flex items-center justify-between gap-4 ">
+            <label className="text-xs text-gray-400 whitespace-nowrap">TYPE :</label>
+            <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_type ?? ""} 
+            onChange={(e)=> e.target.value
+            ? setMechanicData({...mechanicData, mech_type: e.target.value})
+            : setMechanicData({...mechanicData, mech_type:  ""})}>
+
+              <option value=""></option>
+              {
+              
+              mechanicsTypeOptions.map((option, index) => (
+                <option key={index} className={`text-sm`} 
+                value={option} >{option}</option>
+              ))
+              }
+            </select>
           </div>
 
           <div id="add-mechanic-difficulty"                                                                               
@@ -180,36 +203,53 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
             </select>
           </div>
 
-          <div id="add-mechanic-type"
-          className="flex items-center justify-between gap-4 ">
-            <label className="text-xs text-gray-400 whitespace-nowrap">TYPE :</label>
-            <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_type ?? ""} 
-            onChange={(e)=> e.target.value
-            ? setMechanicData({...mechanicData, mech_type: e.target.value})
-            : setMechanicData({...mechanicData, mech_type:  ""})}>
-
-              <option value=""></option>
-              {
-              
-              mechanicsTypeOptions.map((option, index) => (
-                <option key={index} className={`text-sm`} 
-                value={option} >{option}</option>
-              ))
-              }
-            </select>
-          </div>
           
-          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
+          
+          {/* <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
           name="mech_yt_url_controller" type="text" placeholder="YOUTUBE URL CONTROLLER" 
           value={mechanicData.mech_yt_url_controller} onChange={handleInputChange}/>
 
           <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
           name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
-          value={mechanicData.mech_yt_url_kbm} onChange={handleInputChange}/>
+          value={mechanicData.mech_yt_url_kbm} onChange={handleInputChange}/> */}
 
-          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-          name="mech_url" type="text" placeholder="MECH URL" 
-          value={mechanicData.mech_url} onChange={handleInputChange}/>
+          {
+          mechanicData.mech_yt_url_controller.map((url: string, index: number) => (
+            <input
+              className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+              name={`mech_yt_url_controller${index}`}
+              type="text"
+              placeholder={`Youtube Controller Url ${index + 1}`}
+              value={url}
+              onChange={e => {
+                let newControllerUrls = [...mechanicData.mech_yt_url_controller];
+                newControllerUrls[index] = e.target.value;
+                setMechanicData({
+                  ...mechanicData,
+                  mech_yt_url_controller: newControllerUrls
+                });
+              }}
+            />
+          ))}
+
+          {
+          mechanicData.mech_yt_url_kbm.map((url: string, index: number) => (
+            <input
+              className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+              name={`mech_yt_url_kbm${index}`}
+              type="text"
+              placeholder={`Youtube KBM Url ${index + 1}`}
+              value={url}
+              onChange={e => {
+                let newKbmUrls = [...mechanicData.mech_yt_url_kbm];
+                newKbmUrls[index] = e.target.value;
+                setMechanicData({
+                  ...mechanicData,
+                  mech_yt_url_kbm: newKbmUrls
+                });
+              }}
+            />
+          ))}
 
           {
           mechanicData.mech_training_packs.map((pack: string, index: number) => (

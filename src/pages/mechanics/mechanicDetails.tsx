@@ -19,8 +19,8 @@ type MechanicDetails = {
   mech_importance: number;
   mech_name: string;
   mech_url: string;
-  mech_yt_url_controller: string;
-  mech_yt_url_kbm: string;
+  mech_yt_url_controller: string[];
+  mech_yt_url_kbm: string[];
   mech_training_packs: string[];
 };
 
@@ -43,8 +43,8 @@ function MechanicDetails() {
     mech_importance: 0,
     mech_name: "",
     mech_url: "", 
-    mech_yt_url_controller: "",
-    mech_yt_url_kbm: "",
+    mech_yt_url_controller: Array(3).fill(""),
+    mech_yt_url_kbm: Array(3).fill(""),
     mech_training_packs: Array(8).fill("")
   });
 
@@ -65,6 +65,8 @@ function MechanicDetails() {
       clearTimeout(timeout);
     };
   }, [trainingPackToCopy]);
+
+
 
   return (
     <div className="flex justify-center w-full "> 
@@ -93,15 +95,22 @@ function MechanicDetails() {
           </div>
         </section>
 
-        <section className="flex gap-2 p-2 bg-black bg-opacity-25 rounded-md h-96">
+        <section className="flex h-full gap-2 p-2 bg-black bg-opacity-25 rounded-md">
           <div className="relative w-full rounded-md ">
+            <div className="relative h-96">
             {mechanicDetails?.mech_yt_url_controller && (
-              <div
+              <div className="h-96"
                 dangerouslySetInnerHTML={{
-                  __html: mechanicDetails.mech_yt_url_controller,
+                  __html: mechanicDetails.mech_yt_url_controller[0],
                 }}
               ></div>
             )}
+            </div>
+            <div className="z-50 flex items-center justify-center w-full h-8 gap-4 bg-black bg-opacity-80 font-enigma">
+              <button className="w-6 h-3 border border-green-400 rounded-md hover:bg-green-400"></button>
+              <button className="w-6 h-2 border border-green-400 rounded-md hover:bg-green-400"></button>
+              <button className="w-6 h-2 border border-green-400 rounded-md hover:bg-green-400"></button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-2 p-2 overflow-x-hidden overflow-y-auto bg-black bg-opacity-25 rounded-md w-80">

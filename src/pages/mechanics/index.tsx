@@ -1,19 +1,19 @@
+
+import "./index.css";
 import { useEffect, useRef, useState } from "react";
 
 import MechanicsTable from "./mechanicsTable";
-import "../../../styles/mechanics.css";
 import useDebounce from "../../hooks/useDebounce";
 
 import MechanicsFilters from "./mechanicsFilters";
 import getUserFromToken from "../../utils/getUserFromToken";
-import AddMechanic from "./addEditMechanic";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserDetails } from '../../../redux/slices/userSlice';
-import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../../redux/slices/modalSlice';
-import { RootState } from "../../../redux/store";
-import { clearMechanicsData, setMechanicsData } from "../../../redux/slices/mechanicSlice";
-import octane from "../../../assets/images/octane.webp"
+import { setUserDetails } from '../../redux/slices/userSlice';
+import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../redux/slices/modalSlice';
+import { RootState } from "../../redux/store";
+import { clearMechanicsData, setMechanicsData } from "../../redux/slices/mechanicSlice";
+import octane from "../../assets/images/octane.webp"
 import AddEditMechanic from "./addEditMechanic";
 // import { RootState } from "../../../redux/store";
 

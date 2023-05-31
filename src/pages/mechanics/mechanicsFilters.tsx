@@ -5,8 +5,8 @@ import { mdiMagnify, mdiCloseCircle, mdiCheck, mdiChevronDown, mdiRotateLeft } f
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions, mechanicsTypeOptions } from "./options";
 import { difficultyColors, importanceColors } from "./colors";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { setFilterValues, setSearchValue ,clearSearchValue, clearFilterValues } from "../../../redux/slices/filterSlice";
+import { RootState } from "../../redux/store";
+import { setFilterValues, setSearchValue ,clearSearchValue, clearFilterValues } from "../../redux/slices/filterSlice";
 
 
 function MechanicsFilters () {

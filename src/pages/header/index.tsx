@@ -1,5 +1,5 @@
 
-import '../../../styles/header.css'
+import './index.css'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import triangleneon from '../../../assets/images/triangle-neon.png'

@@ -7,7 +7,7 @@ import validEmail from "../../utils/validEmail";
 import validPassword from "../../utils/validPassword";
 import { Oval } from "react-loader-spinner";
 
-import twodown from "../../../assets/svgs/twodown.svg"
+import twodown from "../../assets/svgs/twodown.svg"
 
 function Register () {
   
@@ -93,41 +93,36 @@ function Register () {
   };
 
   return (
-    <div className="relative w-full flex flex-grow justify-center items-center p-4 ">
-      <div className="max-w-7xl flex justify-between">
+    <div className="relative flex items-center justify-center flex-grow w-full p-4 ">
+      <div className="flex justify-between max-w-7xl">
         
       
-        <form className="absolute sm:w-96 w-95pct top-1/3 -translate-x-1/2 -translate-y-1/3 p-6 flex flex-col gap-4 
-        rounded-md bg-jet-dark">
-          <div className="w-full flex justify-center">   
-            <ReactSVG className=" text-orange-400 fill-current"  src={twodown}/>
+        <form className="absolute flex flex-col gap-4 p-6 -translate-x-1/2 rounded-md sm:w-96 w-95pct top-1/3 -translate-y-1/3 bg-jet-dark">
+          <div className="flex justify-center w-full">   
+            <ReactSVG className="text-orange-400 fill-current "  src={twodown}/>
             
           </div>
-          <div className="text-4xl text-white text-center font-bold text-orange-400 rounded-md p-2">REGISTRATION</div>
+          <div className="p-2 text-4xl font-bold text-center text-white text-orange-400 rounded-md">REGISTRATION</div>
           
-          <input className="bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
-          focus:outline-orange-400 transition-all duration-500" 
+          <input className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-orange-400" 
           name="user_email" type="text" value={registerationData.user_email} placeholder="EMAIL"
           required 
           onChange={handleInputChange}/>
 
-          <input className="bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
-          focus:outline-orange-400 transition-all duration-500" 
+          <input className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-orange-400" 
           name="user_password" type="password" value={registerationData.user_password} 
           placeholder="PASSWORD (MIN 8 CHARACTERS)" required
           
           onChange={handleInputChange}/>
           
-          <input className="bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
-          focus:outline-orange-400 transition-all duration-500" 
+          <input className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-orange-400" 
           name="user_confirm_password" type="password" value={registerationData.user_confirm_password} 
           placeholder="CONFIRM PASSWORD "
           required
           onChange={handleInputChange}/>
 
           
-          <select className="bg-jet-dark text-white text-xs caret-white rounded-md p-2 outline-1 outline outline-gray-800  
-          focus:outline-orange-400 transition-all duration-500" name="user_rank" value={registerationData.user_rank} 
+          <select className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-orange-400" name="user_rank" value={registerationData.user_rank} 
           onChange={handleInputChange}>
             <option className="rounded-md" hidden>Highest Rank</option>
             {
@@ -138,8 +133,7 @@ function Register () {
             
           </select>
 
-          <button className="h-8 flex justify-center items-center bg-gray-700 text-sm p-1 rounded-md
-          hover:bg-orange-400 transition-all" onClick={handleRegisterSubmit}>
+          <button className="flex items-center justify-center h-8 p-1 text-sm transition-all bg-gray-700 rounded-md hover:bg-orange-400" onClick={handleRegisterSubmit}>
             {
             isFetching &&
             <Oval
@@ -168,11 +162,11 @@ function Register () {
           
           {
           emailFormatErr &&
-          <p className="h-4 text-red-500 text-xs">Incorrect email format *</p>
+          <p className="h-4 text-xs text-red-500">Incorrect email format *</p>
           }
           {
           passwordLengthErr &&
-          <p className="text-red-500 text-xs">Password length must be minimum 8 characters *</p>
+          <p className="text-xs text-red-500">Password length must be minimum 8 characters *</p>
           }
           
           {
@@ -180,7 +174,7 @@ function Register () {
           <div>
           {
           errorMsgs.map((msg:string, index:number)=>(
-            <p className="text-red-500 text-xs" key={index}>{msg}</p>
+            <p className="text-xs text-red-500" key={index}>{msg}</p>
           ))
           }
           </div>
