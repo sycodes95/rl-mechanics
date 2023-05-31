@@ -5,9 +5,10 @@ import { mechanicsDifficultyOptions } from "./options";
 import { difficultyColors } from "./colors";
 import { importanceColors } from "./colors";
 import { mechanicsImportanceOptions } from "./options";
+import Clipboard from 'clipboard';
 
 import Icon from '@mdi/react';
-import { mdiContentCopy } from '@mdi/js';
+import { mdiContentCopy, mdiCheckBold } from '@mdi/js';
 
 
 type MechanicDetails = {
@@ -25,6 +26,15 @@ type MechanicDetails = {
 
 function MechanicDetails() {
   const { mech_url } = useParams();
+
+  const [showKbmVideos, setShowKbmVideos] = useState(false)
+  
+  const [showControllerVideos, setShowControllerVideos] = useState(true)
+
+  const [trainingPackToCopy, setTrainingPackToCopy] = useState("")
+
+  const [descriptionReadMore, setDescriptionReadMore] = useState(false)
+
   const [mechanicDetails, setMechanicDetails] = useState<MechanicDetails>({
     mech_created_at: "",
     mech_description: "",
@@ -37,7 +47,8 @@ function MechanicDetails() {
     mech_yt_url_kbm: "",
     mech_training_packs: Array(8).fill("")
   });
-  const [descriptionReadMore, setDescriptionReadMore] = useState(false)
+
+  
   useEffect(() => {
     if (mech_url)
       getMechanicDetails(mech_url)?.then((details) =>
@@ -46,16 +57,18 @@ function MechanicDetails() {
   }, [mech_url]);
 
   useEffect(() => {
-    console.log(mechanicDetails);
-  }, [mechanicDetails]);
+    const timeout = setTimeout(()=>{
+      setTrainingPackToCopy("")
+    },1000)
+    
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [trainingPackToCopy]);
 
   return (
     <div className="flex justify-center w-full "> 
       <div className="flex flex-col w-full max-w-5xl gap-4 rounded-md ">
-        
-        <section>
-          
-        </section>
 
         <section className="flex justify-between"> 
           <div className="flex items-end text-xl font-thin text-white font-enigma">
@@ -97,10 +110,25 @@ function MechanicDetails() {
               {
               mechanicDetails.mech_training_packs.map((packCode, index) => (
                 packCode !== "" && (
-                  <div className="flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md cursor-pointer hover:bg-gray-200 hover:bg-opacity-10" key={index}>
+                  <button className="relative flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md hover:bg-gray-200 hover:bg-opacity-10" key={index} 
+                  onClick={()=> {
+                    navigator.clipboard.writeText(packCode)
+                    setTrainingPackToCopy(packCode)
+                  }}>
+                    {
+                    trainingPackToCopy === packCode &&
+                    <div className="absolute left-0 z-50 flex items-center justify-center w-full h-4 mt-1 text-xs text-green-700 bg-white rounded-md backdrop-blur-sm top-full">Copied</div>
+                    }
+                    {
+                    trainingPackToCopy !== packCode &&
                     <Icon path={mdiContentCopy} size={0.6} />
+                    }
+                    {
+                    trainingPackToCopy === packCode &&
+                    <Icon className="text-green-500" path={mdiCheckBold} size={0.6} />
+                    }
                     <p>{packCode}</p>
-                  </div>
+                  </button>
                 )
               ))
               }
