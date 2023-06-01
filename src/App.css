@@ -29,11 +29,22 @@
 
 .font-enigma{
   font-family: Enigma, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
 }
 
 .font-white-outline{
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+
+.font-gray-outline{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(128, 128, 128);
+}
+
+.font-green-outline{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(0, 255, 140);
 }
 
 .font-black-outline{
@@ -42,7 +53,7 @@
 }
 
 .font-1vw{
-  font-size: clamp(1.25rem, 1.5vw, 5rem);
+  font-size: clamp(1.25rem, 1.5vw, 2rem);
 }
 
 /* SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR */

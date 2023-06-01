@@ -7,7 +7,7 @@ type MechanicsData = {
   mechanicsData: MechanicData[] | [];
   filterValues: { [key: string] : string | number };
   searchValue: string;
-  sortColumn: { column: null | string,  value: boolean};
+  sortColumn: { column: null | string,  value: boolean };
   addMechanicIsOpen: boolean;
   editMechanicIsOpen: { open: boolean, mech_id: number | null };
   deleteMechanicIsOpen: { open: boolean, mech_id: number | null };

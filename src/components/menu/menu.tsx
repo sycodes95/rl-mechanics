@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import triangleneon from '../../../assets/images/triangle-neon.png'
 import getUserFromToken from '../../services/getUserFromToken';
 import ProfileDropMenu from './profileDropMenu';
+import octaneTransparent from '../../assets/images/octane-transparent-logo.png'
 
 interface user_details {
   user_id: number;
@@ -39,11 +40,12 @@ function Menu() {
   return(
     <div className='z-40 flex items-center justify-center w-full h-16 pl-16 pr-16 bg-black border-b border-black bg-opacity-30 border-opacity-30'>
 
-      <div className='flex justify-between w-full max-w-7xl'>
+      <div className='flex justify-between w-full max-w-5xl'>
 
         <section className='flex items-center w-full h-full gap-x-2' >
 
-          <Link to='/' className='items-center hidden text-white text-opacity-0 transition-all duration-500 font-1vw sm:flex font-ocera font-white-outline hover:text-opacity-25'>
+          <Link to='/' className='items-center hidden h-full gap-4 text-white text-opacity-0 transition-all duration-500 whitespace-nowrap font-1vw sm:flex font-ocera font-gray-outline hover:text-opacity-25'>
+            <img className='h-8' src={octaneTransparent} alt='octane-image'/>
             RL MECHANICS
           </Link>
 

@@ -5,10 +5,10 @@ import { mechanicsDifficultyOptions } from "../../constants/options";
 import { difficultyColors } from "../../constants/colors";
 import { importanceColors } from "../../constants/colors";
 import { mechanicsImportanceOptions } from "../../constants/options";
-import Clipboard from 'clipboard';
-
+import YouTube from 'react-youtube';
+import ReactPlayer from 'react-player';
 import Icon from '@mdi/react';
-import { mdiContentCopy, mdiCheckBold } from '@mdi/js';
+import { mdiContentCopy, mdiCheckBold, mdiKeyboard, mdiController } from '@mdi/js';
 
 
 type MechanicDetails = {
@@ -27,9 +27,11 @@ type MechanicDetails = {
 function MechanicDetails() {
   const { mech_url } = useParams();
 
-  const [showKbmVideos, setShowKbmVideos] = useState(false)
-  
+  const [showVideo, setShowVideo] = useState("")
+
   const [showControllerVideos, setShowControllerVideos] = useState(true)
+
+  const [showKbmVideos, setShowKbmVideos] = useState(false)
 
   const [trainingPackToCopy, setTrainingPackToCopy] = useState("")
 
@@ -55,6 +57,20 @@ function MechanicDetails() {
         setMechanicDetails(details)
       );
   }, [mech_url]);
+
+  useEffect(()=>{
+    if(mechanicDetails.mech_yt_url_controller[0] && !showVideo) setShowVideo(mechanicDetails.mech_yt_url_controller[0])
+    
+  },[mechanicDetails])
+
+  useEffect(()=>{
+    if(mechanicDetails.mech_yt_url_controller[0] && showControllerVideos){
+      setShowVideo(mechanicDetails.mech_yt_url_controller[0])
+    }
+    if(mechanicDetails.mech_yt_url_kbm[0] && showKbmVideos){
+      setShowVideo(mechanicDetails.mech_yt_url_kbm[0])
+    }
+  },[showControllerVideos, showKbmVideos])
 
   useEffect(() => {
     const timeout = setTimeout(()=>{
@@ -97,20 +113,79 @@ function MechanicDetails() {
 
         <section className="flex h-full gap-2 p-2 bg-black bg-opacity-25 rounded-md">
           <div className="relative w-full rounded-md ">
-            <div className="relative h-96">
+            <div className="relative bg-black bg-opacity-50 h-96">
             {mechanicDetails?.mech_yt_url_controller && (
-              <div className="h-96"
-                dangerouslySetInnerHTML={{
-                  __html: mechanicDetails.mech_yt_url_controller[0],
-                }}
-              ></div>
+              showVideo && (
+                <ReactPlayer
+                  url={`${showVideo}`}
+                  width="100%"
+                  height="100%"
+                  controls
+                />
+              )
+              // <YouTube className="h-96"
+              //   videoId="FbPHl2IGdKE"
+              //   opts={{ width: '100%', height: '100%' }}
+              // />
+              // <div className="h-96"
+              //   dangerouslySetInnerHTML={{
+              //     __html: showVideo,
+              //   }}
+              // ></div>
             )}
             </div>
-            <div className="z-50 flex items-center justify-center w-full h-8 gap-4 bg-black bg-opacity-80 font-enigma">
-              <button className="w-6 h-3 border border-green-400 rounded-md hover:bg-green-400"></button>
-              <button className="w-6 h-2 border border-green-400 rounded-md hover:bg-green-400"></button>
-              <button className="w-6 h-2 border border-green-400 rounded-md hover:bg-green-400"></button>
-            </div>
+            {
+            
+            <nav className="z-50 flex items-center justify-between w-full gap-2 pl-4 pr-4 text-xs bg-black ">
+              <div className="flex gap-2 text-white">
+                <button className="flex items-center gap-1 p-1 text-gray-500 rounded-md hover:text-green-400"
+                onClick={()=> {
+                  setShowKbmVideos(false) 
+                  setShowControllerVideos(true)
+                }}>
+                  <Icon className={`${showControllerVideos && 'text-green-400'}`} path={mdiController} size={2}/>
+                </button>
+                <button className="flex items-center gap-2 text-gray-500 hover:text-green-400" onClick={()=> {
+                  setShowKbmVideos(true) 
+                  setShowControllerVideos(false)
+                }}>
+                  <Icon className={`${showKbmVideos && 'text-green-400'}`} path={mdiKeyboard} size={2}/>
+                </button>
+
+              </div>
+              {
+              showControllerVideos &&
+              <div className="flex gap-4">
+                {
+                mechanicDetails.mech_yt_url_controller.length &&
+                mechanicDetails.mech_yt_url_controller.map((url, index) => (
+                  url &&
+                  <button className={`w-6 h-6 flex items-center text-white text-opacity-0 font-green-outline justify-center rounded-sm hover:text-green-400 font-ocera text-3xl 
+                  `}
+                  onClick={()=> setShowVideo(url)}>{index + 1}</button>
+                ))
+                }
+              </div>
+              }
+
+              {
+              showKbmVideos &&
+              <div className="flex gap-2">
+              {
+              showKbmVideos &&
+              mechanicDetails.mech_yt_url_kbm.length &&
+              mechanicDetails.mech_yt_url_kbm.map((url, index) => (
+                url &&
+                <button className={`w-6 h-6 flex items-center justify-center rounded-sm hover:bg-white font-ocera 
+                ${showVideo === url && 'bg-white'} ${showVideo !== url && 'bg-gray-500'}`}
+                onClick={()=> setShowVideo(url)}>{index + 1}</button>
+              ))
+              }
+              </div>
+              }
+            </nav>
+            }
+            
           </div>
 
           <div className="flex flex-col gap-2 p-2 overflow-x-hidden overflow-y-auto bg-black bg-opacity-25 rounded-md w-80">
