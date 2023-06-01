@@ -1,14 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from './slices/userSlice'
-import modalSlice from './slices/modalSlice'
-import filterSlice from './slices/filterSlice'
-import mechanicSlice from './slices/mechanicSlice'
+// import filterSlice from './slices/filterSlice'
+import mechanicsSlice from './features/mechanics/slice/mechanicsSlice'
 export const store = configureStore({
   reducer: {
     userSlice,
-    modalSlice,
-    filterSlice,
-    mechanicSlice
+    mechanicsSlice
   }
 })
 

@@ -1,14 +1,12 @@
 import withAuth from "../../hocs/withAuth";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ReactSVG } from "react-svg";
 
-import twodown from "../../assets/svgs/twodown.svg"
+import { useState } from "react";
+import { ReactSVG } from "react-svg";
 import { Oval } from "react-loader-spinner";
+import twodown from "../../assets/svgs/twodown.svg"
 
 
 function Login (){
-  const navigate = useNavigate();
 
   const [isFetching, setIsFetching] = useState(false);
 

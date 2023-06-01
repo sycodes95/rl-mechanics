@@ -1,6 +1,5 @@
-import { DifficultyColors, ImportanceColors } from "./types"
 
-export const difficultyColors: DifficultyColors = {
+export const difficultyColors: {[key: number] : string} = {
   1 : 'text-blue-400',
   2 : 'text-green-400',
   3 : 'text-yellow-400',
@@ -8,7 +7,7 @@ export const difficultyColors: DifficultyColors = {
   5: 'text-red-500',
 }
 
-export const importanceColors: ImportanceColors = {
+export const importanceColors: {[key: number] : string} = {
   1 : 'text-gray-500',
   2 : 'text-gray-400',
   3 : 'text-gray-300',

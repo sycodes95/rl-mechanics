@@ -5,12 +5,12 @@ import { Oval } from "react-loader-spinner";
 import Icon from '@mdi/react';
 import { mdiCheckAll } from '@mdi/js';
 
-import { MechanicData } from "../types";
+import { MechanicData } from "../types/types";
 
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../../store";
 
-import { setDeleteMechanicIsOpen } from "../../../redux/slices/modalSlice";
+import { setDeleteMechanicIsOpen } from "../../mechanics/slice/mechanicsSlice";
 
 interface DeleteMechanicProps {
   mechanic: MechanicData
@@ -22,7 +22,7 @@ function DeleteMechanic ({ mechanic } : DeleteMechanicProps) {
 
   const dispatch = useDispatch()
 
-  const { deleteMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
+  const { deleteMechanicIsOpen } = useSelector((state: RootState) => state.mechanicsSlice)
 
   const [deleteIsSuccessful, setDeleteIsSuccessful] = useState(false)
 

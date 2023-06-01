@@ -9,7 +9,7 @@ const handleLogOut = () => {
     }
   })
   .then(response => response.json())
-  .then(data => {
+  .then(() => {
     localStorage.removeItem('rlmechanics_token');
     window.location.href = '/';
   })

@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 
 import Icon from '@mdi/react';
 import {  mdiPencil, mdiDelete } from '@mdi/js';
-import { difficultyColors, importanceColors } from "./colors";
+import { difficultyColors, importanceColors } from "../../../constants/colors";
 import DeleteMechanic from "./deleteMechanic";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../store";
 
-import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } from "../../redux/slices/modalSlice";
-import { setSortColumn } from "../../redux/slices/filterSlice";
+import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } from "../../mechanics/slice/mechanicsSlice";
+import { setSortColumn } from "../slice/mechanicsSlice";
 import AddEditMechanic from "./addEditMechanic";
-import { mechanicsDifficultyOptions, mechanicsImportanceOptions } from "./options";
+import { mechanicsDifficultyOptions, mechanicsImportanceOptions } from "../../../constants/options";
 
 function MechanicsTable () {
 
@@ -21,11 +21,11 @@ function MechanicsTable () {
 
   const { user_details } = useSelector((state: RootState) => state.userSlice)
 
-  const { deleteMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
+  const { deleteMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.mechanicsSlice)
 
-  const { sortColumn } = useSelector((state: RootState) => state.filterSlice)
+  const { sortColumn } = useSelector((state: RootState) => state.mechanicsSlice)
 
-  const { mechanicsData } = useSelector((state: RootState) => state.mechanicSlice)
+  const { mechanicsData } = useSelector((state: RootState) => state.mechanicsSlice)
 
   const [mechanicHoverGif, setMechanicHoverGif] = useState({
     hover: false,

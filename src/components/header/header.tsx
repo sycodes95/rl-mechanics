@@ -3,7 +3,7 @@ import './index.css'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import triangleneon from '../../../assets/images/triangle-neon.png'
-import getUserFromToken from '../../utils/getUserFromToken';
+import getUserFromToken from '../../services/getUserFromToken';
 import ProfileDropMenu from './profileDropMenu';
 
 interface user_details {

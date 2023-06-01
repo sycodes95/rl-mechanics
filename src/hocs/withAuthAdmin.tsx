@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import getUserFromToken from "../utils/getUserFromToken";
+import getUserFromToken from "../services/getUserFromToken";
 
 interface UserDetails {
   user_id: number;

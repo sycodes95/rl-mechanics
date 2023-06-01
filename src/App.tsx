@@ -1,11 +1,11 @@
-import './styles/App.css'
+import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './pages/header';
+import Menu from './components/menu/menu';
 import Register from './pages/register/register';
 import Login from './pages/login/login';
-import Mechanics from './pages/mechanics';
+import Mechanics from './pages/mechanics/mechanics';
 import 'react-tooltip/dist/react-tooltip.css'
-import MechanicDetails from './pages/mechanics/mechanicDetails';
+import MechanicDetails from './pages/mechanicDetails/mechanicDetails';
 
 
 
@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <div id='app' className='flex flex-col w-full min-h-screen bg-gradient'>
         <div>
-          <Header/>
+          <Menu/>
         </div>
         <div className='flex-1 w-full h-full p-12'>
         <Routes>

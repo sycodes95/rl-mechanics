@@ -3,13 +3,13 @@ import Icon from '@mdi/react';
 
 import { ThreeDots } from "react-loader-spinner";
 import { mdiCheckAll } from '@mdi/js';
-import { MechanicData } from "../types";
-import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "../options";
+import { MechanicData } from "../types/types";
+import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsTypeOptions } from "../../../constants/options";
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../../store";
 
-import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../../redux/slices/modalSlice';
+import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../mechanics/slice/mechanicsSlice';
 
 type AddEditMechanicProps = {
   mechanic?: MechanicData;
@@ -19,7 +19,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
   const dispatch = useDispatch()
 
-  const { addMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
+  const { addMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.mechanicsSlice)
 
   const [isFetching, setIsFetching] = useState(false);
 

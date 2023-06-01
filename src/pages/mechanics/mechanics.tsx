@@ -1,20 +1,21 @@
 
-import "./index.css";
+import "./mechanics.css";
 import { useEffect, useRef, useState } from "react";
 
-import MechanicsTable from "./mechanicsTable";
+import MechanicsTable from "../../features/mechanics/components/mechanicsTable";
 import useDebounce from "../../hooks/useDebounce";
 
-import MechanicsFilters from "./mechanicsFilters";
-import getUserFromToken from "../../utils/getUserFromToken";
+import MechanicsFilters from "../../features/mechanics/components/mechanicsFilters";
+import getUserFromToken from "../../services/getUserFromToken";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserDetails } from '../../redux/slices/userSlice';
-import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../redux/slices/modalSlice';
-import { RootState } from "../../redux/store";
-import { clearMechanicsData, setMechanicsData } from "../../redux/slices/mechanicSlice";
+import { setUserDetails } from '../../slices/userSlice';
+import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../features/mechanics/slice/mechanicsSlice';
+import { RootState } from "../../store";
+import { clearMechanicsData, setMechanicsData } from "../../features/mechanics/slice/mechanicsSlice";
 import octane from "../../assets/images/octane.webp"
-import AddEditMechanic from "./addEditMechanic";
+import AddEditMechanic from "../../features/mechanics/components/addEditMechanic";
+import { getMechanics } from "../../features/mechanics/services/getMechanics";
 // import { RootState } from "../../../redux/store";
 
 export type PaginationData = {
@@ -28,11 +29,11 @@ function Mechanics() {
 
   const { user_details } = useSelector((state: RootState) => state.userSlice)
 
-  const { addMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.modalSlice)
+  const { addMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.mechanicsSlice)
 
-  const { filterValues, searchValue, sortColumn } = useSelector((state: RootState) => state.filterSlice)
+  const { filterValues, searchValue, sortColumn } = useSelector((state: RootState) => state.mechanicsSlice)
 
-  const { mechanicsData } = useSelector((state: RootState) => state.mechanicSlice)
+  const { mechanicsData } = useSelector((state: RootState) => state.mechanicsSlice)
 
   const debouncedSearch = useDebounce(searchValue, 300);
   
@@ -47,34 +48,23 @@ function Mechanics() {
   };
 
   useEffect(() => {
-    console.log(filterValues);
-    fetch(
-      `${
-        import.meta.env.VITE_API_HOST_URL
-      }/mechanics-get?searchValue=${debouncedSearch}&filterValues=${JSON.stringify(
-        filterValues
-      )}&sortColumn=${JSON.stringify(
-        sortColumn
-      )}&paginationData=${JSON.stringify(paginationData)}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data && data.mechanics && data.count) {
-          dispatch(setMechanicsData(data.mechanics));
-        } else {
-          dispatch(clearMechanicsData());
-        }
-      })
-      .catch((err) => {
+    const fetchData = async () => {
+      try {
+        const mechanicsData = await getMechanics(
+          debouncedSearch,
+          filterValues,
+          sortColumn,
+          paginationData
+        );
+        dispatch(setMechanicsData(mechanicsData));
+      } catch (err) {
         console.error(err);
-      });
-  }, [
-    debouncedSearch,
-    filterValues,
-    sortColumn,
-    paginationData.pageNumber,
-  ]);
+        dispatch(clearMechanicsData());
+      }
+    };
+
+    fetchData();
+  }, [debouncedSearch, filterValues, sortColumn, paginationData]);
 
   useEffect(() => {
     //if current page number is higher than maximum possible, and there is data, reset pageNumber to 0

@@ -1,4 +1,3 @@
-import { MechanicsDifficultyOptions, MechanicsImportanceOptions, MechanicsStatusOptions, MechanicsTypeOptions } from "./types";
 
 export const mechanicsStatusOptions : string[] = [
   'Consistent',

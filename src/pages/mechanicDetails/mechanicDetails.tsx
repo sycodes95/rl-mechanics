@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import getMechanicDetails from "../../utils/getMechanicDetails";
-import { mechanicsDifficultyOptions } from "./options";
-import { difficultyColors } from "./colors";
-import { importanceColors } from "./colors";
-import { mechanicsImportanceOptions } from "./options";
+import getMechanicDetails from "../../features/mechanicDetails/services/getMechanicDetails";
+import { mechanicsDifficultyOptions } from "../../constants/options";
+import { difficultyColors } from "../../constants/colors";
+import { importanceColors } from "../../constants/colors";
+import { mechanicsImportanceOptions } from "../../constants/options";
 import Clipboard from 'clipboard';
 
 import Icon from '@mdi/react';
@@ -144,10 +144,7 @@ function MechanicDetails() {
               
             </div>
           </div>
-
-         
         </section>
-
         
         <section className="bg-black bg-opacity-25 rounded-md">
           <div className="w-full p-2 overflow-hidden text-xs text-white ">

@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 
 import Icon from '@mdi/react';
 import { mdiMagnify, mdiCloseCircle, mdiCheck, mdiChevronDown, mdiRotateLeft } from '@mdi/js';
-import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions, mechanicsTypeOptions } from "./options";
-import { difficultyColors, importanceColors } from "./colors";
+import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions, mechanicsTypeOptions } from "../../../constants/options";
+import { difficultyColors, importanceColors } from "../../../constants/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { setFilterValues, setSearchValue ,clearSearchValue, clearFilterValues } from "../../redux/slices/filterSlice";
+import { RootState } from "../../../store";
+import { setFilterValues, setSearchValue ,clearSearchValue, clearFilterValues } from "../slice/mechanicsSlice";
 
 
 function MechanicsFilters () {
@@ -15,7 +15,7 @@ function MechanicsFilters () {
 
   const { user_details } = useSelector((state: RootState) => state.userSlice)
   
-  const {filterValues, searchValue} = useSelector((state: RootState) => state.filterSlice);
+  const {filterValues, searchValue} = useSelector((state: RootState) => state.mechanicsSlice);
 
   const [statusFilter, setStatusFilter] = useState(false);
 
