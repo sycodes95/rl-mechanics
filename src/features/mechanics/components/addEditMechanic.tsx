@@ -23,7 +23,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
   const [isFetching, setIsFetching] = useState(false);
 
-  const [fetchSuccessful, setFetchSuccessful] = useState(false);
+  const [fetchSuccessful, setFetchSuccessful] = useState(true);
 
   const [fetchErrors, setFetchErrors] = useState<string[]>([]);
 
@@ -139,23 +139,29 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
         </section>
 
         <section className="flex flex-col w-full gap-2 p-6">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm">mech_name</label>
+            <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
+            name="mech_name" type="text" placeholder="name" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
+          </div>
 
-          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
-          name="mech_name" type="text" placeholder="NAME" value={mechanicData.mech_name ?? ''} onChange={handleInputChange}/>
-          
-          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-          name="mech_url" type="text" placeholder="MECH URL" 
-          value={mechanicData.mech_url} onChange={handleInputChange}/>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm">mech_url</label>
+            <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+            name="mech_url" type="text" placeholder="url" 
+            value={mechanicData.mech_url} onChange={handleInputChange}/>
+          </div>
 
-          <div className="w-full h-32">
+          <div className="flex flex-col w-full h-32 gap-2">
+            <label className="text-sm">mech_description</label>
             <textarea className="w-full h-32 p-1 overflow-y-auto text-xs text-white bg-black rounded-sm resize-none outline outline-1 outline-slate-800"  
             name="mech_description" placeholder="DESCRIPTION" value={mechanicData.mech_description ?? ''} onChange={handleTextAreaChange}/>
           </div>
 
           <div id="add-mechanic-type"
-          className="flex items-center justify-between gap-4 ">
-            <label className="text-xs text-gray-400 whitespace-nowrap">TYPE :</label>
-            <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_type ?? ""} 
+          className="flex flex-col gap-2 ">
+            <label className="text-sm whitespace-nowrap">mech_type</label>
+            <select className="w-full text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_type ?? ""} 
             onChange={(e)=> e.target.value
             ? setMechanicData({...mechanicData, mech_type: e.target.value})
             : setMechanicData({...mechanicData, mech_type:  ""})}>
@@ -172,9 +178,9 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
           </div>
 
           <div id="add-mechanic-difficulty"                                                                               
-          className="flex items-center justify-between gap-4 ">
-            <label className="text-xs text-gray-400 whitespace-nowrap">DIFFICULTY :</label> 
-            <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_difficulty}
+          className="flex flex-col gap-2 ">
+            <label className="text-sm whitespace-nowrap">mech_difficulty</label> 
+            <select className="w-full text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_difficulty}
             onChange={(e)=> setMechanicData({...mechanicData, mech_difficulty: parseInt(e.target.value)})}> 
 
               <option value="0"></option>
@@ -188,9 +194,9 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
           </div>
 
           <div id="add-mechanic-importance"
-          className="flex items-center justify-between gap-4 ">
-            <label className="text-xs text-gray-400 whitespace-nowrap">IMPORTANCE :</label>
-            <select className="w-32 text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_importance}
+          className="flex flex-col gap-2 ">
+            <label className="text-sm whitespace-nowrap">mech_importance</label>
+            <select className="w-full text-sm bg-black border rounded-sm outline-none border-slate-800 focus:outline-none" value={mechanicData.mech_importance}
             onChange={(e)=> setMechanicData({...mechanicData, mech_importance: parseInt(e.target.value)})}>
 
               <option value="0"></option>
@@ -215,67 +221,85 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
           {
           mechanicData.mech_yt_url_controller.map((url: string, index: number) => (
-            <input
-              className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-              name={`mech_yt_url_controller${index}`}
-              type="text"
-              placeholder={`Youtube Controller Url ${index + 1}`}
-              value={url}
-              onChange={e => {
-                let newControllerUrls = [...mechanicData.mech_yt_url_controller];
-                newControllerUrls[index] = e.target.value;
-                setMechanicData({
-                  ...mechanicData,
-                  mech_yt_url_controller: newControllerUrls
-                });
-              }}
-            />
+            <div className="flex flex-col gap-2">
+              {
+              index === 0 &&
+              <label className="text-sm">mech_yt_url_controller</label>
+              }
+              <input
+                className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+                name={`mech_yt_url_controller${index}`}
+                type="text"
+                placeholder={`Youtube Controller Url #${index + 1}`}
+                value={url}
+                onChange={e => {
+                  let newControllerUrls = [...mechanicData.mech_yt_url_controller];
+                  newControllerUrls[index] = e.target.value;
+                  setMechanicData({
+                    ...mechanicData,
+                    mech_yt_url_controller: newControllerUrls
+                  });
+                }}
+              />
+            </div>
           ))}
 
           {
           mechanicData.mech_yt_url_kbm.map((url: string, index: number) => (
-            <input
-              className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-              name={`mech_yt_url_kbm${index}`}
-              type="text"
-              placeholder={`Youtube KBM Url ${index + 1}`}
-              value={url}
-              onChange={e => {
-                let newKbmUrls = [...mechanicData.mech_yt_url_kbm];
-                newKbmUrls[index] = e.target.value;
-                setMechanicData({
-                  ...mechanicData,
-                  mech_yt_url_kbm: newKbmUrls
-                });
-              }}
-            />
+            <div className="flex flex-col gap-2">
+              {
+              index === 0 &&
+              <label className="text-sm">mech_yt_url_kbm</label>
+              }
+              <input
+                className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+                name={`mech_yt_url_kbm${index}`}
+                type="text"
+                placeholder={`Youtube KBM Url ${index + 1}`}
+                value={url}
+                onChange={e => {
+                  let newKbmUrls = [...mechanicData.mech_yt_url_kbm];
+                  newKbmUrls[index] = e.target.value;
+                  setMechanicData({
+                    ...mechanicData,
+                    mech_yt_url_kbm: newKbmUrls
+                  });
+                }}
+              />
+            </div>
           ))}
 
           {
           mechanicData.mech_training_packs.map((pack: string, index: number) => (
-            <input
-              className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-              name={`mech_training_packs${index}`}
-              type="text"
-              placeholder={`Training pack ${index + 1}`}
-              value={pack}
-              onChange={e => {
-                let newMechTrainingPacks = [...mechanicData.mech_training_packs];
-                newMechTrainingPacks[index] = e.target.value;
-                setMechanicData({
-                  ...mechanicData,
-                  mech_training_packs: newMechTrainingPacks
-                });
-              }}
-            />
+            <div className="flex flex-col gap-2">
+              {
+              index === 0 &&
+              <label className="text-sm">mech_training_packs</label>
+              }
+              <input
+                className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
+                name={`mech_training_packs${index}`}
+                type="text"
+                placeholder={`Training pack ${index + 1}`}
+                value={pack}
+                onChange={e => {
+                  let newMechTrainingPacks = [...mechanicData.mech_training_packs];
+                  newMechTrainingPacks[index] = e.target.value;
+                  setMechanicData({
+                    ...mechanicData,
+                    mech_training_packs: newMechTrainingPacks
+                  });
+                }}
+              />
+            </div>
           ))}
 
-          <div className="flex items-center justify-between w-full">
-            <p className="text-xs text-gray-400 whitespace-nowrap">MECH GIF:</p>
-            <input className="text-xs w-44" type="file" name="mech_gif" onChange={handleInputChange}/>
+          <div className="flex flex-col gap-2">
+            <p className="text-sm whitespace-nowrap">mech_gif</p>
+            <input className="w-full text-xs" type="file" name="mech_gif" onChange={handleInputChange}/>
           </div>
 
-          <button className="flex justify-center p-1 text-sm text-black transition-all bg-green-400 rounded-sm hover:bg-green-600" onClick={handleMechanicSubmit}>
+          <button className="flex items-center justify-center h-8 p-1 text-sm text-black transition-all bg-green-400 rounded-sm hover:bg-green-600" onClick={handleMechanicSubmit}>
             {
             !isFetching && !fetchSuccessful &&
             <p>SUBMIT</p>
@@ -283,8 +307,8 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
             {
             isFetching &&
             <ThreeDots 
-            height="24" 
-            width="24" 
+            height="14" 
+            width="14" 
             radius="9"
             color="#000000" 
             ariaLabel="three-dots-loading"
@@ -294,12 +318,12 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
             }
             {
             fetchSuccessful && 
-            <Icon path={mdiCheckAll} size={0.8} />
+            <Icon path={mdiCheckAll} size={0.6} />
             }
             
           </button>
 
-          <button className="p-1 text-sm transition-all bg-red-800 rounded-sm hover:bg-red-700" 
+          <button className="h-8 p-1 text-sm transition-all bg-red-800 rounded-sm hover:bg-red-700" 
           onClick={()=> addMechanicIsOpen ? dispatch(setAddMechanicIsOpen(false)) : dispatch(setEditMechanicIsOpen(false))}>CANCEL</button>
             
           <div id="add-mechanic-fetch-errors">
