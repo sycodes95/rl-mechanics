@@ -16,6 +16,11 @@ type AddEditMechanicProps = {
   mechanic?: MechanicData;
 }
 
+type MechanicPrerequisitesChoices = {
+  mech_name: string;
+  mech_url: string;
+}
+
 function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
   const dispatch = useDispatch()
@@ -24,7 +29,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
   const [isFetching, setIsFetching] = useState(false);
 
-  const [fetchSuccessful, setFetchSuccessful] = useState(true);
+  const [fetchSuccessful, setFetchSuccessful] = useState(false);
 
   const [fetchErrors, setFetchErrors] = useState<string[]>([]);
 
@@ -39,12 +44,16 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     mech_yt_url_controller: Array(3).fill(""),
     mech_yt_url_kbm: Array(3).fill(""),
     mech_training_packs: [],
+    mech_prerequisites: [],
     mech_gif: "",
   });
 
-  const [allMechUrls, setAllMechUrls] = useState<string[]>([])
+  const [mechanicPrerequisitesSelected, setMechanicPrerequisitesSelected] = useState("")
+
+  const [mechanicPrerequisitesChoices, setMechanicPrerequisitesChoices] = useState<MechanicPrerequisitesChoices[]>([])
 
   const [trainingPackCode, setTrainingPackCode] = useState("")
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -76,7 +85,9 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     const formData = new FormData();
 
     Object.keys(mechanicData).forEach((field, index) => {
-      if (field === 'mech_training_packs' || field === 'mech_yt_url_controller' || field === 'mech_yt_url_kbm') {
+      
+      
+      if (Array.isArray(mechanicData[field])) {
         formData.append(field, JSON.stringify(mechanicData[field]));
       }
       else {
@@ -131,12 +142,17 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
   },[mechanicData])
 
   useEffect(()=>{
-    getMechUrls().then(data => setAllMechUrls(data.urls))
+    getMechUrls().then(data => setMechanicPrerequisitesChoices(data))
   },[])
 
   useEffect(()=>{
-    console.log(allMechUrls);
-  },[allMechUrls])
+    console.log(mechanicPrerequisitesChoices);
+  },[mechanicPrerequisitesChoices])
+
+  useEffect(()=>{
+    console.log(mechanicPrerequisitesSelected);
+  },[mechanicPrerequisitesSelected])
+  
   
   
   return (
@@ -222,18 +238,6 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
               }
             </select>
           </div>
-
-          
-
-          
-          
-          {/* <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
-          name="mech_yt_url_controller" type="text" placeholder="YOUTUBE URL CONTROLLER" 
-          value={mechanicData.mech_yt_url_controller} onChange={handleInputChange}/>
-
-          <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-          name="mech_yt_url_kbm" type="text" placeholder="YOUTUBE URL KBM" 
-          value={mechanicData.mech_yt_url_kbm} onChange={handleInputChange}/> */}
           
           {
           mechanicData.mech_yt_url_controller.map((url: string, index: number) => (
@@ -288,22 +292,25 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
           <div className="flex flex-col w-full gap-2">
             <label className="text-sm text-emerald-300">mech_training_packs</label>
             <div className="flex gap-2">
-
-              
               <input className="w-full p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" 
               name="mech_training_packs" type="text" value={trainingPackCode} 
               onChange={(e)=> setTrainingPackCode(e.target.value) } />
-              <button className="p-1 text-xs text-black transition-all duration-500 bg-white rounded-sm hover:bg-green-400" onClick={()=> setMechanicData(()=> {
-                let trainingPacks = [...mechanicData.mech_training_packs];
-                return {...mechanicData, mech_training_packs: [...trainingPacks, trainingPackCode]}
-              })}>      
+              <button
+              className="p-1 text-xs text-black transition-all duration-500 bg-white rounded-sm hover:bg-green-400"
+              onClick={() => {
+                setMechanicData(() => {
+                  let trainingPacks = [...mechanicData.mech_training_packs];
+                  return { ...mechanicData, mech_training_packs: [...trainingPacks, trainingPackCode] };
+                });
+                setTrainingPackCode("");
+              }}> 
                 <p>Submit</p>
               </button>
             </div>
             <div className="flex flex-wrap gap-2">
             {
             mechanicData.mech_training_packs.map((pack: string, index: number) => (
-              <div className="flex justify-between w-full gap-2 p-1 text-xs rounded-md bg-slate-600">
+              <div className="flex justify-between w-full gap-2 p-1 text-xs rounded-md bg-slate-700">
                 <p className="">{pack}</p>
                 <button className="text-white" onClick={()=> setMechanicData(()=> {
                 let trainingPacks = [...mechanicData.mech_training_packs];
@@ -313,30 +320,43 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
               </div>
             ))}
             </div>
-            {/* {
-          mechanicData.mech_training_packs.map((pack: string, index: number) => (
-            <div className="flex flex-col gap-2">
-              {
-              index === 0 &&
-              <label className="text-sm text-emerald-300">mech_training_packs</label>
-              }
-              <input
-                className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800"
-                name={`mech_training_packs${index}`}
-                type="text"
-                placeholder={`Training pack ${index + 1}`}
-                value={pack}
-                onChange={e => {
-                  let newMechTrainingPacks = [...mechanicData.mech_training_packs];
-                  newMechTrainingPacks[index] = e.target.value;
-                  setMechanicData({
-                    ...mechanicData,
-                    mech_training_packs: newMechTrainingPacks
-                  });
-                }}
-              />
+          </div>
+
+          <div className="flex flex-col w-full gap-2 text-sm">
+            <label className="text-sm text-emerald-300">mech_prerequisites</label>
+            <div className="flex w-full gap-2">
+              <select className="w-full bg-black border outline-none border-slate-800" name="mech_prerequisites" value={mechanicPrerequisitesSelected} 
+              onChange={(e)=> setMechanicPrerequisitesSelected(e.target.value)}>
+                <option value=""></option>
+                {
+                mechanicPrerequisitesChoices.map((choice, index) => (
+                  <option value={choice.mech_url}>{choice.mech_url}</option>
+                ))
+                }
+              </select>
+              <button className="p-1 text-xs text-black transition-all duration-500 bg-white rounded-sm hover:bg-green-400" onClick={()=> {
+                setMechanicData(()=> {
+                  let prerequisites = [...mechanicData.mech_prerequisites, mechanicPrerequisitesSelected]
+                  return {...mechanicData, mech_prerequisites: prerequisites}
+                })
+                setMechanicPrerequisitesSelected("")
+              }}>
+                Submit
+              </button>
             </div>
-          ))} */}
+            {
+            mechanicData.mech_prerequisites.map((prerequisite: string, index: number) => (
+              <div className="flex justify-between w-full gap-2 p-1 text-xs rounded-md bg-slate-700">
+                <p className="">{prerequisite}</p>
+                <button className="text-white" onClick={()=> setMechanicData(()=> {
+                let prerequisites = [...mechanicData.mech_prerequisites];
+                prerequisites.splice(index, 1)
+                return {...mechanicData, mech_prerequisites: prerequisites}
+                })}>X</button>
+              </div>
+            ))}
+
+            
           </div>
 
           <div className="flex flex-col gap-2">

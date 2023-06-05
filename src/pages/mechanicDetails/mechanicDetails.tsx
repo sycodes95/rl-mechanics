@@ -22,6 +22,7 @@ type MechanicDetails = {
   mech_yt_url_controller: string[];
   mech_yt_url_kbm: string[];
   mech_training_packs: string[];
+  mech_prerequisites: string[];
 };
 
 function MechanicDetails() {
@@ -47,7 +48,8 @@ function MechanicDetails() {
     mech_url: "", 
     mech_yt_url_controller: Array(3).fill(""),
     mech_yt_url_kbm: Array(3).fill(""),
-    mech_training_packs: Array(8).fill("")
+    mech_training_packs: [],
+    mech_prerequisites: []
   });
 
   

@@ -13,6 +13,7 @@ export type MechanicData = {
   mech_gif?: File | string;
   mech_training_packs: string[];
   mech_gif_url?: string;
+  mech_prerequisites: string[];
   [key: string] : any;
 }  
 
