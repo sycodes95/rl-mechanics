@@ -6,6 +6,7 @@ import Login from './pages/login/login';
 import Mechanics from './pages/mechanics/mechanics';
 import 'react-tooltip/dist/react-tooltip.css'
 import MechanicDetails from './pages/mechanicDetails/mechanicDetails';
+import Footer from './components/footer/footer';
 
 
 
@@ -17,7 +18,7 @@ function App() {
         <div>
           <Menu/>
         </div>
-        <div className='flex-1 p-8'>
+        <div className='flex-1 p-12 mb-12'>
         <Routes>
           <Route path='/' element={<Mechanics/>}/>
           <Route path='/mechanics' element={<Mechanics/>}/>
@@ -25,6 +26,9 @@ function App() {
           <Route path='/register' element={<Register/>}/>
           <Route path='/log-in' element={<Login/>}/>
         </Routes>
+        </div>
+        <div>
+          <Footer/>
         </div>
       </div>
     </BrowserRouter>

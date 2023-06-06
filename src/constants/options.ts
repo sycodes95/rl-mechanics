@@ -10,13 +10,13 @@ export const mechanicsDifficultyOptions: {[key: number]: string} = {
   2 : 'Easy',
   3 : 'Medium' ,
   4 : 'Hard',
-  5 : 'Insane',
+  5 : 'Extreme',
 };
 
 export const mechanicsImportanceOptions: {[key: number]: string} = {
-  1 : 'Not Useful',
-  2 : 'Not Needed',
-  3 : 'Situational',
+  1 : 'Ineffective',
+  2 : 'Situational',
+  3 : 'Beneficial',
   4 : 'Important',
   5 : 'Essential',
 };

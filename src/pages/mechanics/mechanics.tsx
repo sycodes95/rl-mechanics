@@ -41,9 +41,14 @@ function Mechanics() {
   
   const [paginationData, setPaginationData] = useState<PaginationData>({
     pageNumber: 0,
-    pageSize: 1,
+    pageSize: 50,
     totalCount: null,
   });
+
+  const [paginationShowing, setPaginationShowing] = useState({
+    a: 0,
+    b: 0
+  })
 
   const handlePageChange = (page: number) => {
     setPaginationData({ ...paginationData, pageNumber: page });
@@ -83,6 +88,14 @@ function Mechanics() {
         setPaginationData({ ...paginationData, pageNumber: 0 });
     }
   }, [paginationData.totalCount]);
+
+  useEffect(() => {
+    //if current page number is higher than maximum possible, and there is data, reset pageNumber to 0
+    let a = (paginationData.pageNumber * paginationData.pageSize) + 1;
+    let b = (paginationData.pageNumber * paginationData.pageSize) + paginationData.pageSize;
+    if(paginationData.totalCount && b > paginationData.totalCount) b = paginationData.totalCount;
+    setPaginationShowing({a, b})
+  }, [paginationData]);
 
   
 
@@ -126,7 +139,10 @@ function Mechanics() {
           <MechanicsTable/>
         </section>
 
-        <section className="flex justify-end w-full">
+        <section className="flex justify-between w-full">
+          <div>
+            <p className="text-sm font-rajdhani">Showing {paginationShowing.a} to {paginationShowing.b} of {paginationData.totalCount}</p>
+          </div>
           {
           paginationData.totalCount &&
           <ReactPaginate

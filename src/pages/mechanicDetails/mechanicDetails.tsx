@@ -95,7 +95,7 @@ function MechanicDetails() {
       <div className="flex flex-col w-full max-w-5xl gap-4 rounded-md ">
 
         <section className="flex justify-between"> 
-          <div className="flex items-end text-3xl font-thin text-white font-enigma">
+          <div className="flex items-end text-2xl font-thin text-white font-enigma">
             {mechanicDetails?.mech_name} 
           </div>
           

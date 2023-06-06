@@ -38,13 +38,13 @@ function Menu() {
   },[user_details])
 
   return(
-    <div className='z-40 flex items-center justify-center w-full h-16 pl-16 pr-16 bg-black border-b border-black bg-opacity-30 border-opacity-30'>
+    <div className='z-40 flex items-center justify-center w-full h-16 pl-16 pr-16 bg-black bg-opacity-50'>
 
       <div className='flex justify-between w-full max-w-5xl'>
 
         <section className='flex items-center w-full h-full gap-x-2' >
 
-          <Link to='/' className='relative items-center hidden h-full gap-4 text-white text-opacity-0 transition-all duration-500 whitespace-nowrap font-1vw sm:flex font-ocera font-cyan-outline hover:text-opacity-25 '>
+          <Link to='/' className='relative items-center hidden h-full gap-4 transition-all text-emerald-400 whitespace-nowrap font-1vw sm:flex font-nakelin hover:text-opacity-50 '>
             <img className='h-8 -rotate-45' src={greenRocket} alt='green-rocket'/>
             <p>RL MECHANICS</p>
           </Link>

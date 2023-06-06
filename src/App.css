@@ -32,6 +32,11 @@
   
 }
 
+.font-nakelin{
+  font-family: Nakelin, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+}
+
 .font-white-outline{
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: rgb(255, 255, 255);
@@ -58,7 +63,7 @@
 }
 
 .font-1vw{
-  font-size: clamp(1.25rem, 1.5vw, 2rem);
+  font-size: clamp(1.25rem, 2vw, 3rem);
 }
 
 /* SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR */
@@ -74,7 +79,7 @@
 }
 
 ::-webkit-scrollbar-thumb{
-  background-color: rgb(142, 141, 141);
+  background-color: rgb(2, 2, 2);
 }
 
 
@@ -106,19 +111,6 @@
 .bg-dot{
   background: url(../assets/bg-patterns/dot-grid.webp);
   background-repeat:repeat;
-}
-
-.bg-bean{
-  background: url(../assets/bg-patterns/beanstalk.webp);
-  background-repeat:repeat;
-}
-
-.bg-jet-light{
-  background-color: rgb(37, 40, 48);
-}
-
-.bg-brown-plum-gradient{
-  background: rgb(39, 38, 45)
 }
 
 /* .bg-gradient{

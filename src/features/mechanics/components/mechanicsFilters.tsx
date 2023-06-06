@@ -162,7 +162,7 @@ function MechanicsFilters () {
             Object.keys(mechanicsImportanceOptions).map((option, index) => (
               <li className={`flex justify-between hover:bg-black border-l border-green-400 border-opacity-0 hover:bg-opacity-25 hover:border-opacity-100 w-full p-1 whitespace-nowrap`} 
               onClick={()=> dispatch(setFilterValues({...filterValues, mech_importance: option}))}>
-                <p className={``}>{mechanicsImportanceOptions[Number(option)]}</p>
+                <p className={`${importanceColors[Number(option)]}`}>{mechanicsImportanceOptions[Number(option)]}</p>
                 {
                 filterValues.mech_importance === option &&
                 <div className={`flex items-center text-green-400`}><Icon path={mdiCheck} size={0.6} /></div>

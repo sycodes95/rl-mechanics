@@ -17,6 +17,11 @@
   src: url(/src/assets/fonts/Enigma.ttf);
 }
 
+@font-face {
+  font-family: Nakelin;
+  src: url(/src/assets/fonts/Nakelin.ttf);
+}
+
 
 
 
