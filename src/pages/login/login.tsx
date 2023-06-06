@@ -58,8 +58,8 @@ function Login (){
   }
 
   return (
-    <div className="relative flex items-center justify-center w-full h-full p-4 ">
-      <div className="fixed flex items-center h-full max-w-5xl top-1/3 -translate-y-1/3">
+    <div className="absolute top-0 left-0 flex items-center justify-center flex-grow w-full h-full p-4 ">
+      <div className="flex items-center h-full max-w-5xl">
       
     
         <form className="flex flex-col gap-4 p-6 bg-black rounded-md bg-opacity-40 sm:w-96 w-95pct">
@@ -69,12 +69,12 @@ function Login (){
           </div>
           <div className="p-2 text-4xl font-bold text-center text-green-400 text-opacity-0 rounded-md font-cyan-outline font-ocera">LOG IN</div>
           
-          <input className="p-2 text-xs text-white transition-all duration-500 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
+          <input className="p-2 text-xs text-white transition-all duration-200 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
           name="user_email" type="text" value={loginData.user_email} placeholder="EMAIL"
           required 
           onChange={handleInputChange}/>
 
-          <input className="p-2 text-xs text-white transition-all duration-500 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
+          <input className="p-2 text-xs text-white transition-all duration-200 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
           name="user_password" type="password" value={loginData.user_password} 
           placeholder="PASSWORD" required
           

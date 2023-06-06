@@ -93,41 +93,41 @@ function Register () {
   };
 
   return (
-    <div className="relative flex items-center justify-center flex-grow w-full p-4 ">
-      <div className="flex justify-between max-w-7xl">
+    <div className="absolute top-0 left-0 flex items-center justify-center flex-grow w-full h-full p-4 ">
+      <div className="flex items-center h-full max-w-5xl">
         
       
-        <form className="absolute flex flex-col gap-4 p-6 -translate-x-1/2 rounded-md sm:w-96 w-95pct top-1/3 -translate-y-1/3 bg-jet-dark">
+        <form className="flex flex-col gap-4 p-6 bg-black rounded-md bg-opacity-40 sm:w-96 w-95pct h-fit">
           <div className="flex justify-center w-full">   
-            <ReactSVG className="text-orange-400 fill-current "  src={twodown}/>
+            <ReactSVG className="text-white fill-current "  src={twodown}/>
             
           </div>
-          <div className="p-2 text-4xl font-bold text-center text-white text-orange-400 rounded-md">REGISTRATION</div>
+          <div className="p-2 text-2xl font-bold text-center text-white text-opacity-0 rounded-md font-ocera font-white-outline">REGISTRATION</div>
           
-          <input className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-orange-400" 
+          <input className="p-2 text-xs text-white transition-all duration-200 bg-black rounded-md bg-opacity-30 caret-white outline-1 outline outline-gray-800 focus:outline-white" 
           name="user_email" type="text" value={registerationData.user_email} placeholder="EMAIL"
           required 
           onChange={handleInputChange}/>
 
-          <input className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-orange-400" 
+          <input className="p-2 text-xs text-white transition-all duration-200 bg-black rounded-md bg-opacity-30 caret-white outline-1 outline outline-gray-800 focus:outline-white" 
           name="user_password" type="password" value={registerationData.user_password} 
           placeholder="PASSWORD (MIN 8 CHARACTERS)" required
           
           onChange={handleInputChange}/>
           
-          <input className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-orange-400" 
+          <input className="p-2 text-xs text-white transition-all duration-200 bg-black rounded-md bg-opacity-30 caret-white outline-1 outline outline-gray-800 focus:outline-white" 
           name="user_confirm_password" type="password" value={registerationData.user_confirm_password} 
           placeholder="CONFIRM PASSWORD "
           required
           onChange={handleInputChange}/>
 
           
-          <select className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-orange-400" name="user_rank" value={registerationData.user_rank} 
+          <select className="p-2 text-xs text-white transition-all duration-200 bg-black rounded-md bg-opacity-30 caret-white outline-1 outline outline-gray-800 focus:outline-white" name="user_rank" value={registerationData.user_rank} 
           onChange={handleInputChange}>
             <option className="rounded-md" hidden>Highest Rank</option>
             {
             rankOptions.map((option, index) => (
-            <option key={index} value={option}>{option}</option>
+            <option className="bg-black" key={index} value={option}>{option}</option>
             ))
             }
             

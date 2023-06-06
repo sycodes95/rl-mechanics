@@ -64,8 +64,8 @@ function DeleteMechanic ({ mechanic } : DeleteMechanicProps) {
       mechanic &&
       <div id="delete-mechanic-modal-container" 
       className="fixed flex flex-col text-white -translate-x-1/2 -translate-y-1/2 bg-black rounded-md top-1/2 left-1/2">
-        <section className="flex items-center justify-between pl-4 pr-4 text-xl bg-red-800 rounded-sm">
-          <p className="font-bold text-black">DELETE MECHANIC</p>
+        <section className="flex items-center justify-between p-4 text-xl rounded-sm">
+          <p className="text-red-500 ">Confirm</p>
           <button className="text-sm font-bold text-black" onClick={handleClose}>X</button>
           
         </section>
@@ -75,15 +75,15 @@ function DeleteMechanic ({ mechanic } : DeleteMechanicProps) {
 
           <div className="flex flex-col gap-2"> 
             
-            <div className="flex gap-2">
-              <p>NAME:</p>
-              <div className="flex whitespace-pre-wrap break-word">{mechanic.mech_name && mechanic.mech_name.toUpperCase()}</div> 
+            <div className="flex gap-2 text-sm">
+              <p>Name:</p>
+              <div className="flex whitespace-pre-wrap break-word">{mechanic.mech_name && mechanic.mech_name}</div> 
             </div>
           </div>
           
           <div className="flex justify-end gap-4">
             <button className="w-24 text-gray-400 transition-all hover:text-gray-200" onClick={handleClose}>CANCEL</button>
-            <button className="flex justify-center w-24 p-2 text-black transition-all bg-red-800 rounded-sm hover:bg-red-900"
+            <button className="flex justify-center w-24 p-2 text-black transition-all bg-red-500 rounded-sm hover:bg-red-900"
             onClick={handleDeleteMechanicSubmit}>
               {
                 !deleteIsLoading && !deleteIsSuccessful &&
