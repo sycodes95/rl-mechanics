@@ -47,6 +47,11 @@
   -webkit-text-stroke-color: rgb(0, 255, 140);
 }
 
+.font-cyan-outline{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(24, 255, 167);
+}
+
 .font-black-outline{
   text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, rgb(0, 0, 0) 1px 0 4px,
   rgb(0, 0, 0) 1px 0 1px ; 
@@ -121,7 +126,7 @@
 } */
 
 .bg-gradient{
-  background:linear-gradient(rgba(51, 70, 76, 0.8), rgba(51, 70, 76, 0.6)), url(../../src/assets/bg-patterns/subtle_carbon.webp);
+  background:linear-gradient(rgba(51, 59, 76, 0.8), rgba(51, 70, 76, 0.6)), url(../../src/assets/bg-patterns/subtle_carbon.webp);
 }
 
 .bg-gradient-green-blue{
@@ -176,6 +181,9 @@
   }
   .mw-480px-w-95pct{
     max-width: 95vw;
+  }
+  .mw-480px-w-full{
+    width: 100%;
   }
 }
 

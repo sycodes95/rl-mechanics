@@ -9,6 +9,7 @@ import YouTube from 'react-youtube';
 import ReactPlayer from 'react-player';
 import Icon from '@mdi/react';
 import { mdiContentCopy, mdiCheckBold, mdiKeyboard, mdiController } from '@mdi/js';
+import { getMechUrls } from "../../features/mechanics/services/getMechUrls";
 
 
 type MechanicDetails = {
@@ -38,6 +39,8 @@ function MechanicDetails() {
 
   const [descriptionReadMore, setDescriptionReadMore] = useState(false)
 
+  const [mechanicPrerequisites, setMechanicPrerequisites] = useState([])
+
   const [mechanicDetails, setMechanicDetails] = useState<MechanicDetails>({
     mech_created_at: "",
     mech_description: "",
@@ -58,6 +61,7 @@ function MechanicDetails() {
       getMechanicDetails(mech_url)?.then((details) =>
         setMechanicDetails(details)
       );
+      getMechUrls().then(urls => setMechanicPrerequisites(urls))
   }, [mech_url]);
 
   useEffect(()=>{
@@ -91,29 +95,13 @@ function MechanicDetails() {
       <div className="flex flex-col w-full max-w-5xl gap-4 rounded-md ">
 
         <section className="flex justify-between"> 
-          <div className="flex items-end text-xl font-thin text-white font-enigma">
+          <div className="flex items-end text-3xl font-thin text-white font-enigma">
             {mechanicDetails?.mech_name} 
           </div>
           
-          <div className="flex justify-between gap-4 p-2 text-sm text-white bg-black rounded-md bg-opacity-20">
-            <div className="flex justify-between gap-2 pl-2 pr-2 bg-black bg-opacity-25 rounded-md">
-              <p className="text-gray-500">Difficulty:</p>
-              <p className={`${difficultyColors[mechanicDetails?.mech_difficulty]}`}>{mechanicsDifficultyOptions[mechanicDetails?.mech_difficulty]}</p>
-            </div>
-            <div className="flex justify-between gap-2 pl-2 pr-2 bg-black bg-opacity-25 rounded-md">
-              <p className="text-gray-500">Importance:</p>
-              <p className={`${importanceColors[mechanicDetails?.mech_importance]}`}>{mechanicsImportanceOptions[mechanicDetails?.mech_importance]}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Rated Diff.: N/A</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Rated Imp: N/A.</p>
-            </div>
-          </div>
         </section>
 
-        <section className="flex h-full gap-2 p-2 bg-black bg-opacity-25 rounded-md">
+        <section className="flex h-full gap-2 p-2 bg-black rounded-md bg-opacity-70">
           <div className="relative w-full rounded-md ">
             <div className="relative bg-black bg-opacity-50 h-96">
             {mechanicDetails?.mech_yt_url_controller && (
@@ -125,15 +113,6 @@ function MechanicDetails() {
                   controls
                 />
               )
-              // <YouTube className="h-96"
-              //   videoId="FbPHl2IGdKE"
-              //   opts={{ width: '100%', height: '100%' }}
-              // />
-              // <div className="h-96"
-              //   dangerouslySetInnerHTML={{
-              //     __html: showVideo,
-              //   }}
-              // ></div>
             )}
             </div>
             {
@@ -157,83 +136,120 @@ function MechanicDetails() {
               </div>
               {
               showControllerVideos &&
-              <div className="flex gap-4">
+              <ul className="flex gap-4 ">
                 {
                 mechanicDetails.mech_yt_url_controller.length &&
                 mechanicDetails.mech_yt_url_controller.map((url, index) => (
                   url &&
-                  <button className={`w-6 h-6 flex items-center text-white text-opacity-0 font-green-outline justify-center rounded-sm hover:text-green-400 font-ocera text-3xl 
-                  `}
-                  onClick={()=> setShowVideo(url)}>{index + 1}</button>
+                  <li className={`w-6 h-6 flex items-center text-green-400 text-opacity-0 font-green-outline justify-center rounded-sm hover:text-green-400 font-enigma text-3xl 
+                  cursor-pointer ${showVideo === url && 'text-opacity-100'}`}
+                  onClick={()=> setShowVideo(url)}>{index + 1}</li>
                 ))
                 }
-              </div>
+              </ul>
               }
 
               {
               showKbmVideos &&
-              <div className="flex gap-2">
+              <ul className="flex gap-2">
               {
               showKbmVideos &&
               mechanicDetails.mech_yt_url_kbm.length &&
               mechanicDetails.mech_yt_url_kbm.map((url, index) => (
                 url &&
-                <button className={`w-6 h-6 flex items-center justify-center rounded-sm hover:bg-white font-ocera 
-                ${showVideo === url && 'bg-white'} ${showVideo !== url && 'bg-gray-500'}`}
-                onClick={()=> setShowVideo(url)}>{index + 1}</button>
+                <li className={`w-6 h-6 flex items-center text-green-400 text-opacity-0 font-green-outline justify-center rounded-sm hover:text-green-400 font-enigma text-3xl 
+                cursor-pointer ${showVideo === url && 'text-opacity-100'}`}
+                onClick={()=> setShowVideo(url)}>{index + 1}</li>
               ))
               }
-              </div>
+              </ul>
               }
             </nav>
             }
             
           </div>
+          
+        </section>
 
-          <div className="flex flex-col gap-2 p-2 overflow-x-hidden overflow-y-auto bg-black bg-opacity-25 rounded-md w-80">
-            <p className="flex justify-center p-2 text-sm text-white bg-opacity-50 border border-green-400 rounded-md whitespace-nowrap">Related Training Packs</p>
-            <div className="flex flex-col gap-2 ">
-              {
-              mechanicDetails.mech_training_packs.map((packCode, index) => (
-                packCode !== "" && (
-                  <button className="relative flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md hover:bg-gray-200 hover:bg-opacity-10" key={index} 
-                  onClick={()=> {
-                    navigator.clipboard.writeText(packCode)
-                    setTrainingPackToCopy(packCode)
-                  }}>
-                    {
-                    trainingPackToCopy === packCode &&
-                    <div className="absolute left-0 z-50 flex items-center justify-center w-full h-4 mt-1 text-xs text-green-700 bg-white rounded-md backdrop-blur-sm top-full">Copied</div>
-                    }
-                    {
-                    trainingPackToCopy !== packCode &&
-                    <Icon path={mdiContentCopy} size={0.6} />
-                    }
-                    {
-                    trainingPackToCopy === packCode &&
-                    <Icon className="text-green-500" path={mdiCheckBold} size={0.6} />
-                    }
-                    <p>{packCode}</p>
-                  </button>
-                )
-              ))
-              }
-              
+        <section className="grid w-full grid-cols-3 gap-4 rounded-md h-fit">
+          <div className="flex flex-col justify-between gap-2 text-sm text-white h-fit">
+            <label className="text-xl text-green-400">Info</label>
+            <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-md ">
+              <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
+                <p className="text-gray-500 ">Difficulty</p>
+                <p className={`${difficultyColors[mechanicDetails?.mech_difficulty]}`}><em>{mechanicsDifficultyOptions[mechanicDetails?.mech_difficulty]}</em></p>
+              </div>
+              <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
+                <p className="text-gray-500">Importance</p>
+                <p className={`${importanceColors[mechanicDetails?.mech_importance]}`}><em>{mechanicsImportanceOptions[mechanicDetails?.mech_importance]}</em></p>
+              </div>
+              <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
+                <p className="text-gray-500">Rated Diff.</p>
+                <p className="text-gray-500">N/A</p>
+              </div>
+              <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
+                <p className="text-gray-500">Rated Imp.</p>
+                <p className="text-gray-500">N/A</p>
+              </div>
+            </div>
+            <div className="flex flex-col w-full gap-2 rounded-md">
+              <label className="text-lg text-green-400">Training Packs</label>
+              <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-md">
+                {
+                mechanicDetails.mech_training_packs &&
+                mechanicDetails.mech_training_packs.map((packCode, index) => (
+                  packCode !== "" && (
+                    <button className="relative flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md hover:bg-gray-200 hover:bg-opacity-10" key={index} 
+                    onClick={()=> {
+                      navigator.clipboard.writeText(packCode)
+                      setTrainingPackToCopy(packCode)
+                    }}>
+                      {
+                      trainingPackToCopy !== packCode &&
+                      <Icon path={mdiContentCopy} size={0.6} />
+                      }
+                      {
+                      trainingPackToCopy === packCode &&
+                      <Icon className="text-green-500" path={mdiCheckBold} size={0.6} />
+                      }
+                      <p>{packCode}</p>
+                    </button>
+                  )
+                ))
+                }
+                
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2 text-sm ">
+              <label className="text-lg text-green-400 ">Recommended Prerequisites</label>
+              <div className="flex flex-col w-full gap-2 p-2 bg-black rounded-md bg-opacity-70">
+                {
+                mechanicDetails.mech_prerequisites ?
+                mechanicDetails.mech_prerequisites.map((prereq, index) => (
+                  <a className="w-full p-1 text-center text-black transition-all bg-gray-500 rounded-md cursor-pointer hover:bg-gray-300 " 
+                  key={index} href={`/mechanics/${prereq}`} target="_blank">{prereq}</a>
+                ))
+                :
+                <p>N/A</p>
+                }
+              </div>
+            </div>
+
+          </div>
+
+          <div className="flex flex-col w-full col-span-2 gap-2 overflow-hidden text-xs text-white">
+            <p className="text-xl text-green-400 ">
+              Description
+            </p>
+            <div className="p-2 text-sm whitespace-pre-line bg-black bg-opacity-50 rounded-md overflow-ellipsis">
+              {mechanicDetails?.mech_description}
             </div>
           </div>
-        </section>
-        
-        <section className="bg-black bg-opacity-25 rounded-md">
-          <div className="w-full p-2 overflow-hidden text-xs text-white ">
-            <p className="p-2 text-xl font-bold text-gray-500 text-opacity-25">
-              DESCRIPTION
-            </p>
-            <p className="p-2 text-sm whitespace-pre-line overflow-ellipsis">
-              {mechanicDetails?.mech_description}
-            </p>
-          </div>
 
         </section>
+
+        
       </div>
     </div>
   );

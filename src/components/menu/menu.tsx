@@ -44,7 +44,7 @@ function Menu() {
 
         <section className='flex items-center w-full h-full gap-x-2' >
 
-          <Link to='/' className='items-center hidden h-full gap-4 text-white text-opacity-0 transition-all duration-500 whitespace-nowrap font-1vw sm:flex font-ocera font-gray-outline hover:text-opacity-25'>
+          <Link to='/' className='items-center hidden h-full gap-4 text-white text-opacity-0 transition-all duration-500 whitespace-nowrap font-1vw sm:flex font-ocera font-cyan-outline hover:text-opacity-25'>
             <img className='h-8' src={octaneTransparent} alt='octane-image'/>
             RL MECHANICS
           </Link>

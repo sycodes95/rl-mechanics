@@ -345,6 +345,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
               </button>
             </div>
             {
+              mechanicData.mech_prerequisites &&
             mechanicData.mech_prerequisites.map((prerequisite: string, index: number) => (
               <div className="flex justify-between w-full gap-2 p-1 text-xs rounded-md bg-slate-700">
                 <p className="">{prerequisite}</p>

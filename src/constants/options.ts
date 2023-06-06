@@ -36,4 +36,5 @@ export const mechanicsTypeOptions: string[] = [
   'Air Dribbles',
   'Flip Reset',
   'Backboard',
+  'Misc'
 ]
