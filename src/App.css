@@ -39,7 +39,7 @@
 
 .font-gray-outline{
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: rgb(128, 128, 128);
+  -webkit-text-stroke-color: rgb(147, 147, 147);
 }
 
 .font-green-outline{
@@ -173,6 +173,9 @@
   .mw-768px-w-full{
     width: 100%;
   }
+  .mw-768px-grid-cols-1{
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -185,6 +188,7 @@
   .mw-480px-w-full{
     width: 100%;
   }
+  
 }
 
 

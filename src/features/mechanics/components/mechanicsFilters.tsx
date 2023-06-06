@@ -157,7 +157,7 @@ function MechanicsFilters () {
           </div>
           {
           importanceFilter &&
-          <ul className="absolute left-0 w-32 p-1 mt-1 bg-black rounded-sm top-full backdrop-blur-sm" >
+          <ul className="absolute left-0 z-10 w-32 p-1 mt-1 bg-black rounded-sm top-full backdrop-blur-sm" >
             {
             Object.keys(mechanicsImportanceOptions).map((option, index) => (
               <li className={`flex justify-between hover:bg-black border-l border-green-400 border-opacity-0 hover:bg-opacity-25 hover:border-opacity-100 w-full p-1 whitespace-nowrap`} 

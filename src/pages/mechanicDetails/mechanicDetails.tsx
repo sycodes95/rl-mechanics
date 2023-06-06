@@ -101,8 +101,8 @@ function MechanicDetails() {
           
         </section>
 
-        <section className="flex h-full gap-2 p-2 bg-black rounded-md bg-opacity-70">
-          <div className="relative w-full rounded-md ">
+        <section className="flex h-full gap-2 p-2 bg-black rounded-sm bg-opacity-70">
+          <div className="relative w-full">
             <div className="relative bg-black bg-opacity-50 h-96">
             {mechanicDetails?.mech_yt_url_controller && (
               showVideo && (
@@ -119,6 +119,9 @@ function MechanicDetails() {
             
             <nav className="z-50 flex items-center justify-between w-full gap-2 pl-4 pr-4 text-xs bg-black ">
               <div className="flex gap-2 text-white">
+                {
+                mechanicDetails.mech_yt_url_controller.some(el => el !== "") &&
+                
                 <button className="flex items-center gap-1 p-1 text-gray-500 rounded-md hover:text-green-400"
                 onClick={()=> {
                   setShowKbmVideos(false) 
@@ -126,12 +129,17 @@ function MechanicDetails() {
                 }}>
                   <Icon className={`${showControllerVideos && 'text-green-400'}`} path={mdiController} size={2}/>
                 </button>
+                }
+                {
+                mechanicDetails.mech_yt_url_kbm.some(el => el !== "") &&
+                
                 <button className="flex items-center gap-2 text-gray-500 hover:text-green-400" onClick={()=> {
                   setShowKbmVideos(true) 
                   setShowControllerVideos(false)
                 }}>
                   <Icon className={`${showKbmVideos && 'text-green-400'}`} path={mdiKeyboard} size={2}/>
                 </button>
+                }
 
               </div>
               {
@@ -171,35 +179,38 @@ function MechanicDetails() {
           
         </section>
 
-        <section className="grid w-full grid-cols-3 gap-4 rounded-md h-fit">
-          <div className="flex flex-col justify-between gap-2 text-sm text-white h-fit">
-            <label className="text-xl text-green-400">Info</label>
-            <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-md ">
-              <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
-                <p className="text-gray-500 ">Difficulty</p>
-                <p className={`${difficultyColors[mechanicDetails?.mech_difficulty]}`}><em>{mechanicsDifficultyOptions[mechanicDetails?.mech_difficulty]}</em></p>
-              </div>
-              <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
-                <p className="text-gray-500">Importance</p>
-                <p className={`${importanceColors[mechanicDetails?.mech_importance]}`}><em>{mechanicsImportanceOptions[mechanicDetails?.mech_importance]}</em></p>
-              </div>
-              <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
-                <p className="text-gray-500">Rated Diff.</p>
-                <p className="text-gray-500">N/A</p>
-              </div>
-              <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
-                <p className="text-gray-500">Rated Imp.</p>
-                <p className="text-gray-500">N/A</p>
+        <section className="grid w-full grid-cols-none gap-4 rounded-md md:grid-cols-3 h-fit">
+          <div className="flex flex-col justify-between w-full gap-2 text-sm text-white h-fit">
+            
+            <div className="flex flex-col gap-2 ">
+              <label className="text-green-400 text-md font-enigma">Info</label>
+              <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-sm">
+                <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
+                  <p className="text-gray-500 ">Difficulty</p>
+                  <p className={`${difficultyColors[mechanicDetails?.mech_difficulty]}`}><em>{mechanicsDifficultyOptions[mechanicDetails?.mech_difficulty]}</em></p>
+                </div>
+                <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
+                  <p className="text-gray-500">Importance</p>
+                  <p className={`${importanceColors[mechanicDetails?.mech_importance]}`}><em>{mechanicsImportanceOptions[mechanicDetails?.mech_importance]}</em></p>
+                </div>
+                <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
+                  <p className="text-gray-500">Rated Diff.</p>
+                  <p className="text-gray-500">N/A</p>
+                </div>
+                <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
+                  <p className="text-gray-500">Rated Imp.</p>
+                  <p className="text-gray-500">N/A</p>
+                </div>
               </div>
             </div>
-            <div className="flex flex-col w-full gap-2 rounded-md">
-              <label className="text-lg text-green-400">Training Packs</label>
-              <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-md">
+            <div className="flex flex-col w-full gap-2">
+              <label className="text-green-400 text-md font-enigma">Training Packs</label>
+              <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-sm">
                 {
                 mechanicDetails.mech_training_packs &&
                 mechanicDetails.mech_training_packs.map((packCode, index) => (
                   packCode !== "" && (
-                    <button className="relative flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-md hover:bg-gray-200 hover:bg-opacity-10" key={index} 
+                    <button className="relative flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-sm hover:bg-gray-200 hover:bg-opacity-10" key={index} 
                     onClick={()=> {
                       navigator.clipboard.writeText(packCode)
                       setTrainingPackToCopy(packCode)
@@ -222,12 +233,12 @@ function MechanicDetails() {
             </div>
 
             <div className="flex flex-col gap-2 text-sm ">
-              <label className="text-lg text-green-400 ">Recommended Prerequisites</label>
-              <div className="flex flex-col w-full gap-2 p-2 bg-black rounded-md bg-opacity-70">
+              <label className="text-green-400 text-md font-enigma">Prerequisites</label>
+              <div className="flex flex-col w-full gap-2 p-2 bg-black bg-opacity-50 rounded-sm">
                 {
                 mechanicDetails.mech_prerequisites ?
                 mechanicDetails.mech_prerequisites.map((prereq, index) => (
-                  <a className="w-full p-1 text-center text-black transition-all bg-gray-500 rounded-md cursor-pointer hover:bg-gray-300 " 
+                  <a className="w-full p-1 text-center text-black transition-all bg-gray-500 rounded-sm cursor-pointer hover:bg-gray-300 " 
                   key={index} href={`/mechanics/${prereq}`} target="_blank">{prereq}</a>
                 ))
                 :
@@ -238,11 +249,11 @@ function MechanicDetails() {
 
           </div>
 
-          <div className="flex flex-col w-full col-span-2 gap-2 overflow-hidden text-xs text-white">
-            <p className="text-xl text-green-400 ">
+          <div className="flex flex-col w-full gap-2 overflow-hidden text-white md:col-span-2">
+            <label className="text-sm text-green-400 font-enigma">
               Description
-            </p>
-            <div className="p-2 text-sm whitespace-pre-line bg-black bg-opacity-50 rounded-md overflow-ellipsis">
+            </label>
+            <div className="p-2 text-sm whitespace-pre-line bg-black bg-opacity-50 rounded-sm overflow-ellipsis">
               {mechanicDetails?.mech_description}
             </div>
           </div>

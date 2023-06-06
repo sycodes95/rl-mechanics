@@ -58,23 +58,23 @@ function Login (){
   }
 
   return (
-    <div className="relative flex items-center justify-center flex-grow w-full p-4 ">
-      <div className="flex justify-between max-w-7xl">
+    <div className="relative flex items-center justify-center w-full h-full p-4 ">
+      <div className="fixed flex items-center h-full max-w-5xl top-1/3 -translate-y-1/3">
       
     
-        <form className="absolute flex flex-col gap-4 p-6 -translate-x-1/2 rounded-md sm:w-96 w-95pct top-1/3 -translate-y-1/3 bg-jet-dark">
+        <form className="flex flex-col gap-4 p-6 bg-black rounded-md bg-opacity-40 sm:w-96 w-95pct">
           <div className="flex justify-center w-full">   
-            <ReactSVG className="text-green-300 fill-current "  src={twodown}/>
+            <ReactSVG className="text-green-400 fill-current "  src={twodown}/>
             
           </div>
-          <div className="p-2 text-4xl font-bold text-center text-green-300 rounded-md">LOG IN</div>
+          <div className="p-2 text-4xl font-bold text-center text-green-400 text-opacity-0 rounded-md font-cyan-outline font-ocera">LOG IN</div>
           
-          <input className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
+          <input className="p-2 text-xs text-white transition-all duration-500 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
           name="user_email" type="text" value={loginData.user_email} placeholder="EMAIL"
           required 
           onChange={handleInputChange}/>
 
-          <input className="p-2 text-xs text-white transition-all duration-500 rounded-md bg-jet-dark caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
+          <input className="p-2 text-xs text-white transition-all duration-500 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
           name="user_password" type="password" value={loginData.user_password} 
           placeholder="PASSWORD" required
           

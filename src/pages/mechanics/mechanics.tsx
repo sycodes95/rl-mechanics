@@ -14,8 +14,10 @@ import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../features/mecha
 import { RootState } from "../../store";
 import { clearMechanicsData, setMechanicsData } from "../../features/mechanics/slice/mechanicsSlice";
 import octane from "../../assets/images/octane.webp"
+import breakoutNight from "../../assets/images/breakout-night.jpg"
 import AddEditMechanic from "../../features/mechanics/components/addEditMechanic";
 import { getMechanics } from "../../features/mechanics/services/getMechanics";
+import ReactPaginate from "react-paginate";
 // import { RootState } from "../../../redux/store";
 
 export type PaginationData = {
@@ -39,7 +41,7 @@ function Mechanics() {
   
   const [paginationData, setPaginationData] = useState<PaginationData>({
     pageNumber: 0,
-    pageSize: 50,
+    pageSize: 1,
     totalCount: null,
   });
 
@@ -50,13 +52,21 @@ function Mechanics() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const mechanicsData = await getMechanics(
+        const data = await getMechanics(
           debouncedSearch,
           filterValues,
           sortColumn,
           paginationData
         );
-        dispatch(setMechanicsData(mechanicsData));
+
+        data && data.mechanics.length 
+        ? dispatch(setMechanicsData(data.mechanics)) 
+        : dispatch(clearMechanicsData());
+        
+        data && data.count  
+        ? setPaginationData({...paginationData, totalCount: data.count}) 
+        : setPaginationData({...paginationData, totalCount: null});
+        
       } catch (err) {
         console.error(err);
         dispatch(clearMechanicsData());
@@ -64,7 +74,7 @@ function Mechanics() {
     };
 
     fetchData();
-  }, [debouncedSearch, filterValues, sortColumn, paginationData]);
+  }, [debouncedSearch, filterValues, sortColumn, paginationData.pageNumber]);
 
   useEffect(() => {
     //if current page number is higher than maximum possible, and there is data, reset pageNumber to 0
@@ -114,6 +124,27 @@ function Mechanics() {
 
         <section className="flex overflow-auto">
           <MechanicsTable/>
+        </section>
+
+        <section className="flex justify-end w-full">
+          {
+          paginationData.totalCount &&
+          <ReactPaginate
+          className="flex p-1 text-sm rounded-md gap-x-4 font-enigma"
+          breakLabel="..."
+          nextLabel="NEXT"
+          onPageChange={(page)=> handlePageChange(page.selected)}
+          pageRangeDisplayed={5}
+          activeClassName="text-green-400"
+          previousClassName={`text-xs flex items-center hover:text-green-400 transition-all
+          ${paginationData.pageNumber === 0 && `text-gray-600 pointer-events-none`}`}
+          nextClassName={`text-xs flex items-center hover:text-green-400 transition-all
+          ${(paginationData.pageNumber + 1) * paginationData.pageSize >= paginationData.totalCount && `text-gray-600 pointer-events-none`}`}
+          pageCount={Math.ceil(paginationData.totalCount / paginationData.pageSize)}
+          previousLabel="PREV"
+          renderOnZeroPageCount={null}
+          />
+          }
         </section>
       </div>
     </div>

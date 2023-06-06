@@ -7,5 +7,18 @@
   font-family: Sedgewick, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
+.rl-logo{
+  top: 0;
+  left: 0;
+  opacity: 1;
+  height: 2rem;
+  width: 2rem;
+  background-image: linear-gradient(to bottom right, #10ff68, #00ff9d);
+  mask-image: url("../../assets/images/octane-transparent-logo.png");
+  mask-repeat: no-repeat;
+  mask-position:top;
+  
+}
+
 
 

@@ -17,7 +17,7 @@ function App() {
         <div>
           <Menu/>
         </div>
-        <div className='flex-1 w-full h-full p-8'>
+        <div className='flex-1 p-8'>
         <Routes>
           <Route path='/' element={<Mechanics/>}/>
           <Route path='/mechanics' element={<Mechanics/>}/>

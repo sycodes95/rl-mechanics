@@ -31,7 +31,7 @@ export const getMechanics = (
     .then((res) => res.json())
     .then((data) => {
       if (data && data.mechanics && data.count) {
-        return data.mechanics;
+        return data;
       } else {
         return [];
       }
