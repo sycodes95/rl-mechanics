@@ -63,7 +63,7 @@
 }
 
 .font-1vw{
-  font-size: clamp(1.25rem, 2vw, 3rem);
+  font-size: clamp(1.5rem, 2vw, 3rem);
 }
 
 /* SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR */
@@ -179,6 +179,18 @@
   }
   .mw-480px-w-full{
     width: 100%;
+  }
+  .mw-480px-flex{
+    display: flex;
+  }
+  .mw-480px-flex-col{
+    flex-direction: column;
+  }
+  .mw-480px-items-start{
+    align-items: flex-start;
+  }
+  .mw-480px-hidden{
+    display: none;
   }
   
 }

@@ -65,7 +65,7 @@ function MechanicsFilters () {
 
   return (
     <div className="flex flex-col w-full gap-2">
-      <section id="filter-selections" className="flex flex-wrap w-full gap-2 ">
+      <section id="filter-selections" className="flex flex-wrap w-full gap-2 mw-480px-flex-col ">
       
         {/* <button id="status-filter" 
         className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm bg-opacity-25 p-1 flex-1 w-full justify-between z-10 
@@ -101,7 +101,7 @@ function MechanicsFilters () {
           </div>
           {
           typeFilter &&
-          <ul className="absolute left-0 z-10 p-1 mt-1 bg-black rounded-sm top-full w-44" >
+          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-sm top-full mw-480px-w-full min-w-fit" >
             {
             mechanicsTypeOptions.map((option, index) => (
               <li key={index} className={`flex justify-between  border-l border-green-400 border-opacity-0 hover:bg-white hover:bg-opacity-5 hover:border-opacity-100 w-full p-1 whitespace-nowrap`}
@@ -128,7 +128,7 @@ function MechanicsFilters () {
           </div>
           {
           difficultyFilter &&
-          <ul className="absolute left-0 z-10 w-32 p-1 mt-1 bg-black rounded-sm top-full" >
+          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-sm top-full min-w-fit" >
             {
             Object.keys(mechanicsDifficultyOptions).map((option, index) => (
               <li className={`flex justify-between border-l border-green-400 border-opacity-0 hover:border-opacity-100 hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`}
@@ -157,7 +157,7 @@ function MechanicsFilters () {
           </div>
           {
           importanceFilter &&
-          <ul className="absolute left-0 z-10 w-32 p-1 mt-1 bg-black rounded-sm top-full backdrop-blur-sm" >
+          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-sm top-full backdrop-blur-sm min-w-fit" >
             {
             Object.keys(mechanicsImportanceOptions).map((option, index) => (
               <li className={`flex justify-between hover:bg-black border-l border-green-400 border-opacity-0 hover:bg-opacity-25 hover:border-opacity-100 w-full p-1 whitespace-nowrap`} 

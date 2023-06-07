@@ -40,13 +40,13 @@ function Menu() {
   return(
     <div className='z-40 flex items-center justify-center w-full h-16 pl-16 pr-16 bg-black bg-opacity-50'>
 
-      <div className='flex justify-between w-full max-w-5xl'>
+      <div className='flex justify-between w-full max-w-4xl'>
 
         <section className='flex items-center w-full h-full gap-x-2' >
 
-          <Link to='/' className='relative items-center hidden h-full gap-4 transition-all text-emerald-400 whitespace-nowrap font-1vw sm:flex font-nakelin hover:text-opacity-50 '>
-            <img className='h-8 -rotate-45' src={greenRocket} alt='green-rocket'/>
-            <p>RL MECHANICS</p>
+          <Link to='/' className='relative flex items-center h-full gap-4 transition-all text-emerald-400 whitespace-nowrap font-1vw font-nakelin hover:text-opacity-50 '>
+            <img className='h-8 transition-all duration-500 -rotate-45 hover:rotate-0' src={greenRocket} alt='green-rocket'/>
+            <p className='mw-480px-hidden'>RL MECHANICS</p>
           </Link>
 
         </section>
@@ -61,13 +61,13 @@ function Menu() {
             <p>MECHANICS</p>
           </Link> */}
 
-          {
+          {/* {
           !userIsAdmin &&
           
           <button className='flex items-center h-6 p-2 text-xs text-white transition-all bg-opacity-100 rounded-lg bg-gradient-red-pink hover:bg-opacity-75'>
             <p>♥ SUPPORT ME ♥</p>
           </button>
-          }
+          } */}
           
           <ProfileDropMenu/>
            
@@ -75,17 +75,17 @@ function Menu() {
         :
         <section className='flex items-center justify-end w-full gap-x-4'>
   
-          <Link to='/log-in' className='flex items-center justify-center w-20 h-6 p-2 text-xs font-bold text-white transition-all bg-opacity-100 rounded-md bg-gradient-green-blue hover:bg-opacity-75'>
+          {/* <Link to='/log-in' className='pt-1 pb-1 pl-2 pr-2 text-sm text-green-400 transition-all duration-200 bg-green-400 bg-opacity-0 border border-green-400 rounded-sm font-rajdhani hover:bg-opacity-10'>
             <p>LOG IN</p>
-          </Link>
+          </Link> */}
           
-          <Link to='/register' className='flex items-center justify-center w-20 h-6 p-2 text-xs font-bold text-white transition-all bg-opacity-100 rounded-md bg-gradient-orange-yellow hover:bg-opacity-75'>
+          {/* <Link to='/register' className='pt-1 pb-1 pl-2 pr-2 text-sm text-white transition-all duration-200 bg-white bg-opacity-0 border border-white rounded-sm font-rajdhani hover:bg-opacity-10'>
             <p>REGISTER</p>
-          </Link>
+          </Link> */}
 
-          <button className='items-center hidden h-6 p-2 text-xs text-white transition-all bg-opacity-100 rounded-md sm:flex bg-gradient-red-pink hover:bg-opacity-75 mw-768px-hidden'>
-            <p>♥ SUPPORT ME ♥</p>
-          </button>
+          {/* <button className='flex items-center h-6 p-2 text-xs text-white transition-all bg-pink-500 rounded-md font-rajdhani sm:flex hover:bg-opacity-75 '>
+            <p className='text-xs font-bold'>♥ SUPPORT ME ♥</p>
+          </button> */}
             
         </section>
         }

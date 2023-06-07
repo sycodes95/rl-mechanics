@@ -7,6 +7,7 @@ import Mechanics from './pages/mechanics/mechanics';
 import 'react-tooltip/dist/react-tooltip.css'
 import MechanicDetails from './pages/mechanicDetails/mechanicDetails';
 import Footer from './components/footer/footer';
+import NotFound from './pages/notFound/notFound';
 
 
 
@@ -23,8 +24,9 @@ function App() {
           <Route path='/' element={<Mechanics/>}/>
           <Route path='/mechanics' element={<Mechanics/>}/>
           <Route path='/mechanics/:mech_url' element={<MechanicDetails/>}/>
-          <Route path='/register' element={<Register/>}/>
+          {/* <Route path='/register' element={<Register/>}/> */}
           <Route path='/log-in' element={<Login/>}/>
+          <Route path='*' element={<NotFound/>} />
         </Routes>
         </div>
         <div>
