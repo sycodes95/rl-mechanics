@@ -134,7 +134,7 @@ function MechanicsFilters () {
               <li className={`flex justify-between border-l border-green-400 border-opacity-0 hover:border-opacity-100 hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`}
               key={index} 
               onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option}))}>
-                <p className={`${difficultyColors[option]}`}>{mechanicsDifficultyOptions[Number(option)]}</p>
+                <p className={`${difficultyColors[Number(option)]}`}>{mechanicsDifficultyOptions[Number(option)]}</p>
                 {
                 filterValues.mech_difficulty === option &&
                 <div className={`flex items-center text-green-400`}><Icon path={mdiCheck} size={0.6} /></div>
@@ -191,11 +191,11 @@ function MechanicsFilters () {
             <div className="flex items-center p-1 text-xs bg-black rounded-sm bg-opacity-40 gap-x-2" key={index}>
               {
               key === 'mech_difficulty' &&
-              <p className={`${difficultyColors[filterValues[key]]}`}>{mechanicsDifficultyOptions[Number(filterValues[key])]}</p> 
+              <p className={`${difficultyColors[Number(filterValues[key])]}`}>{mechanicsDifficultyOptions[Number(filterValues[key])]}</p> 
               }
               {
               key === 'mech_importance' &&
-              <p className={`${importanceColors[filterValues[key]]}`}>{mechanicsImportanceOptions[Number(filterValues[key])]}</p> 
+              <p className={`${importanceColors[Number(filterValues[key])]}`}>{mechanicsImportanceOptions[Number(filterValues[key])]}</p> 
               }
               {
               key !== 'mech_difficulty' && key !== 'mech_importance' &&
