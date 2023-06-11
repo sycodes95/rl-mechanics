@@ -18,6 +18,8 @@ import breakoutNight from "../../assets/images/breakout-night.jpg"
 import AddEditMechanic from "../../features/mechanics/components/addEditMechanic";
 import { getMechanics } from "../../features/mechanics/services/getMechanics";
 import ReactPaginate from "react-paginate";
+
+
 // import { RootState } from "../../../redux/store";
 
 export type PaginationData = {
@@ -130,7 +132,6 @@ function Mechanics() {
             <AddEditMechanic/>
             )}
         </section>
-
         <section className="flex">
           <MechanicsFilters/>
         </section>

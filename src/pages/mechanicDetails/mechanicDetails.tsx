@@ -12,7 +12,7 @@ import { mdiContentCopy, mdiCheckBold, mdiKeyboard, mdiController } from '@mdi/j
 import { getMechUrls } from "../../features/mechanics/services/getMechUrls";
 
 
-type MechanicDetails = {
+type MechanicDetailsType = {
   mech_created_at: string;
   mech_description: string;
   mech_difficulty: number;
@@ -41,7 +41,7 @@ function MechanicDetails() {
 
   const [mechanicPrerequisites, setMechanicPrerequisites] = useState([])
 
-  const [mechanicDetails, setMechanicDetails] = useState<MechanicDetails>({
+  const [mechanicDetails, setMechanicDetails] = useState<MechanicDetailsType>({
     mech_created_at: "",
     mech_description: "",
     mech_difficulty: 0,

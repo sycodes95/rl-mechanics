@@ -56,18 +56,6 @@ function Menu() {
         isLoggedIn ?
 
         <section className='flex items-center justify-end w-full gap-x-4'>
-
-          {/* <Link to='/' className='flex items-center justify-center w-20 h-6 p-2 text-xs font-bold text-black transition-all bg-green-400 bg-opacity-100 rounded-sm hover:bg-opacity-50'>
-            <p>MECHANICS</p>
-          </Link> */}
-
-          {/* {
-          !userIsAdmin &&
-          
-          <button className='flex items-center h-6 p-2 text-xs text-white transition-all bg-opacity-100 rounded-lg bg-gradient-red-pink hover:bg-opacity-75'>
-            <p>♥ SUPPORT ME ♥</p>
-          </button>
-          } */}
           
           <ProfileDropMenu/>
            

@@ -108,17 +108,14 @@
 .bg-jet-dark-green{
   background-color: rgb(41, 91, 66);
 }
-.bg-dot{
-  background: url(../assets/bg-patterns/dot-grid.webp);
-  background-repeat:repeat;
-}
+
 
 /* .bg-gradient{
   background:linear-gradient(rgba(39, 38, 45, 0.8), rgba(39, 38, 45, 0.8)), url(../../src/assets/bg-patterns/subtle_carbon.webp);
 } */
 
 .bg-gradient{
-  background:linear-gradient(rgba(51, 59, 76, 0.8), rgba(51, 70, 76, 0.6)), url(../../src/assets/bg-patterns/subtle_carbon.webp);
+  background:linear-gradient(rgba(51, 59, 76, 0.8), rgba(51, 70, 76, 0.6)), url(/src/assets/bg-patterns/subtle_carbon.webp);
 }
 
 .bg-gradient-green-blue{
