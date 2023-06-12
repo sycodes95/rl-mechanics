@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "react-scripts start",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "npx http-server ./dist"
   },
   "dependencies": {
     "@mdi/js": "^7.2.96",
