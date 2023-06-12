@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "vite preview",
+    "start": "react-scripts start",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
