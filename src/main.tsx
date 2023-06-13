@@ -6,6 +6,8 @@ import './index.css'
 import { Provider } from 'react-redux';
 import store from './store';
 
+require('dotenv').config();
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
