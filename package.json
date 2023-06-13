@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "serve -s build"
+    "start": "npx http-server ./dist"
   },
   "dependencies": {
     "@mdi/js": "^7.2.96",
