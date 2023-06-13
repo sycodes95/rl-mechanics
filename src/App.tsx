@@ -24,7 +24,7 @@ function App() {
           <Route path='/' element={<Mechanics/>}/>
           <Route path='/mechanics' element={<Mechanics/>}/>
           <Route path='/mechanics/:mech_url' element={<MechanicDetails/>}/>
-          {/* <Route path='/register' element={<Register/>}/> */}
+          <Route path='/register' element={<Register/>}/>
           <Route path='/log-in' element={<Login/>}/>
           <Route path='*' element={<NotFound/>} />
         </Routes>
