@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "VITE_API_HOST_URL=$API_URL tsc && vite build",
     "preview": "vite preview",
-    "start": "serve -s dist"
+    "start": "npx http-server ./dist"
   },
   "dependencies": {
     "@mdi/js": "^7.2.96",
