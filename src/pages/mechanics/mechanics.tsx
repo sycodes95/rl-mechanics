@@ -66,7 +66,7 @@ function Mechanics() {
           paginationData
         );
 
-        data && data.mechanics.length 
+        data && data.mechanics && data.mechanics.length
         ? dispatch(setMechanicsData(data.mechanics)) 
         : dispatch(clearMechanicsData());
         
