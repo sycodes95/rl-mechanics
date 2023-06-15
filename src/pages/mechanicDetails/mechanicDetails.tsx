@@ -238,8 +238,8 @@ function MechanicDetails() {
                 {
                 mechanicDetails.mech_prerequisites ?
                 mechanicDetails.mech_prerequisites.map((prereq, index) => (
-                  <a className="w-full p-1 text-center text-black transition-all bg-gray-500 rounded-sm cursor-pointer hover:bg-gray-300 " 
-                  key={index} href={`/mechanics/${prereq}`} target="_blank">{prereq}</a>
+                  <a className="w-full p-1 text-center text-green-400 underline transition-all rounded-sm cursor-pointer hover:text-green-300 " 
+                  key={index} href={`/mechanics/${prereq}`} target="_blank">http://rlmechanics.com/mechanics/{prereq}</a>
                 ))
                 :
                 <p>N/A</p>
