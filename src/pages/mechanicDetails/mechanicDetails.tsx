@@ -5,11 +5,9 @@ import { mechanicsDifficultyOptions } from "../../constants/options";
 import { difficultyColors } from "../../constants/colors";
 import { importanceColors } from "../../constants/colors";
 import { mechanicsImportanceOptions } from "../../constants/options";
-import YouTube from 'react-youtube';
 import ReactPlayer from 'react-player';
 import Icon from '@mdi/react';
 import { mdiContentCopy, mdiCheckBold, mdiKeyboard, mdiController } from '@mdi/js';
-import { getMechUrls } from "../../features/mechanics/services/getMechUrls";
 
 
 type MechanicDetailsType = {
@@ -38,10 +36,6 @@ function MechanicDetails() {
 
   const [trainingPackToCopy, setTrainingPackToCopy] = useState("")
 
-  const [descriptionReadMore, setDescriptionReadMore] = useState(false)
-
-  const [mechanicPrerequisites, setMechanicPrerequisites] = useState([])
-
   const [mechanicDetails, setMechanicDetails] = useState<MechanicDetailsType>({
     mech_created_at: "",
     mech_description: "",
@@ -63,12 +57,10 @@ function MechanicDetails() {
       getMechanicDetails(mech_url)?.then((details) =>
         setMechanicDetails(details)
       );
-      getMechUrls().then(urls => setMechanicPrerequisites(urls))
   }, [mech_url]);
 
   useEffect(()=>{
     if(mechanicDetails.mech_yt_url_controller[0] && !showVideo) setShowVideo(mechanicDetails.mech_yt_url_controller[0])
-    console.log(mechanicDetails);
   },[mechanicDetails])
 
   useEffect(()=>{
@@ -89,8 +81,6 @@ function MechanicDetails() {
       clearTimeout(timeout);
     };
   }, [trainingPackToCopy]);
-
-
 
   return (
     <div className="flex justify-center w-full "> 
