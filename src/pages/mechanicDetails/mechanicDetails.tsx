@@ -24,6 +24,7 @@ type MechanicDetailsType = {
   mech_yt_url_kbm: string[];
   mech_training_packs: string[];
   mech_prerequisites: string[];
+  mech_gif: string;
 };
 
 function MechanicDetails() {
@@ -52,7 +53,8 @@ function MechanicDetails() {
     mech_yt_url_controller: Array(3).fill(""),
     mech_yt_url_kbm: Array(3).fill(""),
     mech_training_packs: [],
-    mech_prerequisites: []
+    mech_prerequisites: [],
+    mech_gif: "",
   });
 
   
@@ -66,7 +68,7 @@ function MechanicDetails() {
 
   useEffect(()=>{
     if(mechanicDetails.mech_yt_url_controller[0] && !showVideo) setShowVideo(mechanicDetails.mech_yt_url_controller[0])
-    
+    console.log(mechanicDetails);
   },[mechanicDetails])
 
   useEffect(()=>{
@@ -203,6 +205,15 @@ function MechanicDetails() {
                 </div>
               </div>
             </div>
+            <div>
+              <p className="text-green-400 text-md font-enigma">PREVIEW</p>
+
+              <div className="relative flex w-full h-64 bg-black bg-opacity-25 rounded-md backdrop-blur-lg">
+                {/* <img className="z-50" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} /> */}
+                <iframe className="h-64" src={mechanicDetails.mech_gif}></iframe>
+              </div>
+            </div>
+
             <div className="flex flex-col w-full gap-2">
               <label className="text-green-400 text-md font-enigma">Training Packs</label>
               <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-sm">

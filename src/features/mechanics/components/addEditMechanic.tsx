@@ -59,13 +59,9 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
     setFetchErrors([]);
 
-    const { name, value, files } = e.target;
+    let { name, value} = e.target;
 
-    if (name === 'mech_gif' && files && files.length > 0) {
-      setMechanicData({ ...mechanicData, mech_gif: files[0] });
-    } else {
-      setMechanicData({ ...mechanicData, [name]: value });
-    }
+    setMechanicData({ ...mechanicData, [name]: value });
   };
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -73,7 +69,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     setFetchErrors([]);
 
     const { name, value } = e.target;
-      
+
     setMechanicData({ ...mechanicData, [name]: value });
     
   };
@@ -82,25 +78,13 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
     setIsFetching(true);
 
-    const formData = new FormData();
-
-    Object.keys(mechanicData).forEach((field, index) => {
-      
-      
-      if (Array.isArray(mechanicData[field])) {
-        formData.append(field, JSON.stringify(mechanicData[field]));
-      }
-      else {
-        formData.append(field, mechanicData[field]);
-      }
-      
-    })
     const URL = addMechanicIsOpen ? `mechanics-post` : `mechanics-patch`;
     const method = addMechanicIsOpen ? `POST` : `PATCH`;
     console.log(URL, method, mechanicData);
     fetch(`${import.meta.env.VITE_API_HOST_URL}/${URL}`, {
       method: `${method}`,
-      body: formData,
+      body: JSON.stringify(mechanicData),
+      headers: { 'Content-Type': 'application/json'}
     })
     .then(res => res.json())
     .then(data => {
@@ -362,7 +346,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
           <div className="flex flex-col gap-2">
             <label className="text-sm text-emerald-300 whitespace-nowrap">mech_gif</label>
-            <input className="w-full text-xs" type="file" name="mech_gif" onChange={handleInputChange}/>
+            <input className="p-1 text-xs text-white bg-black rounded-sm outline outline-1 outline-slate-800" type="text" name="mech_gif" value={mechanicData.mech_gif} onChange={handleInputChange}/>
           </div>
 
           <button className="flex items-center justify-center h-8 p-1 text-sm text-black transition-all bg-green-400 rounded-sm hover:bg-green-600" onClick={handleMechanicSubmit}>
