@@ -45,8 +45,8 @@ function Menu() {
         <section className='flex items-center w-full h-full gap-x-2' >
 
           <Link to='/' className='relative flex items-center h-full gap-4 transition-all text-emerald-400 whitespace-nowrap font-1vw font-nakelin hover:text-opacity-50 '>
-            <img className='h-8 ml-4 transition-all duration-500 -rotate-45 hover:rotate-0' src={greenRocket} alt='green-rocket'/>
-            <p className='mw-480px-hidden'>RL MECHANICS</p>
+            {/* <img className='h-8 ml-4 transition-all duration-500 -rotate-45 hover:rotate-0' src={greenRocket} alt='green-rocket'/> */}
+            <p className=''>RL MECHANICS</p>
           </Link>
 
         </section>

@@ -108,7 +108,7 @@ function Mechanics() {
   }, []);
 
   return (
-    <div className="flex justify-center flex-1 text-white"> 
+    <div className="flex justify-center w-full text-white"> 
       <div className="flex flex-col w-full max-w-4xl gap-4">
         <section className="relative flex overflow-hidden rounded-md h-44">
           <img className="absolute -translate-y-1/2 opacity-50 pointer-events-none top-1/2" src={octane}/>

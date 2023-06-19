@@ -195,7 +195,7 @@ function MechanicDetails() {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="flex flex-col gap-2">
               <p className="text-green-400 text-md font-enigma">PREVIEW</p>
 
               <div className="relative flex w-full h-64 bg-black bg-opacity-25 rounded-md backdrop-blur-lg">
@@ -208,7 +208,7 @@ function MechanicDetails() {
               <label className="text-green-400 text-md font-enigma">Training Packs</label>
               <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-sm">
                 {
-                mechanicDetails.mech_training_packs &&
+                mechanicDetails.mech_training_packs.length ?
                 mechanicDetails.mech_training_packs.map((packCode, index) => (
                   packCode !== "" && (
                     <button className="relative flex items-center justify-center w-full gap-2 p-1 text-sm text-white border border-white border-opacity-25 rounded-sm hover:bg-gray-200 hover:bg-opacity-10" key={index} 
@@ -228,6 +228,8 @@ function MechanicDetails() {
                     </button>
                   )
                 ))
+                :
+                <p className="text-white">N/A</p>
                 }
                 
               </div>
@@ -237,13 +239,13 @@ function MechanicDetails() {
               <label className="text-green-400 text-md font-enigma">Prerequisites</label>
               <div className="flex flex-col w-full gap-2 p-2 bg-black bg-opacity-50 rounded-sm">
                 {
-                mechanicDetails.mech_prerequisites ?
+                mechanicDetails.mech_prerequisites.length ?
                 mechanicDetails.mech_prerequisites.map((prereq, index) => (
                   <a className="w-full p-1 text-center text-green-400 underline transition-all rounded-sm cursor-pointer hover:text-green-300 " 
                   key={index} href={`/mechanics/${prereq}`} target="_blank">http://rlmechanics.com/mechanics/{prereq}</a>
                 ))
                 :
-                <p>N/A</p>
+                <p className="text-white">N/A</p>
                 }
               </div>
             </div>
@@ -254,8 +256,15 @@ function MechanicDetails() {
             <label className="text-sm text-green-400 font-enigma">
               Description
             </label>
+            
             <div className="p-2 text-sm whitespace-pre-line bg-black bg-opacity-50 rounded-sm overflow-ellipsis">
-              {mechanicDetails?.mech_description}
+              {
+              mechanicDetails.mech_description ? 
+              
+              <p>{mechanicDetails?.mech_description}</p>
+              :
+              <p className="text-white">N/A</p>
+              }
             </div>
           </div>
 
