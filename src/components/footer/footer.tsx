@@ -10,10 +10,10 @@ function Footer (){
             <p>2023 © RLMECHANICS.COM</p>
           </div>
         </section>
-        <section className="flex flex-col gap-4 text-sm text-green-400 sm font-rajdhani ">
+        <section className="flex flex-col gap-4 text-sm text-white font-rajdhani ">
           <div className="">Any Questions or Suggestions?</div>
           <div className="">
-            <a className="p-2 border border-green-400 rounded-sm bg-opacity-10 hover:bg-green-400 hover:bg-opacity-10" href="mailto:rlmechanicsgg@gmail.com">Contact Us</a>
+            <a className="p-2 border border-white rounded-sm bg-opacity-10 hover:bg-white hover:bg-opacity-10" href="mailto:rlmechanicsgg@gmail.com">Contact Us</a>
           </div>
         </section>
       </div>

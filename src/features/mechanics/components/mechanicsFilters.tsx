@@ -92,7 +92,7 @@ function MechanicsFilters () {
           }
         </button> */}
         <button id="type-filter" 
-        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-sm mw-480px-w-full bg-opacity-40 gap-x-1 hover:bg-opacity-70"
+        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-md mw-480px-w-full bg-opacity-30 gap-x-1 hover:bg-opacity-50"
         onClick={()=> setTypeFilter(!typeFilter)} ref={typeFilterRef}>
           <p>Type</p>
           <div className="">
@@ -101,7 +101,7 @@ function MechanicsFilters () {
           </div>
           {
           typeFilter &&
-          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-sm top-full mw-480px-w-full min-w-fit" >
+          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-md top-full mw-480px-w-full min-w-fit" >
             {
             mechanicsTypeOptions.map((option, index) => (
               <li key={index} className={`flex justify-between  border-l border-green-400 border-opacity-0 hover:bg-white hover:bg-opacity-5 hover:border-opacity-100 w-full p-1 whitespace-nowrap`}
@@ -119,7 +119,7 @@ function MechanicsFilters () {
         </button>
 
         <button id="difficulty-filter"
-        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-sm bg-opacity-40 gap-x-1 hover:bg-opacity-70"
+        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-md bg-opacity-30 gap-x-1 hover:bg-opacity-50"
         onClick={()=> setDifficultyFilter(!difficultyFilter)} ref={difficultyFilterRef}>
           <p>Difficulty</p>
           <div className="">
@@ -128,7 +128,7 @@ function MechanicsFilters () {
           </div>
           {
           difficultyFilter &&
-          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-sm top-full min-w-fit" >
+          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-md top-full min-w-fit" >
             {
             Object.keys(mechanicsDifficultyOptions).map((option, index) => (
               <li className={`flex justify-between border-l border-green-400 border-opacity-0 hover:border-opacity-100 hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`}
@@ -148,7 +148,7 @@ function MechanicsFilters () {
         </button>
 
         <button id="importance-filter" 
-        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-sm bg-opacity-40 gap-x-1 hover:bg-opacity-70"
+        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-md bg-opacity-30 gap-x-1 hover:bg-opacity-50"
         onClick={()=> setImportanceFilter(!importanceFilter)} ref={importanceFilterRef}>
           <p>Importance</p>
           <div className="flex">
@@ -175,7 +175,7 @@ function MechanicsFilters () {
           }
         </button>
 
-        <div className="flex items-center flex-1 w-full p-1 bg-black bg-opacity-40 gap-x-2">
+        <div className="flex items-center flex-1 w-full p-1 bg-black rounded-md bg-opacity-30 gap-x-2">
           <Icon className="text-gray-500" path={mdiMagnify} size={0.6} />
           <input className="text-sm text-white placeholder-gray-600 bg-black bg-opacity-0 outline-none caret-white w-96" 
           type="text" value={searchValue} placeholder="Search..." onChange={(e)=> dispatch(setSearchValue(e.target.value))}/>
@@ -212,7 +212,7 @@ function MechanicsFilters () {
           }
           {
           searchValue &&
-          <div className="flex items-center p-1 text-xs bg-black rounded-sm bg-opacity-40 gap-x-2">
+          <div className="flex items-center p-1 text-xs bg-black rounded-md bg-opacity-40 gap-x-2">
               
               <p className="">{searchValue}</p> 
               <button className="text-gray-600 transition-colors hover:text-gray-400" 

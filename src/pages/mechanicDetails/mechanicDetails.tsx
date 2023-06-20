@@ -87,13 +87,13 @@ function MechanicDetails() {
       <div className="flex flex-col w-full max-w-5xl gap-4 rounded-md ">
 
         <section className="flex justify-between"> 
-          <div className="flex items-end text-2xl font-thin text-white font-enigma">
+          <div className="flex items-end text-4xl font-thin text-white font-rajdhani">
             {mechanicDetails?.mech_name} 
           </div>
           
         </section>
 
-        <section className="flex h-full gap-2 p-2 bg-black rounded-sm bg-opacity-70">
+        <section className="flex h-full gap-2 p-2 bg-black rounded-md bg-opacity-30">
           <div className="relative w-full">
             <div className="relative bg-black bg-opacity-50 h-96">
             {mechanicDetails?.mech_yt_url_controller && (
@@ -114,22 +114,22 @@ function MechanicDetails() {
                 {
                 mechanicDetails.mech_yt_url_controller.some(el => el !== "") &&
                 
-                <button className="flex items-center gap-1 p-1 text-gray-500 rounded-md hover:text-green-400"
+                <button className="flex items-center gap-1 p-1 text-gray-500 rounded-md hover:text-white"
                 onClick={()=> {
                   setShowKbmVideos(false) 
                   setShowControllerVideos(true)
                 }}>
-                  <Icon className={`${showControllerVideos && 'text-green-400'}`} path={mdiController} size={2}/>
+                  <Icon className={`${showControllerVideos && 'text-white'}`} path={mdiController} size={2}/>
                 </button>
                 }
                 {
                 mechanicDetails.mech_yt_url_kbm.some(el => el !== "") &&
                 
-                <button className="flex items-center gap-2 text-gray-500 hover:text-green-400" onClick={()=> {
+                <button className="flex items-center gap-2 text-gray-500 hover:text-pink-400" onClick={()=> {
                   setShowKbmVideos(true) 
                   setShowControllerVideos(false)
                 }}>
-                  <Icon className={`${showKbmVideos && 'text-green-400'}`} path={mdiKeyboard} size={2}/>
+                  <Icon className={`${showKbmVideos && 'text-pink-400'}`} path={mdiKeyboard} size={2}/>
                 </button>
                 }
 
@@ -175,8 +175,8 @@ function MechanicDetails() {
           <div className="flex flex-col justify-between w-full gap-2 text-sm text-white h-fit">
             
             <div className="flex flex-col gap-2 ">
-              <label className="text-green-400 text-md font-enigma">Info</label>
-              <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-sm">
+              <label className="text-xl text-white font-rajdhani">Info</label>
+              <div className="flex flex-col gap-2 p-2 bg-black rounded-md shadow-md bg-opacity-30">
                 <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
                   <p className="text-gray-500 ">Difficulty</p>
                   <p className={`${difficultyColors[mechanicDetails?.mech_difficulty]}`}><em>{mechanicsDifficultyOptions[mechanicDetails?.mech_difficulty]}</em></p>
@@ -195,18 +195,18 @@ function MechanicDetails() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <p className="text-green-400 text-md font-enigma">PREVIEW</p>
+            <div className="flex flex-col gap-2 ">
+              <p className="text-xl text-white font-rajdhani">PREVIEW</p>
 
-              <div className="relative flex w-full h-64 bg-black bg-opacity-25 rounded-md backdrop-blur-lg">
+              <div className="relative flex w-full h-64 p-2 bg-black rounded-md bg-opacity-30 backdrop-blur-lg">
                 {/* <img className="z-50" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} /> */}
-                <iframe className="h-64" src={mechanicDetails.mech_gif}></iframe>
+                <iframe className="h-64 p-2" src={mechanicDetails.mech_gif} allowFullScreen></iframe>
               </div>
             </div>
 
             <div className="flex flex-col w-full gap-2">
-              <label className="text-green-400 text-md font-enigma">Training Packs</label>
-              <div className="flex flex-col gap-2 p-2 bg-black bg-opacity-50 rounded-sm">
+              <label className="text-xl text-white font-rajdhani">Training Packs</label>
+              <div className="flex flex-col gap-2 p-2 bg-black rounded-md bg-opacity-30">
                 {
                 mechanicDetails.mech_training_packs.length ?
                 mechanicDetails.mech_training_packs.map((packCode, index) => (
@@ -236,13 +236,13 @@ function MechanicDetails() {
             </div>
 
             <div className="flex flex-col gap-2 text-sm ">
-              <label className="text-green-400 text-md font-enigma">Prerequisites</label>
-              <div className="flex flex-col w-full gap-2 p-2 bg-black bg-opacity-50 rounded-sm">
+              <label className="text-xl text-white font-rajdhani">Prerequisites</label>
+              <div className="flex flex-col w-full p-2 bg-black bg-opacity-25 rounded-md">
                 {
                 mechanicDetails.mech_prerequisites.length ?
                 mechanicDetails.mech_prerequisites.map((prereq, index) => (
-                  <a className="w-full p-1 text-center text-green-400 underline transition-all rounded-sm cursor-pointer hover:text-green-300 " 
-                  key={index} href={`/mechanics/${prereq}`} target="_blank">http://rlmechanics.com/mechanics/{prereq}</a>
+                  <a className="w-full p-1 text-white underline break-words transition-all rounded-sm cursor-pointer hover:text-green-300" 
+                  key={index} href={`/mechanics/${prereq}`} target="_blank">{prereq}</a>
                 ))
                 :
                 <p className="text-white">N/A</p>
@@ -253,11 +253,11 @@ function MechanicDetails() {
           </div>
 
           <div className="flex flex-col w-full gap-2 overflow-hidden text-white md:col-span-2">
-            <label className="text-sm text-green-400 font-enigma">
+            <label className="text-xl text-white font-rajdhani">
               Description
             </label>
             
-            <div className="p-2 text-sm whitespace-pre-line bg-black bg-opacity-50 rounded-sm overflow-ellipsis">
+            <div className="p-2 text-sm whitespace-pre-line bg-black rounded-md bg-opacity-30 overflow-ellipsis">
               {
               mechanicDetails.mech_description ? 
               

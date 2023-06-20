@@ -20,7 +20,7 @@
 }
 
 .font-science{
-  font-family: Science, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .font-ocera{
@@ -101,6 +101,10 @@
   background-color: rgb(28, 29, 35);
 }
 
+.bg-jet-darker{
+  background-color: #191b20;
+}
+
 .bg-jet-plum-gradient{
   background: linear-gradient(rgb(28, 29, 35), rgb(39, 38, 45));
 }
@@ -111,11 +115,15 @@
 
 
 /* .bg-gradient{
-  background:linear-gradient(rgba(39, 38, 45, 0.8), rgba(39, 38, 45, 0.8)), url(../../src/assets/bg-patterns/subtle_carbon.webp);
+  background:linear-gradient(rgba(51, 59, 76, 0.8), rgba(51, 70, 76, 0.6)), url(/src/assets/bg-patterns/subtle_carbon.webp);
 } */
 
+.bg-gradient-light{
+  background:linear-gradient(rgb(0, 20, 62), rgb(0, 20, 62)), url(/src/assets/bg-patterns/subtle_carbon.webp);
+}
+
 .bg-gradient{
-  background:linear-gradient(rgba(51, 59, 76, 0.8), rgba(51, 70, 76, 0.6)), url(/src/assets/bg-patterns/subtle_carbon.webp);
+  background:linear-gradient(#1f2937, rgba(53, 40, 40, 0.9)), url(/src/assets/bg-patterns/subtle_carbon.webp);
 }
 
 .bg-gradient-green-blue{

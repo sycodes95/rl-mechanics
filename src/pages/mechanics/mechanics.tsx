@@ -66,6 +66,8 @@ function Mechanics() {
           paginationData
         );
 
+        console.log(data);
+
         data && data.mechanics && data.mechanics.length
         ? dispatch(setMechanicsData(data.mechanics)) 
         : dispatch(clearMechanicsData());
@@ -107,6 +109,10 @@ function Mechanics() {
     });
   }, []);
 
+  useEffect(()=>{
+    console.log(mechanicsData);
+  },[mechanicsData])
+
   return (
     <div className="flex justify-center w-full text-white"> 
       <div className="flex flex-col w-full max-w-4xl gap-4">
@@ -136,26 +142,26 @@ function Mechanics() {
           <MechanicsFilters/>
         </section>
 
-        <section className="flex overflow-auto">
+        <section className="flex overflow-x-auto overflow-y-visible bg-black bg-opacity-25 rounded-md">
           <MechanicsTable/>
         </section>
 
         <section className="flex justify-between w-full">
-          <div>
-            <p className="text-sm font-rajdhani">Showing {paginationShowing.a} to {paginationShowing.b} of {paginationData.totalCount}</p>
+          <div className="flex items-center">
+            <p className="text-md font-rajdhani">Showing {paginationShowing.a} to {paginationShowing.b} of {paginationData.totalCount}</p>
           </div>
           {
           paginationData.totalCount &&
           <ReactPaginate
-          className="flex p-1 text-sm rounded-md gap-x-4 font-enigma"
+          className="flex p-1 rounded-md text-md gap-x-4"
           breakLabel="..."
           nextLabel="NEXT"
           onPageChange={(page)=> handlePageChange(page.selected)}
           pageRangeDisplayed={5}
-          activeClassName="text-green-400"
-          previousClassName={`text-xs flex items-center hover:text-green-400 transition-all
+          activeClassName="text-white"
+          previousClassName={`text-sm flex items-center hover:text-green-400 transition-all
           ${paginationData.pageNumber === 0 && `text-gray-600 pointer-events-none`}`}
-          nextClassName={`text-xs flex items-center hover:text-green-400 transition-all
+          nextClassName={`text-sm flex items-center hover:text-green-400 transition-all
           ${(paginationData.pageNumber + 1) * paginationData.pageSize >= paginationData.totalCount && `text-gray-600 pointer-events-none`}`}
           pageCount={Math.ceil(paginationData.totalCount / paginationData.pageSize)}
           previousLabel="PREV"

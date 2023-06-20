@@ -54,7 +54,7 @@ function MechanicsTable () {
   };
 
   return(
-    <table className="flex-1">
+    <table className="flex-1 overflow-x-auto ">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
           {
@@ -119,7 +119,7 @@ function MechanicsTable () {
             <td className="text-pink-500">
               {mech.mech_type}
             </td>
-            <td className="overflow-visible">
+            <td className="relative overflow-visible">
               <div className="relative overflow-visible">
                 <Link className="relative transition-all hover:text-blue-500 hover:cursor-pointer w-fit" 
                 onMouseOver={()=> setMechanicHoverGif({ hover: true, mech_id: mech.mech_id ?? 0, gif_url: mech.mech_gif ?? ""})} 
@@ -128,14 +128,14 @@ function MechanicsTable () {
                 to={`/mechanics/${mech.mech_url}`}> 
                 {mech.mech_name}
                 </Link>
-                {
-                  mechanicHoverGif.hover && mechanicHoverGif.mech_id === mech.mech_id && mechanicHoverGif.gif_url &&
-                <div className="fixed z-50 bg-black bg-opacity-25 rounded-md backdrop-blur-lg w-96"
+                {/* {
+                mechanicHoverGif.hover && mechanicHoverGif.mech_id === mech.mech_id && mechanicHoverGif.gif_url &&
+                <div className="sticky z-50 bg-black bg-opacity-25 rounded-md top-1 w-96"
                 >
-                  {/* <img className="z-50" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} /> */}
-                  <iframe className="h-64" src={mech.mech_gif}></iframe>
+                  <img className="z-50" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} />
+                  <iframe className="h-64" src={mech.mech_gif}></iframe> 
                 </div>
-                }
+                } */}
                 
               </div>
             </td>
