@@ -13,9 +13,6 @@ import { useEffect } from 'react';
 
 
 function App() {
-  useEffect(()=> {
-    console.log(import.meta.env.VITE_HOST_API_URL);
-  },[])
   return (
     <BrowserRouter>
       <div id='app' className='flex flex-col w-full min-h-screen bg-gradient'>

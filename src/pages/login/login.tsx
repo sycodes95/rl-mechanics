@@ -42,7 +42,6 @@ function Login (){
     .then(response => response.json())
     .then(data => {
       setIsFetching(false)
-      console.log(data);
       const token = data.token
 
       if(token){

@@ -80,7 +80,6 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
 
     const URL = addMechanicIsOpen ? `mechanics-post` : `mechanics-patch`;
     const method = addMechanicIsOpen ? `POST` : `PATCH`;
-    console.log(URL, method, mechanicData);
     fetch(`${import.meta.env.VITE_API_HOST_URL}/${URL}`, {
       method: `${method}`,
       body: JSON.stringify(mechanicData),
@@ -88,7 +87,6 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       setIsFetching(false);
 
       if(data && data.mechanic) {

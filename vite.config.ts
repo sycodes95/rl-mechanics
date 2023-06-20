@@ -13,12 +13,4 @@ export default defineConfig(({ mode }) => {
   }
 })
 
-// export default defineConfig(({command, mode}) => {
-//   const env = loadEnv(mode, process.cwd(), "VITE_");
-//   console.log(env)
-//   return {}
-// })
 
-// export default defineConfig({})
-
-  

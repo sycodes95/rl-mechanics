@@ -66,7 +66,6 @@ function Mechanics() {
           paginationData
         );
 
-        console.log(data);
 
         data && data.mechanics && data.mechanics.length
         ? dispatch(setMechanicsData(data.mechanics)) 
@@ -108,10 +107,6 @@ function Mechanics() {
       user_details && dispatch(setUserDetails(user_details));
     });
   }, []);
-
-  useEffect(()=>{
-    console.log(mechanicsData);
-  },[mechanicsData])
 
   return (
     <div className="flex justify-center w-full text-white"> 

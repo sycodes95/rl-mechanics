@@ -63,7 +63,6 @@ function Register () {
     .then(response => response.json())
     .then(data => {
       setIsFetching(false);
-      console.log(data);
       const user = data.user;
       const errors = data.errors;
       
