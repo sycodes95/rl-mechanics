@@ -97,7 +97,7 @@ function MechanicDetails() {
           
         </section>
 
-        <section className="flex h-full gap-2 p-2 border-2 border-black border-opacity-25 rounded-lg shadow-lg bg-jet-dark ">
+        <section className="flex h-full gap-2 p-2 border-2 border-black border-opacity-25 rounded-lg shadow-md bg-jet-dark ">
           <div className="relative w-full bg-black rounded-lg">
             <div className="relative bg-jet-dark h-96">
             {mechanicDetails?.mech_yt_url_controller && (
@@ -181,7 +181,7 @@ function MechanicDetails() {
             <div className="flex flex-col gap-2 ">
               <label className="text-xl text-white font-rajdhani">Info</label>
 
-              <div className="flex flex-col gap-2 p-2 border-2 border-black border-opacity-25 rounded-lg shadow-lg bg-jet-dark">
+              <div className="flex flex-col gap-2 p-2 border-2 border-black border-opacity-25 rounded-lg shadow-md bg-jet-dark">
                 <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
                   <p className="text-gray-500 ">Difficulty</p>
                   <p className={`${difficultyColors[mechanicDetails?.mech_difficulty]}`}><em>{mechanicsDifficultyOptions[mechanicDetails?.mech_difficulty]}</em></p>
@@ -203,7 +203,7 @@ function MechanicDetails() {
             <div className="flex flex-col gap-2 ">
               <p className="text-xl text-white font-rajdhani">PREVIEW</p>
 
-              <div className="relative flex w-full h-64 p-2 bg-black rounded-md bg-opacity-30 backdrop-blur-lg">
+              <div className="relative flex w-full h-64 p-2 border-2 border-black border-opacity-25 rounded-md shadow-md bg-jet-dark backdrop-blur-lg">
                 {/* <img className="z-50" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} /> */}
                 <iframe className="h-64 p-2" src={mechanicDetails.mech_gif} allowFullScreen></iframe>
               </div>
@@ -211,7 +211,7 @@ function MechanicDetails() {
 
             <div className="flex flex-col w-full gap-2">
               <label className="text-xl text-white font-rajdhani">Training Packs</label>
-              <div className="flex flex-col gap-2 p-2 bg-black rounded-md bg-opacity-30">
+              <div className="flex flex-col gap-2 p-2 border-2 border-black border-opacity-25 rounded-md bg-jet-dark">
                 {
                 mechanicDetails.mech_training_packs.length ?
                 mechanicDetails.mech_training_packs.map((packCode, index) => (
@@ -242,7 +242,7 @@ function MechanicDetails() {
 
             <div className="flex flex-col gap-2 text-sm ">
               <label className="text-xl text-white font-rajdhani">Prerequisites</label>
-              <div className="flex flex-col w-full p-2 bg-black bg-opacity-25 rounded-md">
+              <div className="flex flex-col w-full p-2 border-2 border-black border-opacity-25 rounded-md shadow-md bg-jet-dark">
                 {
                 mechanicDetails.mech_prerequisites.length ?
                 mechanicDetails.mech_prerequisites.map((prereq, index) => (

@@ -92,7 +92,7 @@ function MechanicsFilters () {
           }
         </button> */}
         <button id="type-filter" 
-        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-md mw-480px-w-full bg-opacity-30 gap-x-1 hover:bg-opacity-50"
+        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 border-b-2 border-black border-opacity-25 mw-480px-w-full bg-opacity-30 gap-x-1"
         onClick={()=> setTypeFilter(!typeFilter)} ref={typeFilterRef}>
           <p>Type</p>
           <div className="">
@@ -101,10 +101,10 @@ function MechanicsFilters () {
           </div>
           {
           typeFilter &&
-          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-md top-full mw-480px-w-full min-w-fit" >
+          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black bg-opacity-25 border-2 border-black border-opacity-25 rounded-md backdrop-blur-md top-full mw-480px-w-full min-w-fit" >
             {
             mechanicsTypeOptions.map((option, index) => (
-              <li key={index} className={`flex justify-between  border-l border-green-400 border-opacity-0 hover:bg-white hover:bg-opacity-5 hover:border-opacity-100 w-full p-1 whitespace-nowrap`}
+              <li key={index} className={`flex justify-between hover:bg-black hover:bg-opacity-40 rounded-md w-full p-1 whitespace-nowrap`}
               onClick={()=> dispatch(setFilterValues({...filterValues, mech_type: option}))}>
                 <p>{option}</p>
                 {
@@ -119,7 +119,7 @@ function MechanicsFilters () {
         </button>
 
         <button id="difficulty-filter"
-        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-md bg-opacity-30 gap-x-1 hover:bg-opacity-50"
+        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 border-b-2 border-black border-opacity-25 bg-opacity-30 gap-x-1 hover:bg-opacity-50"
         onClick={()=> setDifficultyFilter(!difficultyFilter)} ref={difficultyFilterRef}>
           <p>Difficulty</p>
           <div className="">
@@ -128,10 +128,10 @@ function MechanicsFilters () {
           </div>
           {
           difficultyFilter &&
-          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-md top-full min-w-fit" >
+          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black bg-opacity-25 border-2 border-black border-opacity-25 rounded-md backdrop-blur-md top-full min-w-fit" >
             {
             Object.keys(mechanicsDifficultyOptions).map((option, index) => (
-              <li className={`flex justify-between border-l border-green-400 border-opacity-0 hover:border-opacity-100 hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`}
+              <li className={`flex justify-between rounded-md hover:bg-black hover:bg-opacity-40 w-full p-1 whitespace-nowrap`}
               key={index} 
               onClick={()=> dispatch(setFilterValues({...filterValues, mech_difficulty: option}))}>
                 <p className={`${difficultyColors[Number(option)]}`}>{mechanicsDifficultyOptions[Number(option)]}</p>
@@ -148,7 +148,7 @@ function MechanicsFilters () {
         </button>
 
         <button id="importance-filter" 
-        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 bg-black rounded-md bg-opacity-30 gap-x-1 hover:bg-opacity-50"
+        className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 border-b-2 border-black border-opacity-25 bg-opacity-30 gap-x-1 hover:bg-opacity-50"
         onClick={()=> setImportanceFilter(!importanceFilter)} ref={importanceFilterRef}>
           <p>Importance</p>
           <div className="flex">
@@ -157,10 +157,10 @@ function MechanicsFilters () {
           </div>
           {
           importanceFilter &&
-          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black rounded-sm top-full backdrop-blur-sm min-w-fit" >
+          <ul className="absolute left-0 z-10 w-full p-1 mt-1 bg-black bg-opacity-25 border-2 border-black border-opacity-25 rounded-md top-full backdrop-blur-sm min-w-fit" >
             {
             Object.keys(mechanicsImportanceOptions).map((option, index) => (
-              <li className={`flex justify-between hover:bg-black border-l border-green-400 border-opacity-0 hover:bg-opacity-25 hover:border-opacity-100 w-full p-1 whitespace-nowrap`} 
+              <li className={`flex justify-between hover:bg-black rounded-md  hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
               onClick={()=> dispatch(setFilterValues({...filterValues, mech_importance: option}))}>
                 <p className={`${importanceColors[Number(option)]}`}>{mechanicsImportanceOptions[Number(option)]}</p>
                 {
@@ -183,20 +183,20 @@ function MechanicsFilters () {
 
       </section>
       {
-      Object.keys(filterValues).map(value => value).some(value => filterValues[value] != "" && filterValues[value] != undefined) || searchValue &&
+      (Object.keys(filterValues).map(value => value).some(value => filterValues[value] != "" && filterValues[value] != undefined) || searchValue) &&
       <section className="flex justify-between pt-2">
         <div className="flex gap-2">
           {
           Object.keys(filterValues).map((key, index) => (
             filterValues[key] && 
-            <div className="flex items-center p-1 text-xs bg-black rounded-sm bg-opacity-40 gap-x-2" key={index}>
+            <div className="flex items-center p-1 text-xs bg-black rounded-md bg-opacity-40 gap-x-2" key={index}>
               {
               key === 'mech_difficulty' &&
               <p className={`${difficultyColors[Number(filterValues[key])]}`}>{mechanicsDifficultyOptions[Number(filterValues[key])]}</p> 
               }
               {
               key === 'mech_importance' &&
-              <p className={`${importanceColors[Number(filterValues[key])]}`}>{mechanicsImportanceOptions[Number(filterValues[key])]}</p> 
+              <p className={`${importanceColors[Number(filterValues[key])]} `}>{mechanicsImportanceOptions[Number(filterValues[key])]}</p> 
               }
               {
               key !== 'mech_difficulty' && key !== 'mech_importance' &&
