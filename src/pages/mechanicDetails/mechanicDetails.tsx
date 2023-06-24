@@ -82,6 +82,10 @@ function MechanicDetails() {
     };
   }, [trainingPackToCopy]);
 
+  useEffect(()=> {
+    window.scrollTo(0,0)
+  },[])
+
   return (
     <div className="flex justify-center w-full "> 
       <div className="flex flex-col w-full max-w-5xl gap-4 rounded-md ">
