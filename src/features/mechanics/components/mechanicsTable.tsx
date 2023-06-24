@@ -9,7 +9,7 @@ import DeleteMechanic from "./deleteMechanic";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 
-import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen } from "../../mechanics/slice/mechanicsSlice";
+import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen, clearSortColumn } from "../../mechanics/slice/mechanicsSlice";
 import { setSortColumn } from "../slice/mechanicsSlice";
 import AddEditMechanic from "./addEditMechanic";
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions } from "../../../constants/options";
@@ -35,11 +35,14 @@ function MechanicsTable () {
   const handleColumnSort = (column: string | null) => {
     
     if(sortColumn.column === column){
-      return dispatch(setSortColumn({...sortColumn, value: !sortColumn.value}))
+      if(sortColumn.clicks === 1){
+        return dispatch(clearSortColumn())
+      }
+      return dispatch(setSortColumn({...sortColumn, value: !sortColumn.value, clicks: sortColumn.clicks + 1}))
     }  
 
     if(!sortColumn.column || sortColumn.column !== column){
-      return dispatch(setSortColumn({ column: column, value: true}))
+      return dispatch(setSortColumn({ column: column, value: true, clicks: 0}))
     } 
   }
 
@@ -54,7 +57,7 @@ function MechanicsTable () {
   };
 
   return(
-    <table className="flex-1 overflow-x-auto ">
+    <table className="">
       <thead className="border-b border-black border-opacity-25">
         <tr className="h-8 text-left">
           {
@@ -87,7 +90,7 @@ function MechanicsTable () {
         {
         mechanicsData &&
         mechanicsData.map((mech: any, i) => (
-          <tr key={i} className="h-8 text-sm">
+          <tr key={i} className="h-8 text-sm border-b-2 border-black border-opacity-10 hover:bg-black hover:bg-opacity-10">
             {
             user_details && user_details.user_is_admin &&
             

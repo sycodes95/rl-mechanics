@@ -64,7 +64,7 @@ function MechanicsFilters () {
   }, []);
 
   return (
-    <div className="flex flex-col w-full gap-2">
+    <div className="flex flex-col justify-center w-full p-2 border-2 border-black border-opacity-25 rounded-lg bg-jet-dark">
       <section id="filter-selections" className="flex flex-wrap w-full gap-2 mw-480px-flex-col ">
       
         {/* <button id="status-filter" 
@@ -182,8 +182,9 @@ function MechanicsFilters () {
         </div>
 
       </section>
-
-      <section className="flex justify-between">
+      {
+      Object.keys(filterValues).map(value => value).some(value => filterValues[value] != "" && filterValues[value] != undefined) &&
+      <section className="flex justify-between pt-2">
         <div className="flex gap-2">
           {
           Object.keys(filterValues).map((key, index) => (
@@ -233,6 +234,7 @@ function MechanicsFilters () {
         }
         
       </section>
+      }
 
       
       

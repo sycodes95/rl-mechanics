@@ -97,9 +97,9 @@ function MechanicDetails() {
           
         </section>
 
-        <section className="flex h-full gap-2 p-2 bg-black rounded-md bg-opacity-30">
-          <div className="relative w-full">
-            <div className="relative bg-black bg-opacity-50 h-96">
+        <section className="flex h-full gap-2 p-2 border-2 border-black border-opacity-25 rounded-lg shadow-lg bg-jet-dark ">
+          <div className="relative w-full bg-black rounded-lg">
+            <div className="relative bg-jet-dark h-96">
             {mechanicDetails?.mech_yt_url_controller && (
               showVideo && (
                 <ReactPlayer
@@ -180,7 +180,8 @@ function MechanicDetails() {
             
             <div className="flex flex-col gap-2 ">
               <label className="text-xl text-white font-rajdhani">Info</label>
-              <div className="flex flex-col gap-2 p-2 bg-black rounded-md shadow-md bg-opacity-30">
+
+              <div className="flex flex-col gap-2 p-2 border-2 border-black border-opacity-25 rounded-lg shadow-lg bg-jet-dark">
                 <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
                   <p className="text-gray-500 ">Difficulty</p>
                   <p className={`${difficultyColors[mechanicDetails?.mech_difficulty]}`}><em>{mechanicsDifficultyOptions[mechanicDetails?.mech_difficulty]}</em></p>

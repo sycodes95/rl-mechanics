@@ -110,7 +110,7 @@ function Mechanics() {
 
   return (
     <div className="flex justify-center w-full text-white"> 
-      <div className="flex flex-col w-full max-w-4xl gap-4">
+      <div className="flex flex-col w-full gap-4 max-w-fit">
         <section className="relative flex overflow-hidden rounded-md h-44">
           <img className="absolute -translate-y-1/2 opacity-50 pointer-events-none top-1/2" src={octane}/>
         </section>
@@ -137,7 +137,7 @@ function Mechanics() {
           <MechanicsFilters/>
         </section>
 
-        <section className="flex overflow-x-auto overflow-y-visible bg-black bg-opacity-25 rounded-md">
+        <section className="flex pt-4 pl-4 pr-4 overflow-x-auto overflow-y-visible border-2 border-black border-opacity-25 rounded-md shadow-lg bg-jet-dark">
           <MechanicsTable/>
         </section>
 

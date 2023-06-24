@@ -38,7 +38,7 @@ function Menu() {
   },[user_details])
 
   return(
-    <div className='z-40 flex items-center justify-center w-full h-16 p-4 bg-black bg-opacity-25 sm:pl-16 sm:pr-16'>
+    <div className='z-40 flex items-center justify-center w-full h-16 p-4 shadow-md bg-jet-dark sm:pl-16 sm:pr-16'>
 
       <div className='flex justify-between w-full max-w-5xl'>
 

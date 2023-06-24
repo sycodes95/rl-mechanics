@@ -15,19 +15,19 @@ import { useEffect } from 'react';
 function App() {
   return (
     <BrowserRouter>
-      <div id='app' className='flex flex-col w-full min-h-screen bg-gradient'>
+      <div id='app' className='flex flex-col w-full min-h-screen bg-jet-darker'>
         <div>
           <Menu/>
         </div>
         <div className='relative flex-1 p-4 mb-12 sm:p-12'>
-        <Routes>
-          <Route path='/' element={<Mechanics/>}/>
-          <Route path='/mechanics' element={<Mechanics/>}/>
-          <Route path='/mechanics/:mech_url' element={<MechanicDetails/>}/>
-          <Route path='/register' element={<Register/>}/>
-          <Route path='/log-in' element={<Login/>}/>
-          <Route path='*' element={<NotFound/>} />
-        </Routes>
+          <Routes>
+            <Route path='/' element={<Mechanics/>}/>
+            <Route path='/mechanics' element={<Mechanics/>}/>
+            <Route path='/mechanics/:mech_url' element={<MechanicDetails/>}/>
+            <Route path='/register' element={<Register/>}/>
+            <Route path='/log-in' element={<Login/>}/>
+            <Route path='*' element={<NotFound/>} />
+          </Routes>
         </div>
         <div>
           <Footer/>
