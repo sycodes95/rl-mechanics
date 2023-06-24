@@ -262,7 +262,7 @@ function MechanicDetails() {
               Description
             </label>
             
-            <div className="p-2 text-sm whitespace-pre-line bg-black rounded-md bg-opacity-30 overflow-ellipsis">
+            <div className="p-2 text-sm whitespace-pre-line border-2 border-black border-opacity-25 rounded-md shadow-md bg-jet-dark overflow-ellipsis">
               {
               mechanicDetails.mech_description ? 
               

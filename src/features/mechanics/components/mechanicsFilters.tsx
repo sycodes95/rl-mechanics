@@ -183,7 +183,7 @@ function MechanicsFilters () {
 
       </section>
       {
-      Object.keys(filterValues).map(value => value).some(value => filterValues[value] != "" && filterValues[value] != undefined) &&
+      Object.keys(filterValues).map(value => value).some(value => filterValues[value] != "" && filterValues[value] != undefined) || searchValue &&
       <section className="flex justify-between pt-2">
         <div className="flex gap-2">
           {
