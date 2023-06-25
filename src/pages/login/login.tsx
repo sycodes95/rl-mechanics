@@ -5,7 +5,7 @@ import { ReactSVG } from "react-svg";
 import { Oval } from "react-loader-spinner";
 import twodown from "../../assets/svgs/twodown.svg"
 import { env } from "process";
-
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"
 
 function Login (){
 
@@ -79,6 +79,14 @@ function Login (){
           placeholder="PASSWORD" required
           
           onChange={handleInputChange}/>
+
+          <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
+          <GoogleLogin  
+          onSuccess={credentialResponse => { console.log(credentialResponse)}}
+          onError={()=> { console.log('Login Faild ')}}/>
+
+
+          </GoogleOAuthProvider>
 
           <button className="flex items-center justify-center h-8 p-1 text-sm text-white transition-all bg-gray-700 rounded-md hover:bg-green-300 hover:text-gray-600" onClick={handleLoginSubmit}>
             {
