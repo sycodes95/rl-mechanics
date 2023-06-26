@@ -1,11 +1,20 @@
 import withAuth from "../../hocs/withAuth";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactSVG } from "react-svg";
 import { Oval } from "react-loader-spinner";
 import twodown from "../../assets/svgs/twodown.svg"
 import { env } from "process";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"
+import jwt_decode from 'jwt-decode'
+import { log } from "console";
+
+type DecodedJwt = {
+  email: string;
+  family_name: string;
+  given_name: string;
+  picture: string;
+}
 
 function Login (){
 
@@ -20,6 +29,13 @@ function Login (){
     user_password: ""
   })
 
+  const [googleLoginData, setGoogleLoginData] = useState({
+    email: "",
+    family_name: "",
+    given_name: "",
+    picture: ""
+  })
+
   const handleInputChange = (e: any) => {
     //reset error msgs to empty array on any input change
     setErrorMsgs([])
@@ -29,9 +45,9 @@ function Login (){
     setLoginData({...loginData, [name]: value})
   };
 
-  const handleLoginSubmit = (e: any) => {
+  const handleLoginSubmit = (e:any) => {
     e.preventDefault()
-
+    
     setIsFetching(true)
 
     fetch(`${import.meta.env.VITE_API_HOST_URL}/users/log-in-post`, {
@@ -57,6 +73,21 @@ function Login (){
     })
   }
 
+  const signInWithGoogle = () => {
+    const authUrl = "http://localhost:5000/auth/google";
+    
+    fetch(authUrl, {
+      method: 'GET',
+      credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Save the JWT to local storage
+      localStorage.setItem("token", data.token);
+    })
+    .catch(err => console.log(err));
+  };
+
   return (
     <div className="absolute top-0 left-0 flex items-center justify-center flex-grow w-full h-full p-4 ">
       <div className="flex items-center h-full max-w-5xl">
@@ -80,13 +111,7 @@ function Login (){
           
           onChange={handleInputChange}/>
 
-          <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
-          <GoogleLogin  
-          onSuccess={credentialResponse => { console.log(credentialResponse)}}
-          onError={()=> { console.log('Login Faild ')}}/>
-
-
-          </GoogleOAuthProvider>
+          
 
           <button className="flex items-center justify-center h-8 p-1 text-sm text-white transition-all bg-gray-700 rounded-md hover:bg-green-300 hover:text-gray-600" onClick={handleLoginSubmit}>
             {
@@ -125,6 +150,27 @@ function Login (){
           }
           </div>
           }
+
+          <button className="text-white" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button>
+
+          {/* <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
+            <GoogleLogin  
+            onSuccess={credentialResponse => {
+              const details = jwt_decode(credentialResponse.credential ?? '') as DecodedJwt;
+              details &&
+              setGoogleLoginData({
+                email: details.email,
+                family_name: details.family_name,
+                given_name: details.given_name,
+                picture: details.picture
+
+              })
+
+            }}
+          onError={()=> { console.log('Login Faild ')}}/>
+
+
+          </GoogleOAuthProvider> */}
           
           
         </form>
