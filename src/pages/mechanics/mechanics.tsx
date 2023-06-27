@@ -1,6 +1,6 @@
 
 import "./mechanics.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import MechanicsTable from "../../features/mechanics/components/mechanicsTable";
 import useDebounce from "../../hooks/useDebounce";
@@ -14,7 +14,6 @@ import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../features/mecha
 import { RootState } from "../../store";
 import { clearMechanicsData, setMechanicsData } from "../../features/mechanics/slice/mechanicsSlice";
 import octane from "../../assets/images/octane.webp"
-import breakoutNight from "../../assets/images/breakout-night.jpg"
 import AddEditMechanic from "../../features/mechanics/components/addEditMechanic";
 import { getMechanics } from "../../features/mechanics/services/getMechanics";
 import ReactPaginate from "react-paginate";

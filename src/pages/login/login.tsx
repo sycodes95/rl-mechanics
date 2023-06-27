@@ -72,43 +72,26 @@ function Login (){
     })
   }
 
-  const signInWithGoogle = (userData : GoogleUserData ) => {
-    setIsFetching(true)
-
-    fetch(`${import.meta.env.VITE_API_HOST_URL}/users/google-log-in-post`, {
-      method: 'POST',
-      body: JSON.stringify(userData),
-      headers: { 'Content-Type': 'application/json'}
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/users/verify-token-get`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      setIsFetching(false)
-      
-      if(data.status === 'Logged In'){
-        setLoginSuccess(true)
-        setTimeout(()=>{
-          window.location.href = '/'
-        },1000)
-      } else if (!errorMsgs.includes('Invalid email or password')){
-        setErrorMsgs([...errorMsgs, 'Invalid email or password'])
+      if (data.message === 'User authorized') {
+        // The user is already authenticated, so redirect them to the home page
+        window.location.href = '/';
       }
-
-      // const token = data.token
-      
-      // if(token){
-      //   setLoginSuccess(true)
-      //   localStorage.setItem('rlmechanics_token', token)
-      //   setTimeout(()=>{
-      //     window.location.href = '/'
-      //   },1000)
-      // } else if (!errorMsgs.includes('Invalid email or password')){
-      //   setErrorMsgs([...errorMsgs, 'Invalid email or password'])
-      // }
-      
     })
-  };
-
+    .catch(error => {
+      // Handle error
+      console.error('Error:', error);
+    });
+  }, []);
   
   return (
     <div className="absolute top-0 left-0 flex items-center justify-center flex-grow w-full h-full p-4 ">
