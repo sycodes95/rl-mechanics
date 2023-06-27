@@ -16,6 +16,13 @@ type DecodedJwt = {
   picture: string;
 }
 
+type GoogleUserData = {
+  user_email : string;
+  user_first_name : string;
+  user_last_name : string;
+  user_picture: string
+}
+
 function Login (){
 
   const [isFetching, setIsFetching] = useState(false);
@@ -59,7 +66,7 @@ function Login (){
     .then(data => {
       setIsFetching(false)
       const token = data.token
-
+      console.log(data);
       if(token){
         setLoginSuccess(true)
         localStorage.setItem('rlmechanics_token', token)
@@ -73,19 +80,31 @@ function Login (){
     })
   }
 
-  const signInWithGoogle = () => {
-    const authUrl = "http://localhost:5000/auth/google";
-    
-    fetch(authUrl, {
-      method: 'GET',
-      credentials: 'include'
+  const signInWithGoogle = (userData : GoogleUserData ) => {
+    setIsFetching(true)
+
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/users/google-log-in-post`, {
+      method: 'POST',
+      body: JSON.stringify(userData),
+      headers: { 'Content-Type': 'application/json'}
     })
     .then(response => response.json())
     .then(data => {
-      // Save the JWT to local storage
-      localStorage.setItem("token", data.token);
+      console.log(data);
+      setIsFetching(false)
+      const token = data.token
+
+      if(token){
+        setLoginSuccess(true)
+        localStorage.setItem('rlmechanics_token', token)
+        setTimeout(()=>{
+          window.location.href = '/'
+        },1000)
+      } else if (!errorMsgs.includes('Invalid email or password')){
+        setErrorMsgs([...errorMsgs, 'Invalid email or password'])
+      }
+      
     })
-    .catch(err => console.log(err));
   };
 
   return (
@@ -151,26 +170,24 @@ function Login (){
           </div>
           }
 
-          <button className="text-white" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button>
-
-          {/* <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
+          {/* <button className="text-white" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button> */}
+          
+          <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
             <GoogleLogin  
             onSuccess={credentialResponse => {
-              const details = jwt_decode(credentialResponse.credential ?? '') as DecodedJwt;
-              details &&
-              setGoogleLoginData({
-                email: details.email,
-                family_name: details.family_name,
-                given_name: details.given_name,
-                picture: details.picture
-
-              })
-
+              const userDetails = jwt_decode(credentialResponse.credential ?? '') as DecodedJwt;
+              if(userDetails) {
+                const userData = {
+                  user_email: userDetails.email,
+                  user_first_name : userDetails.given_name,
+                  user_last_name : userDetails.family_name,
+                  user_picture : userDetails.picture
+                }
+                signInWithGoogle(userData)
+              }
             }}
-          onError={()=> { console.log('Login Faild ')}}/>
-
-
-          </GoogleOAuthProvider> */}
+            onError={()=> { console.log('Login Faild ')}}/>
+          </GoogleOAuthProvider>
           
           
         </form>
