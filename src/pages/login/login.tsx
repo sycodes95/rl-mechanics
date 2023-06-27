@@ -173,9 +173,9 @@ function Login (){
           </div>
           }
 
-          {/* <button className="text-white" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button> */}
+          <button className="text-white" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button>
           
-          <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
+          {/* <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
             <GoogleLogin
             onSuccess={credentialResponse => {
               const userDetails = jwt_decode(credentialResponse.credential ?? '') as DecodedJwt;
@@ -193,7 +193,7 @@ function Login (){
             
             onError={()=> { console.log('Login Faild ')}}/>
           </GoogleOAuthProvider>
-          
+           */}
           
         </form>
       </div>

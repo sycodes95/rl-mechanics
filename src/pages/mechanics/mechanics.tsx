@@ -100,8 +100,6 @@ function Mechanics() {
     setPaginationShowing({a, b})
   }, [paginationData]);
 
-  
-
   useEffect(() => {
     getUserFromToken()?.then((user_details) => {
       user_details && dispatch(setUserDetails(user_details));
