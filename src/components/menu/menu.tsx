@@ -27,11 +27,15 @@ function Menu() {
 
   useEffect(()=> {
 
-    const token = localStorage.getItem('rlmechanics_token') as string;
-    token ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    // const token = localStorage.getItem('rlmechanics_token') as string;
+    // token ? setIsLoggedIn(true) : setIsLoggedIn(false);
     getUserFromToken()?.then(userDetails => set_user_details(userDetails))
     
   },[]);
+
+  useEffect(()=> {
+    user_details ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  },[user_details])
 
   useEffect(()=>{
     user_details && user_details.user_is_admin && setUserIsAdmin(true)

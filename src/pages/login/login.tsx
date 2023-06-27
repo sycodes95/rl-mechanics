@@ -36,13 +36,6 @@ function Login (){
     user_password: ""
   })
 
-  const [googleLoginData, setGoogleLoginData] = useState({
-    email: "",
-    family_name: "",
-    given_name: "",
-    picture: ""
-  })
-
   const handleInputChange = (e: any) => {
     //reset error msgs to empty array on any input change
     setErrorMsgs([])
@@ -60,16 +53,15 @@ function Login (){
     fetch(`${import.meta.env.VITE_API_HOST_URL}/users/log-in-post`, {
       method: 'POST',
       body: JSON.stringify(loginData),
-      headers: { 'Content-Type': 'application/json'}
+      headers: { 'Content-Type': 'application/json'},
+      credentials: 'include',
     })
     .then(response => response.json())
     .then(data => {
-      setIsFetching(false)
-      const token = data.token
       console.log(data);
-      if(token){
+      setIsFetching(false)
+      if(data.status === 'Logged in'){
         setLoginSuccess(true)
-        localStorage.setItem('rlmechanics_token', token)
         setTimeout(()=>{
           window.location.href = '/'
         },1000)
@@ -92,21 +84,32 @@ function Login (){
     .then(data => {
       console.log(data);
       setIsFetching(false)
-      const token = data.token
-
-      if(token){
+      
+      if(data.status === 'Logged In'){
         setLoginSuccess(true)
-        localStorage.setItem('rlmechanics_token', token)
         setTimeout(()=>{
           window.location.href = '/'
         },1000)
       } else if (!errorMsgs.includes('Invalid email or password')){
         setErrorMsgs([...errorMsgs, 'Invalid email or password'])
       }
+
+      // const token = data.token
+      
+      // if(token){
+      //   setLoginSuccess(true)
+      //   localStorage.setItem('rlmechanics_token', token)
+      //   setTimeout(()=>{
+      //     window.location.href = '/'
+      //   },1000)
+      // } else if (!errorMsgs.includes('Invalid email or password')){
+      //   setErrorMsgs([...errorMsgs, 'Invalid email or password'])
+      // }
       
     })
   };
 
+  
   return (
     <div className="absolute top-0 left-0 flex items-center justify-center flex-grow w-full h-full p-4 ">
       <div className="flex items-center h-full max-w-5xl">
@@ -173,7 +176,7 @@ function Login (){
           {/* <button className="text-white" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button> */}
           
           <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
-            <GoogleLogin  
+            <GoogleLogin
             onSuccess={credentialResponse => {
               const userDetails = jwt_decode(credentialResponse.credential ?? '') as DecodedJwt;
               if(userDetails) {
@@ -186,6 +189,8 @@ function Login (){
                 signInWithGoogle(userData)
               }
             }}
+            
+            
             onError={()=> { console.log('Login Faild ')}}/>
           </GoogleOAuthProvider>
           

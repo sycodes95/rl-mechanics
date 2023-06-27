@@ -1,18 +1,33 @@
 
 
-const getUserFromToken = () => {
-  const token = localStorage.getItem('rlmechanics_token');
+// const getUserFromToken = () => {
+//   const token = localStorage.getItem('rlmechanics_token');
 
-  if(!token) return null;
+//   if(!token) return null;
+
+//   return fetch(`${import.meta.env.VITE_API_HOST_URL}/users/verify-token-get`, {
+//     method: 'GET',
+//     headers: { 'authorization': `Bearer ${token}` }
+//   })
+//   .then(response => response.json())
+//   .then(data => {
+//     const userDetails =  data.user.user.rows[0]
+//     delete userDetails.user_password
+//     return userDetails;
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//   });
+// };
+
+const getUserFromToken = () => {
 
   return fetch(`${import.meta.env.VITE_API_HOST_URL}/users/verify-token-get`, {
-    method: 'GET',
-    headers: { 'authorization': `Bearer ${token}` }
-  })
+    credentials: 'include'
+  }) 
   .then(response => response.json())
   .then(data => {
-    const userDetails =  data.user.user.rows[0]
-    delete userDetails.user_password
+    const userDetails = data.user
     return userDetails;
   })
   .catch(error => {
