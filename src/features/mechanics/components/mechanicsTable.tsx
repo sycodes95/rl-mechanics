@@ -12,19 +12,23 @@ import { RootState } from "../../../store";
 import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen, clearSortColumn } from "../../mechanics/slice/mechanicsSlice";
 import { setSortColumn } from "../slice/mechanicsSlice";
 import AddEditMechanic from "./addEditMechanic";
-import { mechanicsDifficultyOptions, mechanicsImportanceOptions } from "../../../constants/options";
+import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions } from "../../../constants/options";
 
 function MechanicsTable () {
 
   const dispatch = useDispatch()
 
+  const [showMechanicStatus, setShowMechanicStatus] = useState<null | number>(null)
+
   const { user_details } = useSelector((state: RootState) => state.userSlice)
 
-  const { deleteMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.mechanicsSlice)
-
-  const { sortColumn } = useSelector((state: RootState) => state.mechanicsSlice)
-
-  const { mechanicsData } = useSelector((state: RootState) => state.mechanicsSlice)
+  const { 
+    deleteMechanicIsOpen, 
+    editMechanicIsOpen,
+    sortColumn,
+    mechanicsData,
+    mechanicStatuses
+  } = useSelector((state: RootState) => state.mechanicsSlice)
 
   const [mechanicHoverGif, setMechanicHoverGif] = useState({
     hover: false,
@@ -56,6 +60,34 @@ function MechanicsTable () {
     rating_importance: 'Rated Importance'
   };
 
+  const handleStatusClick = (index: number) => {
+    if(index === showMechanicStatus){
+      setShowMechanicStatus(null)
+    } else {
+      setShowMechanicStatus(index)
+    }
+  }
+
+  const handleStatusChange = (mech_id : number, mechanic_status_value : number) => {
+    console.log(mech_id, user_details?.user_id, mechanic_status_value);
+    const data = {
+      mech_id,
+      user_id : user_details?.user_id,
+      mechanic_status_value
+    }
+    fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-status-put`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+  }
+
+  useEffect(()=> {
+    console.log(mechanicStatuses);
+  },[mechanicStatuses])
+
   return(
     <table className="">
       <thead className="border-b border-black border-opacity-25">
@@ -67,7 +99,7 @@ function MechanicsTable () {
           
         {
           Object.keys(mechTableColumns).map((column, index) => (
-          column !== 'mech_status' &&
+          // column !== 'mech_status' &&
           <th className={`text-gray-400 text-xs pr-4 
           cursor-pointer hover:text-gray-600 transition-all 
           ${column !== 'mech_type' && column !== 'mech_name' && 'min-w-6rem'}
@@ -118,7 +150,38 @@ function MechanicsTable () {
               
             </td>
             }
-            {/* <td>status...</td> */}
+            {
+            user_details ?
+            
+            <div className="w-full h-full">
+            <button className="relative w-full h-full bg-black" onClick={()=> handleStatusClick(i)}>
+              {
+              mechanicStatuses[mech.mech_id] 
+              ? <div>{mechanicsStatusOptions[mechanicStatuses[mech.mech_id]]}</div>
+              : <div>...</div>
+              }
+              {
+              showMechanicStatus === i &&
+              <ul className="absolute z-10 bg-black top-full w-fit">
+                {
+                Object.keys(mechanicsStatusOptions).map(option => (
+                  <li onClick={()=>handleStatusChange(mech.mech_id, Number(option))}>
+                    {mechanicsStatusOptions[Number(option)]}
+                  </li>
+                ))
+                }
+              </ul>
+              }
+              
+            </button>
+            </div>
+            :
+            <div className="pl-1">
+              ?
+            </div>
+            }
+            
+            
             <td className="text-pink-500">
               {mech.mech_type}
             </td>

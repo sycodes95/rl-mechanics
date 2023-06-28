@@ -8,6 +8,7 @@ type MechanicsData = {
   filterValues: { [key: string] : string | number };
   searchValue: string;
   sortColumn: { column: null | string,  value: boolean, clicks: number };
+  mechanicStatuses: any[];
   addMechanicIsOpen: boolean;
   editMechanicIsOpen: { open: boolean, mech_id: number | null };
   deleteMechanicIsOpen: { open: boolean, mech_id: number | null };
@@ -29,6 +30,7 @@ const initialState: MechanicsData = {
     value: false,
     clicks: 0,
   },
+  mechanicStatuses: [],
   addMechanicIsOpen: false,
   editMechanicIsOpen: { open: false, mech_id: null },
   deleteMechanicIsOpen: { open: false, mech_id: null }
@@ -65,6 +67,9 @@ export const mechanicsSlice = createSlice({
     clearSortColumn: (state) => {
       state.sortColumn = { column: null, value: false, clicks: 0}
     },
+    setMechanicsStatuses: (state, action) => {
+      state.mechanicStatuses = action.payload
+    },
     setAddMechanicIsOpen: (state, action) => {
       state.addMechanicIsOpen = action.payload
     },
@@ -86,6 +91,7 @@ export const {
   clearSearchValue,
   setSortColumn,
   clearSortColumn,
+  setMechanicsStatuses,
   setAddMechanicIsOpen, 
   setEditMechanicIsOpen,
   setDeleteMechanicIsOpen

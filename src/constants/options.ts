@@ -1,9 +1,9 @@
 
-export const mechanicsStatusOptions : string[] = [
-  'Consistent',
-  'Inconsistent',
-  'Not Learned',
-];
+export const mechanicsStatusOptions: {[key: number]: string} = {
+  1 : 'Not Learned',
+  2 : 'Inconsistent',
+  3 : 'Consistent'
+}
 
 export const mechanicsDifficultyOptions: {[key: number]: string} = {
   1 : 'Very Easy' ,
@@ -38,3 +38,6 @@ export const mechanicsTypeOptions: string[] = [
   'Backboard',
   'Misc'
 ]
+
+
+

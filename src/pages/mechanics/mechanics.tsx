@@ -10,9 +10,16 @@ import getUserFromToken from "../../services/getUserFromToken";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserDetails } from '../../slices/userSlice';
-import { setAddMechanicIsOpen, setEditMechanicIsOpen} from '../../features/mechanics/slice/mechanicsSlice';
+
+import { 
+  setAddMechanicIsOpen, 
+  setEditMechanicIsOpen, 
+  clearMechanicsData, 
+  setMechanicsData, 
+  setMechanicsStatuses 
+} from '../../features/mechanics/slice/mechanicsSlice';
+
 import { RootState } from "../../store";
-import { clearMechanicsData, setMechanicsData } from "../../features/mechanics/slice/mechanicsSlice";
 import octane from "../../assets/images/octane.webp"
 import AddEditMechanic from "../../features/mechanics/components/addEditMechanic";
 import { getMechanics } from "../../features/mechanics/services/getMechanics";
@@ -32,11 +39,15 @@ function Mechanics() {
 
   const { user_details } = useSelector((state: RootState) => state.userSlice)
 
-  const { addMechanicIsOpen, editMechanicIsOpen } = useSelector((state: RootState) => state.mechanicsSlice)
-
-  const { filterValues, searchValue, sortColumn } = useSelector((state: RootState) => state.mechanicsSlice)
-
-  const { mechanicsData } = useSelector((state: RootState) => state.mechanicsSlice)
+  const { 
+    addMechanicIsOpen, 
+    editMechanicIsOpen,
+    filterValues,
+    searchValue,
+    sortColumn,
+    mechanicsData,
+    mechanicStatuses
+  } = useSelector((state: RootState) => state.mechanicsSlice)
 
   const debouncedSearch = useDebounce(searchValue, 300);
   
@@ -46,14 +57,27 @@ function Mechanics() {
     totalCount: null,
   });
 
-  const [paginationShowing, setPaginationShowing] = useState({
-    a: 0,
-    b: 0
-  })
+  const [paginationShowing, setPaginationShowing] = useState({ a: 0, b: 0 })
 
   const handlePageChange = (page: number) => {
     setPaginationData({ ...paginationData, pageNumber: page });
   };
+
+  useEffect(()=>{
+    if(user_details){
+      console.log(user_details);
+      fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-status-get?user_id=${user_details.user_id}`)
+      .then(res => res.json())
+      .then(data => {
+        let mech_id_to_status_pair = {}
+        data.mechanics_statuses.forEach(mech => {
+          mech_id_to_status_pair[mech.mech_id] = mech.mechanic_status_value
+        })
+        console.log(mech_id_to_status_pair);
+        dispatch(setMechanicsStatuses(mech_id_to_status_pair))
+      })
+    }
+  },[user_details])
 
   useEffect(() => {
     const fetchData = async () => {
