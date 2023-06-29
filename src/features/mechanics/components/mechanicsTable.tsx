@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Icon from '@mdi/react';
-import {  mdiPencil, mdiDelete } from '@mdi/js';
+import {  mdiPencil, mdiDelete, mdiCircleHalfFull } from '@mdi/js';
 import { difficultyColors, importanceColors } from "../../../constants/colors";
 import DeleteMechanic from "./deleteMechanic";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 
-import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen, clearSortColumn } from "../../mechanics/slice/mechanicsSlice";
+import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen, clearSortColumn, setMechanicsStatuses } from "../../mechanics/slice/mechanicsSlice";
 import { setSortColumn } from "../slice/mechanicsSlice";
 import AddEditMechanic from "./addEditMechanic";
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions } from "../../../constants/options";
@@ -81,7 +81,19 @@ function MechanicsTable () {
       headers: { 'Content-Type': 'application/json'}
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      
+      if(data && data.mechanic){
+
+        const {
+          mech_id, 
+          mechanic_status_value
+        } = data.mechanic;
+
+        dispatch(setMechanicsStatuses({...mechanicStatuses, [mech_id] : mechanic_status_value}));
+
+      }
+    })
   }
 
   useEffect(()=> {
@@ -152,17 +164,23 @@ function MechanicsTable () {
             }
             {
             user_details ?
-            
-            <div className="w-full h-full">
-            <button className="relative w-full h-full bg-black" onClick={()=> handleStatusClick(i)}>
+            <div className="relative h-8 overflow-visible">
+            <button className="relative w-full h-full" onClick={()=> handleStatusClick(i)}>
+              {/* {
+              mechanicStatuses[mech.mech_id] 
+              ? <div>{mechanicsStatusOptions[mechanicStatuses[mech.mech_id]]}</div> 
+              : <div>...</div>
+              } */}
+
               {
               mechanicStatuses[mech.mech_id] 
-              ? <div>{mechanicsStatusOptions[mechanicStatuses[mech.mech_id]]}</div>
+              ? <Icon className="pl-1 text-yellow-600" path={mdiCircleHalfFull} size={1} />
               : <div>...</div>
               }
+
               {
               showMechanicStatus === i &&
-              <ul className="absolute z-10 bg-black top-full w-fit">
+              <ul className="absolute z-10 flex bg-black top-full w-fit">
                 {
                 Object.keys(mechanicsStatusOptions).map(option => (
                   <li onClick={()=>handleStatusChange(mech.mech_id, Number(option))}>
@@ -175,10 +193,12 @@ function MechanicsTable () {
               
             </button>
             </div>
+            
             :
             <div className="pl-1">
               ?
             </div>
+            
             }
             
             

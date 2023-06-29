@@ -27,8 +27,9 @@ const getUserFromToken = () => {
   }) 
   .then(response => response.json())
   .then(data => {
-    const userDetails = data.user
-    return userDetails;
+    if(data && data.user){
+      return data.user
+    }
   })
   .catch(error => {
     console.error('Error:', error);

@@ -34,6 +34,14 @@ export type PaginationData = {
   totalCount: null | number;
 }
 
+type MechanicStatus = {
+  mech_id: number;
+  mechanic_status_id: number;
+  mechanic_status_value: number;
+  user_id: number;
+
+}
+
 function Mechanics() {
   const dispatch = useDispatch();
 
@@ -63,22 +71,6 @@ function Mechanics() {
     setPaginationData({ ...paginationData, pageNumber: page });
   };
 
-  useEffect(()=>{
-    if(user_details){
-      console.log(user_details);
-      fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-status-get?user_id=${user_details.user_id}`)
-      .then(res => res.json())
-      .then(data => {
-        let mech_id_to_status_pair = {}
-        data.mechanics_statuses.forEach(mech => {
-          mech_id_to_status_pair[mech.mech_id] = mech.mechanic_status_value
-        })
-        console.log(mech_id_to_status_pair);
-        dispatch(setMechanicsStatuses(mech_id_to_status_pair))
-      })
-    }
-  },[user_details])
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -88,7 +80,6 @@ function Mechanics() {
           sortColumn,
           paginationData
         );
-
 
         data && data.mechanics && data.mechanics.length
         ? dispatch(setMechanicsData(data.mechanics)) 
@@ -105,13 +96,29 @@ function Mechanics() {
     };
 
     fetchData();
-  }, [debouncedSearch, filterValues, sortColumn, paginationData.pageNumber]);
+  }, [debouncedSearch, filterValues, sortColumn, paginationData.pageNumber, mechanicStatuses]);
+
+  useEffect(()=>{
+    //if user is logged in and we have their details, use it to fetch user's mechanic statuses
+    if(user_details){
+
+      fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-status-get?user_id=${user_details.user_id}`)
+      .then(res => res.json())
+      .then(data => {
+        let mech_id_to_status_pair : { [key: number] : any } = {}
+        data.mechanics_statuses.forEach((mech: MechanicStatus) => {
+          mech_id_to_status_pair[mech.mech_id] = mech.mechanic_status_value
+        })
+        dispatch(setMechanicsStatuses(mech_id_to_status_pair))
+      })
+    }
+  },[user_details])
 
   useEffect(() => {
     //if current page number is higher than maximum possible, and there is data, reset pageNumber to 0
     if (paginationData && paginationData.totalCount) {
       !mechanicsData.length &&
-        setPaginationData({ ...paginationData, pageNumber: 0 });
+      setPaginationData({ ...paginationData, pageNumber: 0 });
     }
   }, [paginationData.totalCount]);
 
