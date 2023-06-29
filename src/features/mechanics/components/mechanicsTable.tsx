@@ -1,24 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
+import AddEditMechanic from "./addEditMechanic";
+
 import Icon from '@mdi/react';
-import {  mdiPencil, mdiDelete, mdiCircleHalfFull } from '@mdi/js';
+import {  mdiPencil, mdiDelete, mdiDotsCircle } from '@mdi/js';
 import { difficultyColors, importanceColors } from "../../../constants/colors";
 import DeleteMechanic from "./deleteMechanic";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 
-import { setEditMechanicIsOpen, setDeleteMechanicIsOpen, setAddMechanicIsOpen, clearSortColumn, setMechanicsStatuses } from "../../mechanics/slice/mechanicsSlice";
-import { setSortColumn } from "../slice/mechanicsSlice";
-import AddEditMechanic from "./addEditMechanic";
+import { 
+  setEditMechanicIsOpen, 
+  setDeleteMechanicIsOpen, 
+  setAddMechanicIsOpen, 
+  clearSortColumn, 
+  setMechanicsStatuses,
+  setSortColumn
+} from "../../mechanics/slice/mechanicsSlice";
+
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions } from "../../../constants/options";
+
+import { Tooltip } from "react-tooltip";
 
 function MechanicsTable () {
 
   const dispatch = useDispatch()
 
   const [showMechanicStatus, setShowMechanicStatus] = useState<null | number>(null)
+
+  const [mechanicHoverGif, setMechanicHoverGif] = useState({
+    hover: false,
+    mech_id: 0,
+    gif_url: ""
+  })
+
+  const statusButtonRef = useRef<HTMLUListElement>(null)
 
   const { user_details } = useSelector((state: RootState) => state.userSlice)
 
@@ -29,12 +47,6 @@ function MechanicsTable () {
     mechanicsData,
     mechanicStatuses
   } = useSelector((state: RootState) => state.mechanicsSlice)
-
-  const [mechanicHoverGif, setMechanicHoverGif] = useState({
-    hover: false,
-    mech_id: 0,
-    gif_url: ""
-  })
 
   const handleColumnSort = (column: string | null) => {
     
@@ -97,8 +109,22 @@ function MechanicsTable () {
   }
 
   useEffect(()=> {
-    console.log(mechanicStatuses);
+    
   },[mechanicStatuses])
+
+  useEffect(() => {
+    //if user clicks outside of status selection, close it
+    const handleClickOutsideStatus = (e: any) => {
+      if(statusButtonRef.current && !statusButtonRef.current.contains(e.target)){
+        setShowMechanicStatus(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutsideStatus);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideStatus);
+    };
+  }, []);
 
   return(
     <table className="">
@@ -164,34 +190,40 @@ function MechanicsTable () {
             }
             {
             user_details ?
-            <div className="relative h-8 overflow-visible">
-            <button className="relative w-full h-full" onClick={()=> handleStatusClick(i)}>
-              {/* {
-              mechanicStatuses[mech.mech_id] 
-              ? <div>{mechanicsStatusOptions[mechanicStatuses[mech.mech_id]]}</div> 
-              : <div>...</div>
-              } */}
-
-              {
-              mechanicStatuses[mech.mech_id] 
-              ? <Icon className="pl-1 text-yellow-600" path={mdiCircleHalfFull} size={1} />
-              : <div>...</div>
-              }
-
-              {
-              showMechanicStatus === i &&
-              <ul className="absolute z-10 flex bg-black top-full w-fit">
+            <div  className="relative h-8 pl-1 overflow-visible">
+              <button  className="relative h-full w-fit"  onClick={()=> handleStatusClick(i)} 
+              >
                 {
-                Object.keys(mechanicsStatusOptions).map(option => (
-                  <li onClick={()=>handleStatusChange(mech.mech_id, Number(option))}>
-                    {mechanicsStatusOptions[Number(option)]}
-                  </li>
-                ))
+                mechanicStatuses[mech.mech_id] 
+                ? <div data-tooltip-id="mechanic-status-tooltip"
+                data-tooltip-content={`
+                ${mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].tooltip}
+                `}
+                data-tooltip-place="bottom">
+                   
+                    <Icon className={`${ mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].color}`}
+                    path={mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].src} size={0.8} />
+                  </div> 
+                : <div className="text-gray-600"><Icon path={mdiDotsCircle} size={0.8} /></div>
                 }
-              </ul>
-              }
-              
-            </button>
+
+                {
+                showMechanicStatus === i &&
+                <ul className="absolute top-0 z-10 flex items-center h-8 pl-1 pr-1 ml-1 bg-black bg-opacity-25 rounded-lg left-full w-fit" ref={statusButtonRef}>
+                  {
+                  Object.keys(mechanicsStatusOptions).map(option => (
+                    <li onClick={()=>handleStatusChange(mech.mech_id, Number(option))}>
+                      <Icon className={`${mechanicsStatusOptions[Number(option)].color}`}
+                      path={mechanicsStatusOptions[Number(option)].src} size={0.8} />
+                    </li>
+                  ))
+                  }
+                </ul>
+                }
+                
+              </button>
+
+              <Tooltip className="z-10" id="mechanic-status-tooltip" style={{ backgroundColor: "black", color : "white"}} />
             </div>
             
             :
@@ -200,7 +232,6 @@ function MechanicsTable () {
             </div>
             
             }
-            
             
             <td className="text-pink-500">
               {mech.mech_type}

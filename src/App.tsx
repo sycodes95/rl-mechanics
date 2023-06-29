@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 
 
 
+import 'react-tooltip/dist/react-tooltip.css'
+
 function App() {
   return (
     <BrowserRouter>

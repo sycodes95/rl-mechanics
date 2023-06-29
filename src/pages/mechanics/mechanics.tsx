@@ -165,7 +165,7 @@ function Mechanics() {
           <MechanicsFilters/>
         </section>
 
-        <section className="flex pt-4 pl-4 pr-4 overflow-x-auto overflow-y-visible border-2 border-black border-opacity-25 rounded-md shadow-lg bg-jet-dark">
+        <section className="flex pt-4 pl-4 pr-4 overflow-x-auto overflow-y-hidden border-2 border-black border-opacity-25 rounded-md shadow-lg bg-jet-dark">
           <MechanicsTable/>
         </section>
 
