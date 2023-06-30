@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import AddEditMechanic from "./addEditMechanic";
 
 import Icon from '@mdi/react';
-import {  mdiPencil, mdiDelete, mdiDotsCircle } from '@mdi/js';
+import {  mdiPencil, mdiDelete, mdiDotsCircle, mdiCircleOutline } from '@mdi/js';
 import { difficultyColors, importanceColors } from "../../../constants/colors";
 import DeleteMechanic from "./deleteMechanic";
 
@@ -36,7 +36,9 @@ function MechanicsTable () {
     gif_url: ""
   })
 
-  const statusButtonRef = useRef<HTMLUListElement>(null)
+  const statusButtonRef = useRef<HTMLButtonElement>(null)
+
+  const statusOptionsList = useRef<HTMLUListElement>(null)
 
   const { user_details } = useSelector((state: RootState) => state.userSlice)
 
@@ -109,13 +111,14 @@ function MechanicsTable () {
   }
 
   useEffect(()=> {
-    
-  },[mechanicStatuses])
+    console.log(showMechanicStatus);
+  },[showMechanicStatus])
 
   useEffect(() => {
     //if user clicks outside of status selection, close it
     const handleClickOutsideStatus = (e: any) => {
-      if(statusButtonRef.current && !statusButtonRef.current.contains(e.target)){
+      
+      if((statusOptionsList.current && !statusOptionsList.current.contains(e.target)) && (statusButtonRef.current && !statusButtonRef.current.contains(e.target))){
         setShowMechanicStatus(null)
       }
     }
@@ -145,6 +148,7 @@ function MechanicsTable () {
           ${column === 'mech_type' && 'min-w-8rem'}
           
           ${column === 'mech_status' && 'pointer-events-none'}
+          ${column === 'mech_status' && 'min-w-4rem'}
           ${column === 'rating_difficulty' && 'pointer-events-none'}
           ${column === 'rating_importance' && 'pointer-events-none'}
           `} key={index} 
@@ -191,30 +195,32 @@ function MechanicsTable () {
             {
             user_details ?
             <div  className="relative h-8 pl-1 overflow-visible">
-              <button  className="relative h-full w-fit"  onClick={()=> handleStatusClick(i)} 
+              <button  className="relative h-full w-fit"  onClick={()=> handleStatusClick(i)} ref={statusButtonRef}  
               >
                 {
                 mechanicStatuses[mech.mech_id] 
                 ? <div data-tooltip-id="mechanic-status-tooltip"
-                data-tooltip-content={`
-                ${mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].tooltip}
-                `}
-                data-tooltip-place="bottom">
-                   
+                  data-tooltip-content={`
+                  ${mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].tooltip}
+                  `}
+                  data-tooltip-place="bottom">
                     <Icon className={`${ mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].color}`}
                     path={mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].src} size={0.8} />
                   </div> 
-                : <div className="text-gray-600"><Icon path={mdiDotsCircle} size={0.8} /></div>
+                : <div className="text-gray-600" data-tooltip-id="mechanic-status-tooltip" data-tooltip-content={`
+                  ${mechanicsStatusOptions[4].tooltip}`} data-tooltip-place="bottom">
+                    <Icon path={mdiCircleOutline} size={0.8} />
+                  </div>
                 }
 
                 {
                 showMechanicStatus === i &&
-                <ul className="absolute top-0 z-10 flex items-center h-8 pl-1 pr-1 ml-1 bg-black bg-opacity-25 rounded-lg left-full w-fit" ref={statusButtonRef}>
+                <ul className="absolute z-10 flex items-center h-6 gap-1 pl-1 pr-1 ml-1 -translate-y-1/2 bg-black bg-opacity-25 rounded-lg cursor-default backdrop-blur-md top-1/2 left-full w-fit" ref={statusOptionsList}>
                   {
                   Object.keys(mechanicsStatusOptions).map(option => (
-                    <li onClick={()=>handleStatusChange(mech.mech_id, Number(option))}>
+                    <li className="cursor-pointer" onClick={()=>handleStatusChange(mech.mech_id, Number(option))}>
                       <Icon className={`${mechanicsStatusOptions[Number(option)].color}`}
-                      path={mechanicsStatusOptions[Number(option)].src} size={0.8} />
+                      path={mechanicsStatusOptions[Number(option)].src} size={0.7} />
                     </li>
                   ))
                   }
