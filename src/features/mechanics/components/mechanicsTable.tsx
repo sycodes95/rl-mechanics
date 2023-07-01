@@ -215,7 +215,7 @@ function MechanicsTable () {
 
                 {
                 showMechanicStatus === i &&
-                <ul className="absolute z-10 flex items-center h-6 gap-1 pl-1 pr-1 ml-1 -translate-y-1/2 bg-black bg-opacity-25 rounded-lg cursor-default backdrop-blur-md top-1/2 left-full w-fit" ref={statusOptionsList}>
+                <ul className="absolute z-10 flex items-center h-6 gap-1 pl-1 pr-1 ml-1 -translate-y-1/2 bg-black bg-opacity-100 rounded-lg cursor-default top-1/2 left-full w-fit" ref={statusOptionsList}>
                   {
                   Object.keys(mechanicsStatusOptions).map(option => (
                     <li className="cursor-pointer" onClick={()=>handleStatusChange(mech.mech_id, Number(option))}>

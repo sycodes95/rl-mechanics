@@ -65,12 +65,12 @@ function MechanicsFilters () {
 
   return (
     <div className="flex flex-col justify-center w-full p-2 border-2 border-black border-opacity-25 rounded-lg bg-jet-dark">
-      <section id="filter-selections" className="flex flex-wrap w-full gap-2 mw-480px-flex-col ">
+      <section id="filter-selections" className="flex flex-wrap w-full gap-4 mw-480px-flex-col ">
       
-        {/* <button id="status-filter" 
+        <button id="status-filter" 
         className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm bg-opacity-25 p-1 flex-1 w-full justify-between z-10 
-        ${user_details && 'cursor-not-allowed'}`}
-        onClick={()=> !user_details && setStatusFilter(!statusFilter)} ref={statusFilterRef}>
+        `}
+        onClick={()=> setStatusFilter(!statusFilter)} ref={statusFilterRef}>
           <p>Status</p>
           <div className="">
             <Icon className={`text-sm transition-transform ${statusFilter && 'rotate-180'}`} 
@@ -81,16 +81,20 @@ function MechanicsFilters () {
           <ul className="absolute left-0 p-1 mt-1 rounded-sm top-full bg-jet-dark" >
             
             {
-            mechanicsStatusOptions.map((option, index) => (
-              <li key={index} className={`hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
-              onClick={()=> dispatch(setFilterValues({...filterValues, mechanic_status_value: option}))}
-              >{option}</li>
+            Object.keys(mechanicsStatusOptions).map((option, index) => (
+              Number(option) !== 1 &&
+              <li key={index} className={`flex items-center gap-2 hover:bg-black hover:bg-opacity-25 w-full p-1 whitespace-nowrap`} 
+              onClick={()=> dispatch(setFilterValues({...filterValues, mechanic_status_value: option}))}>
+                <Icon className={`text-sm `} 
+                path={mechanicsStatusOptions[Number(option)].src} size={0.6} />
+                <p>{mechanicsStatusOptions[Number(option)].tooltip}</p>
+              </li>
               
             ))
             }
           </ul>
           }
-        </button> */}
+        </button>
         <button id="type-filter" 
         className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 border-b-2 border-black border-opacity-25 mw-480px-w-full bg-opacity-30 gap-x-1"
         onClick={()=> setTypeFilter(!typeFilter)} ref={typeFilterRef}>

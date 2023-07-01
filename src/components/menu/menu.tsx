@@ -7,7 +7,7 @@ import getUserFromToken from '../../services/getUserFromToken';
 import ProfileDropMenu from './profileDropMenu';
 import greenRocket from '../../assets/images/green-rocket.png';
 
-interface user_details {
+type user_details = {
   user_id: number;
   user_email: string;
   user_first_name: string;

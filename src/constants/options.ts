@@ -2,10 +2,10 @@ import Icon from '@mdi/react';
 import { mdiCircleOutline, mdiMinusCircleOutline, mdiCircleSlice4, mdiCrownCircleOutline } from '@mdi/js';
 
 export const mechanicsStatusOptions: {[key: number]: { src : string, tooltip : string, color: string}} = {
-  4 : {src : mdiCircleOutline, tooltip: 'Unset', color: 'text-gray-600'},
-  1 : {src : mdiMinusCircleOutline, tooltip: 'Not Learned', color: 'text-gray-400'},
-  2 : {src : mdiCircleSlice4, tooltip: 'Inconsistent', color: 'text-yellow-400'},
-  3 : {src : mdiCrownCircleOutline, tooltip: 'Consistent', color: 'text-green-400'},
+  1 : {src : mdiCircleOutline, tooltip: 'Unset', color: 'text-gray-600'},
+  2 : {src : mdiMinusCircleOutline, tooltip: 'Not Learned', color: 'text-gray-400'},
+  3 : {src : mdiCircleSlice4, tooltip: 'Inconsistent', color: 'text-yellow-400'},
+  4 : {src : mdiCrownCircleOutline, tooltip: 'Consistent', color: 'text-green-400'},
 
 }
 

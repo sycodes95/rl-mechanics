@@ -78,7 +78,8 @@ function Mechanics() {
           debouncedSearch,
           filterValues,
           sortColumn,
-          paginationData
+          paginationData,
+          user_details
         );
 
         data && data.mechanics && data.mechanics.length
