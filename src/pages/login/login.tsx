@@ -103,7 +103,7 @@ function Login (){
             <ReactSVG className="text-green-400 fill-current "  src={twodown}/>
             
           </div>
-          <div className="p-2 text-4xl font-bold text-center text-green-400 text-opacity-0 rounded-md font-cyan-outline font-ocera">LOG IN</div>
+          <div className="p-2 text-4xl font-bold text-center text-gray-400 text-opacity-0 rounded-md font-cyan-outline font-tracks">LOG IN</div>
           
           <input className="p-2 text-xs text-white transition-all duration-200 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
           name="user_email" type="text" value={loginData.user_email} placeholder="EMAIL"
@@ -144,6 +144,8 @@ function Login (){
             <p className="font-bold">SUBMIT</p>
             }
           </button>
+
+          <p className="flex justify-center text-xs text-white">OR</p>
           
           {
           errorMsgs.length !== 0 &&
@@ -156,7 +158,7 @@ function Login (){
           </div>
           }
 
-          <button className="text-white" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button>
+          <button className="h-8 text-white bg-white rounded-lg" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button>
           
           {/* <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
             <GoogleLogin

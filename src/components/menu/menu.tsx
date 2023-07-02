@@ -6,18 +6,10 @@ import triangleneon from '../../../assets/images/triangle-neon.png'
 import getUserFromToken from '../../services/getUserFromToken';
 import ProfileDropMenu from './profileDropMenu';
 import greenRocket from '../../assets/images/green-rocket.png';
+import octane from '../../assets/images/octane-transparent-logo.png'
+import { user_details } from '../../types/user_details';
 
-type user_details = {
-  user_id: number;
-  user_email: string;
-  user_first_name: string;
-  user_last_name: string;
-  user_is_verified: boolean;
-  user_is_admin: boolean;
-  user_rank: string;
-  user_created_At: string;
-  
-}
+
 
 function Menu() {
   
@@ -48,9 +40,12 @@ function Menu() {
 
         <section className='flex items-center w-full h-full gap-x-2' >
 
-          <Link to='/' className='relative flex items-center h-full gap-4 text-white transition-all whitespace-nowrap font-1vw font-nakelin hover:text-opacity-50 '>
-            {/* <img className='h-8 ml-4 transition-all duration-500 -rotate-45 hover:rotate-0' src={greenRocket} alt='green-rocket'/> */}
-            <p className=''>RL MECHANICS</p>
+          <Link to='/' className='relative flex items-center h-full gap-4 text-white transition-all whitespace-nowrap font-tracks text-opacity-30'>
+            <img className='h-12 ml-4 transition-all duration-5005 hover:rotate-0' src={octane} alt='green-rocket'/>
+            <div className='flex flex-col h-full pt-2'>
+              <p className='text-opacity-40 font-1vw '>rlm</p>
+            </div>
+            
           </Link>
 
         </section>

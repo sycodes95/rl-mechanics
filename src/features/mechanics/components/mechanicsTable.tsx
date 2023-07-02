@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import AddEditMechanic from "./addEditMechanic";
 
 import Icon from '@mdi/react';
-import {  mdiPencil, mdiDelete, mdiDotsCircle, mdiCircleOutline } from '@mdi/js';
+import {  mdiPencil, mdiDelete, mdiDotsCircle, mdiCircleOutline, mdiHelpCircleOutline } from '@mdi/js';
 import { difficultyColors, importanceColors } from "../../../constants/colors";
 import DeleteMechanic from "./deleteMechanic";
 
@@ -233,8 +233,11 @@ function MechanicsTable () {
             </div>
             
             :
-            <div className="pl-1">
-              ?
+            <div data-tooltip-id="mechanic-status-not-logged-in" className="flex items-center h-8 pl-1 w-fit"
+            data-tooltip-content="Must be logged in to use this feature."
+            data-tooltip-place="bottom">
+              <Icon path={mdiHelpCircleOutline} size={0.7} />
+              <Tooltip className="z-10" id="mechanic-status-not-logged-in" style={{ backgroundColor: "black", color : "white"}} />
             </div>
             
             }
@@ -244,10 +247,9 @@ function MechanicsTable () {
             </td>
             <td className="relative overflow-visible">
               <div className="relative overflow-visible">
-                <Link className="relative transition-all hover:text-blue-500 hover:cursor-pointer w-fit" 
+                <Link className="relative underline transition-all hover:text-blue-500 hover:cursor-pointer w-fit" 
                 onMouseOver={()=> setMechanicHoverGif({ hover: true, mech_id: mech.mech_id ?? 0, gif_url: mech.mech_gif ?? ""})} 
                 onMouseLeave={()=> setMechanicHoverGif({ hover: false, mech_id: 0, gif_url: ""})}
-                
                 to={`/mechanics/${mech.mech_url}`}> 
                 {mech.mech_name}
                 </Link>

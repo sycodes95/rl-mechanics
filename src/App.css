@@ -37,6 +37,10 @@
   
 }
 
+.font-tracks{
+  font-family: Tracks, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
 .font-white-outline{
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: rgb(255, 255, 255);
