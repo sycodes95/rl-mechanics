@@ -83,7 +83,6 @@ function MechanicsTable () {
   }
 
   const handleStatusChange = (mech_id : number, mechanic_status_value : number) => {
-    console.log(mech_id, user_details?.user_id, mechanic_status_value);
     const data = {
       mech_id,
       user_id : user_details?.user_id,
@@ -110,9 +109,7 @@ function MechanicsTable () {
     })
   }
 
-  useEffect(()=> {
-    console.log(showMechanicStatus);
-  },[showMechanicStatus])
+
 
   useEffect(() => {
     //if user clicks outside of status selection, close it

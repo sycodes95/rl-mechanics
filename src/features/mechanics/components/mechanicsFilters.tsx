@@ -63,10 +63,15 @@ function MechanicsFilters () {
     };
   }, []);
 
+  useEffect(()=> {
+    console.log(user_details);
+  },[user_details])
+
   return (
     <div className="flex flex-col justify-center w-full p-2 border-2 border-black border-opacity-25 rounded-lg bg-jet-dark">
       <section id="filter-selections" className="flex flex-wrap w-full gap-4 mw-480px-flex-col ">
-      
+        {
+        user_details &&
         <button id="status-filter" 
         className={`relative flex items-center gap-x-1 text-sm text-gray-400 bg-jet-dark rounded-sm bg-opacity-25 p-1 flex-1 w-full justify-between z-10 
         border-b-2 border-black border-opacity-25`}
@@ -99,6 +104,7 @@ function MechanicsFilters () {
           </ul>
           }
         </button>
+        }
 
         <button id="type-filter" 
         className="relative flex items-center justify-between flex-1 w-full p-1 text-sm text-gray-400 border-b-2 border-black border-opacity-25 mw-480px-w-full bg-opacity-30 gap-x-1"
