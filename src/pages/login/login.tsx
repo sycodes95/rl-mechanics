@@ -4,10 +4,7 @@ import { useEffect, useState } from "react";
 import { ReactSVG } from "react-svg";
 import { Oval } from "react-loader-spinner";
 import twodown from "../../assets/svgs/twodown.svg"
-import { env } from "process";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"
-import jwt_decode from 'jwt-decode'
-import { log } from "console";
+import googlesvg from "../../assets/svgs/googlelogo.svg"
 
 type DecodedJwt = {
   email: string;
@@ -95,22 +92,22 @@ function Login (){
   
   return (
     <div className="absolute top-0 left-0 flex items-center justify-center flex-grow w-full h-full p-4 ">
-      <div className="flex items-center h-full max-w-5xl">
+      <div className="flex items-center justify-center h-full max-w-5xl">
       
     
         <form className="flex flex-col gap-4 p-6 bg-black rounded-md bg-opacity-40 sm:w-96 w-95pct">
           <div className="flex justify-center w-full">   
-            <ReactSVG className="text-green-400 fill-current "  src={twodown}/>
+            <ReactSVG className="text-white fill-current "  src={twodown}/>
             
           </div>
-          <div className="p-2 text-4xl font-bold text-center text-gray-400 text-opacity-0 rounded-md font-cyan-outline font-tracks">LOG IN</div>
+          <div className="p-2 text-xl font-bold text-center text-gray-400 text-opacity-0 rounded-md font-white-outline font-tracks">LOG IN</div>
           
-          <input className="p-2 text-xs text-white transition-all duration-200 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
+          <input className="p-2 text-xs text-white transition-all duration-200 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-white" 
           name="user_email" type="text" value={loginData.user_email} placeholder="EMAIL"
           required 
           onChange={handleInputChange}/>
 
-          <input className="p-2 text-xs text-white transition-all duration-200 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-green-300" 
+          <input className="p-2 text-xs text-white transition-all duration-200 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-white" 
           name="user_password" type="password" value={loginData.user_password} 
           placeholder="PASSWORD" required
           
@@ -118,7 +115,7 @@ function Login (){
 
           
 
-          <button className="flex items-center justify-center h-8 p-1 text-sm text-white transition-all bg-gray-700 rounded-md hover:bg-green-300 hover:text-gray-600" onClick={handleLoginSubmit}>
+          <button className="flex items-center justify-center h-8 p-1 text-sm text-white transition-all bg-gray-700 rounded-md hover:bg-gray-400 hover:text-gray-600" onClick={handleLoginSubmit}>
             {
             isFetching &&
             <Oval
@@ -145,7 +142,7 @@ function Login (){
             }
           </button>
 
-          <p className="flex justify-center text-xs text-white">OR</p>
+          
           
           {
           errorMsgs.length !== 0 &&
@@ -158,7 +155,12 @@ function Login (){
           </div>
           }
 
-          <button className="h-8 text-white bg-white rounded-lg" onClick={()=> window.open('http://localhost:5000/auth/google')}>google auth</button>
+          <p className="flex justify-center text-xs text-white">OR</p>
+
+          <button className="flex items-center h-10 gap-4 p-4 text-sm text-gray-800 bg-white rounded-lg" onClick={()=> window.open('http://localhost:5000/auth/google')}>
+            <ReactSVG className="" src={googlesvg} />
+            <p className="text-gray-600 text-md">Continue with Google</p>
+          </button>
           
           {/* <GoogleOAuthProvider clientId="295251041006-7lh05dk3lu2q3dpqog9tcqo7b6g13h10.apps.googleusercontent.com">
             <GoogleLogin

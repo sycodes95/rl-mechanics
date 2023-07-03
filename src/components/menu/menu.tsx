@@ -38,12 +38,12 @@ function Menu() {
 
       <div className='flex justify-between w-full max-w-5xl'>
 
-        <section className='flex items-center w-full h-full gap-x-2' >
+        <section className='flex items-center h-full gap-x-2 w-fit' >
 
-          <Link to='/' className='relative flex items-center h-full gap-4 text-white transition-all whitespace-nowrap font-tracks text-opacity-30'>
-            <img className='h-12 ml-4 transition-all duration-5005 hover:rotate-0' src={octane} alt='green-rocket'/>
-            <div className='flex flex-col h-full pt-2'>
-              <p className='text-opacity-40 font-1vw '>rlm</p>
+          <Link to='/' className='relative flex items-center w-12 h-full gap-4 text-white transition-all whitespace-nowrap font-tracks text-opacity-30'>
+            <img className='h-12 ml-4 transition-all w-fit duration-5005 hover:rotate-0' src={octane} alt='octane-logo'/>
+            <div className='flex flex-col h-full pt-2 mw-480px-hidden'>
+              <p className='text-opacity-40 font-1vw mw-480px-hidden'>rlm</p>
             </div>
             
           </Link>
@@ -62,13 +62,13 @@ function Menu() {
         :
         <section className='flex items-center justify-end w-full gap-x-4'>
   
-          {/* <Link to='/log-in' className='pt-1 pb-1 pl-2 pr-2 text-sm text-green-400 transition-all duration-200 bg-green-400 bg-opacity-0 border border-green-400 rounded-sm font-rajdhani hover:bg-opacity-10'>
+          <Link to='/log-in' className='pt-1 pb-1 pl-2 pr-2 text-xs text-green-400 transition-all duration-200 bg-green-400 bg-opacity-0 border border-green-400 rounded-md font-rajdhani hover:bg-opacity-10'>
             <p>LOG IN</p>
-          </Link> */}
+          </Link>
           
-          {/* <Link to='/register' className='pt-1 pb-1 pl-2 pr-2 text-sm text-white transition-all duration-200 bg-white bg-opacity-0 border border-white rounded-sm font-rajdhani hover:bg-opacity-10'>
+          <Link to='/register' className='pt-1 pb-1 pl-2 pr-2 text-xs text-white transition-all duration-200 bg-white bg-opacity-0 border border-white rounded-md font-rajdhani hover:bg-opacity-10'>
             <p>REGISTER</p>
-          </Link> */}
+          </Link>
 
           {/* <button className='flex items-center h-6 p-2 text-xs text-white transition-all bg-pink-500 rounded-md font-rajdhani sm:flex hover:bg-opacity-75 '>
             <p className='text-xs font-bold'>♥ SUPPORT ME ♥</p>

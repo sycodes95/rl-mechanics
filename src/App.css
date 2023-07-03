@@ -67,7 +67,7 @@
 }
 
 .font-1vw{
-  font-size: clamp(1.25rem, 2vw, 3rem);
+  font-size: 2rem;
 }
 
 /* SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR SCROLLBAR */
