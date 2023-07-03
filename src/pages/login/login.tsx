@@ -156,7 +156,7 @@ function Login (){
 
           <p className="flex justify-center text-xs text-white">OR</p>
 
-          <button className="flex items-center h-10 gap-4 p-4 text-sm text-gray-800 bg-white rounded-lg" onClick={()=> window.open('http://localhost:5000/auth/google')}>
+          <button className="flex items-center h-10 gap-4 p-4 text-sm text-gray-800 bg-white rounded-lg" onClick={()=> window.open(`${import.meta.env.VITE_API_HOST_URL}`)}>
             <ReactSVG className="" src={googlesvg} />
             <p className="text-gray-600 text-md">Continue with Google</p>
           </button>
