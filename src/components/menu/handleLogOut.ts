@@ -21,12 +21,13 @@
 
 const handleLogOut = () => {
   fetch(`${import.meta.env.VITE_API_HOST_URL}/users/log-out-get`, {
-    method: 'GET',
     credentials: 'include'
   })
   .then(response => response.json())
-  .then(() => {
-    window.location.href = '/';
+  .then((data) => {
+    console.log(data);
+    if(data.logout) window.location.href = '/';
+    
   })
   .catch(error => {
     console.error(error);
