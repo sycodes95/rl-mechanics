@@ -24,10 +24,8 @@ const handleLogOut = () => {
     credentials: 'include'
   })
   .then(response => response.json())
-  .then((data) => {
-    console.log(data);
-    if(data.logout) window.location.href = '/';
-    
+  .then(() => {
+    window.location.href = '/';
   })
   .catch(error => {
     console.error(error);
