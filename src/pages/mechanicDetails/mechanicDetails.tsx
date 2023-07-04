@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import getMechanicDetails from "../../features/mechanicDetails/services/getMechanicDetails";
-import { mechanicsDifficultyOptions } from "../../constants/options";
+import { mechanicsDifficultyOptions, mechanicsStatusOptions } from "../../constants/options";
 import { difficultyColors } from "../../constants/colors";
 import { importanceColors } from "../../constants/colors";
 import { mechanicsImportanceOptions } from "../../constants/options";
 import ReactPlayer from 'react-player';
 import Icon from '@mdi/react';
 import { mdiContentCopy, mdiCheckBold, mdiKeyboard, mdiController } from '@mdi/js';
+import getUserFromToken from "../../services/getUserFromToken";
+import { setUserDetails } from "../../slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { setMechanicsStatus } from "../../features/mechanics/slice/mechanicsSlice";
+import { getMechanicsStatus} from "../../services/getMechanicStatuses";
 
 
 type MechanicDetailsType = {
@@ -26,6 +32,12 @@ type MechanicDetailsType = {
 };
 
 function MechanicDetails() {
+  const dispatch = useDispatch()
+
+  const { user_details } = useSelector((state: RootState) => state.userSlice)
+
+  const { mechanicsStatus } = useSelector((state: RootState) => state.mechanicsSlice)
+
   const { mech_url } = useParams();
 
   const [showVideo, setShowVideo] = useState("")
@@ -182,6 +194,17 @@ function MechanicDetails() {
               <label className="text-xl text-white font-rajdhani">Info</label>
 
               <div className="flex flex-col gap-2 p-2 border-2 border-black border-opacity-25 rounded-lg shadow-md bg-jet-dark">
+                {
+                user_details && mechanicsStatus[mechanicDetails.mech_id] &&
+                <div className="flex justify-between w-full gap-2 whitespace-nowrap">
+                  <div className="text-gray-500 ">Status</div>
+                  <div className={`flex items-center gap-2 ${mechanicsStatusOptions[mechanicsStatus[mechanicDetails.mech_id]].color}`}>
+                    <Icon className={``}
+                      path={mechanicsStatusOptions[mechanicsStatus[mechanicDetails.mech_id]].src} size={0.7} />
+                    <em>{mechanicsStatusOptions[mechanicsStatus[mechanicDetails.mech_id]].tooltip}</em>
+                  </div>
+                </div>
+                }
                 <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
                   <p className="text-gray-500 ">Difficulty</p>
                   <p className={`${difficultyColors[mechanicDetails?.mech_difficulty]}`}><em>{mechanicsDifficultyOptions[mechanicDetails?.mech_difficulty]}</em></p>

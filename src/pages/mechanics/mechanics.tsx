@@ -16,7 +16,7 @@ import {
   setEditMechanicIsOpen, 
   clearMechanicsData, 
   setMechanicsData, 
-  setMechanicsStatuses 
+  setMechanicsStatus
 } from '../../features/mechanics/slice/mechanicsSlice';
 
 import { RootState } from "../../store";
@@ -24,6 +24,7 @@ import octane from "../../assets/images/octane.webp"
 import AddEditMechanic from "../../features/mechanics/components/addEditMechanic";
 import { getMechanics } from "../../features/mechanics/services/getMechanics";
 import ReactPaginate from "react-paginate";
+import { getMechanicsStatus } from "../../services/getMechanicStatuses";
 
 
 // import { RootState } from "../../../redux/store";
@@ -39,7 +40,6 @@ type MechanicStatus = {
   mechanic_status_id: number;
   mechanic_status_value: number;
   user_id: number;
-
 }
 
 function Mechanics() {
@@ -54,7 +54,7 @@ function Mechanics() {
     searchValue,
     sortColumn,
     mechanicsData,
-    mechanicStatuses
+    mechanicsStatus
   } = useSelector((state: RootState) => state.mechanicsSlice)
 
   const debouncedSearch = useDebounce(searchValue, 300);
@@ -66,10 +66,6 @@ function Mechanics() {
   });
 
   const [paginationShowing, setPaginationShowing] = useState({ a: 0, b: 0 })
-
-  const handlePageChange = (page: number) => {
-    setPaginationData({ ...paginationData, pageNumber: page });
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,23 +93,7 @@ function Mechanics() {
     };
 
     fetchData();
-  }, [debouncedSearch, filterValues, sortColumn, paginationData.pageNumber, mechanicStatuses]);
-
-  useEffect(()=>{
-    //if user is logged in and we have their details, use it to fetch user's mechanic statuses
-    if(user_details){
-
-      fetch(`${import.meta.env.VITE_API_HOST_URL}/mechanics-status-get?user_id=${user_details.user_id}`)
-      .then(res => res.json())
-      .then(data => {
-        let mech_id_to_status_pair : { [key: number] : any } = {}
-        data.mechanics_statuses.forEach((mech: MechanicStatus) => {
-          mech_id_to_status_pair[mech.mech_id] = mech.mechanic_status_value
-        })
-        dispatch(setMechanicsStatuses(mech_id_to_status_pair))
-      })
-    }
-  },[user_details])
+  }, [debouncedSearch, filterValues, sortColumn, paginationData.pageNumber, mechanicsStatus]);
 
   useEffect(() => {
     //if current page number is higher than maximum possible, and there is data, reset pageNumber to 0
@@ -124,18 +104,12 @@ function Mechanics() {
   }, [paginationData.totalCount]);
 
   useEffect(() => {
-    //if current page number is higher than maximum possible, and there is data, reset pageNumber to 0
     let a = (paginationData.pageNumber * paginationData.pageSize) + 1;
     let b = (paginationData.pageNumber * paginationData.pageSize) + paginationData.pageSize;
     if(paginationData.totalCount && b > paginationData.totalCount) b = paginationData.totalCount;
     setPaginationShowing({a, b})
   }, [paginationData]);
 
-  useEffect(() => {
-    getUserFromToken()?.then((user_details) => {
-      user_details && dispatch(setUserDetails(user_details));
-    });
-  }, []);
 
   return (
     <div className="flex justify-center w-full text-white"> 
@@ -166,7 +140,7 @@ function Mechanics() {
           <MechanicsFilters/>
         </section>
 
-        <section className="flex pt-4 pl-4 pr-4 overflow-x-auto overflow-y-hidden border-2 border-black border-opacity-25 rounded-md shadow-lg bg-jet-dark">
+        <section className="flex pt-4 pl-4 pr-4 overflow-x-auto overflow-y-hidden border-2 border-black border-opacity-25 rounded-md shadow-lg border-1 bg-jet-dark">
           <MechanicsTable/>
         </section>
 
@@ -180,9 +154,9 @@ function Mechanics() {
           className="flex p-1 rounded-md text-md gap-x-4"
           breakLabel="..."
           nextLabel="NEXT"
-          onPageChange={(page)=> handlePageChange(page.selected)}
+          onPageChange={(page)=> setPaginationData({ ...paginationData, pageNumber: page.selected })}
           pageRangeDisplayed={5}
-          activeClassName="text-white"
+          activeClassName="text-green-400"
           previousClassName={`text-sm flex items-center hover:text-green-400 transition-all
           ${paginationData.pageNumber === 0 && `text-gray-600 pointer-events-none`}`}
           nextClassName={`text-sm flex items-center hover:text-green-400 transition-all

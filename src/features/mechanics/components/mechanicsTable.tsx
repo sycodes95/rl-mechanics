@@ -16,7 +16,7 @@ import {
   setDeleteMechanicIsOpen, 
   setAddMechanicIsOpen, 
   clearSortColumn, 
-  setMechanicsStatuses,
+  setMechanicsStatus,
   setSortColumn
 } from "../../mechanics/slice/mechanicsSlice";
 
@@ -47,7 +47,7 @@ function MechanicsTable () {
     editMechanicIsOpen,
     sortColumn,
     mechanicsData,
-    mechanicStatuses
+    mechanicsStatus
   } = useSelector((state: RootState) => state.mechanicsSlice)
 
   const handleColumnSort = (column: string | null) => {
@@ -103,7 +103,7 @@ function MechanicsTable () {
           mechanic_status_value
         } = data.mechanic;
 
-        dispatch(setMechanicsStatuses({...mechanicStatuses, [mech_id] : mechanic_status_value}));
+        dispatch(setMechanicsStatus({...mechanicsStatus, [mech_id] : mechanic_status_value}));
 
       }
     })
@@ -165,12 +165,12 @@ function MechanicsTable () {
             {
             user_details && user_details.user_is_admin &&
             
-            <td className="pl-1">
-              <div className="flex items-center gap-x-1">
+            <td className="pl-1 ">
+              
                 <button className="transition-colors hover:text-gray-400" onClick={()=> dispatch(setDeleteMechanicIsOpen({open: true, mech_id: mech.mech_id}))}>
                   <Icon path={mdiDelete} size={0.8} />
                 </button>
-                <button className="transition-colors hover:text-gray-400" onClick={()=> dispatch(setEditMechanicIsOpen({open: true, mech_id: mech.mech_id}))}>
+                <button className="p-1 transition-colors hover:text-gray-400" onClick={()=> dispatch(setEditMechanicIsOpen({open: true, mech_id: mech.mech_id}))}>
                   <Icon path={mdiPencil} size={0.8} />
                 </button>
                 {
@@ -185,7 +185,7 @@ function MechanicsTable () {
                 mechanic={mech}
                 />
                 }
-              </div>
+              
               
             </td>
             }
@@ -195,14 +195,14 @@ function MechanicsTable () {
               <button  className="relative h-full w-fit"  onClick={()=> handleStatusClick(i)} ref={statusButtonRef}  
               >
                 {
-                mechanicStatuses[mech.mech_id] 
+                mechanicsStatus[mech.mech_id] 
                 ? <div data-tooltip-id="mechanic-status-tooltip"
                   data-tooltip-content={`
-                  ${mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].tooltip}
+                  ${mechanicsStatusOptions[mechanicsStatus[mech.mech_id]].tooltip}
                   `}
                   data-tooltip-place="bottom">
-                    <Icon className={`${ mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].color}`}
-                    path={mechanicsStatusOptions[mechanicStatuses[mech.mech_id]].src} size={0.8} />
+                    <Icon className={`${ mechanicsStatusOptions[mechanicsStatus[mech.mech_id]].color}`}
+                    path={mechanicsStatusOptions[mechanicsStatus[mech.mech_id]].src} size={0.8} />
                   </div> 
                 : <div className="text-gray-600" data-tooltip-id="mechanic-status-tooltip" data-tooltip-content={`
                   ${mechanicsStatusOptions[4].tooltip}`} data-tooltip-place="bottom">

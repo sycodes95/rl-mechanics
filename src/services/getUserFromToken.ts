@@ -27,7 +27,6 @@ const getUserFromToken = () => {
   }) 
   .then(response => response.json())
   .then(data => {
-    console.log(data);
     if(data && data.user){
       return data.user
     }

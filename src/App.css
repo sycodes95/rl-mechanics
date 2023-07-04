@@ -101,9 +101,21 @@
 
 /* BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND */
 
+/* .bg-jet-dark{
+  background-color: #16181d;
+} */
+
 .bg-jet-dark{
   background-color: rgb(28, 29, 35);
 }
+
+/* .bg-jet-dark{
+  background-color: rgb(33, 34, 41);
+} */
+
+/* .bg-jet-darker{
+  background-color: #1b1e24;
+} */
 
 .bg-jet-darker{
   background-color: #16181d;
