@@ -65,14 +65,14 @@ function DeleteMechanic ({ mechanic } : DeleteMechanicProps) {
       {
       mechanic &&
       <div id="delete-mechanic-modal-container" 
-      className="fixed z-50 flex flex-col text-white -translate-x-1/2 -translate-y-1/2 bg-black rounded-md top-1/2 left-1/2">
-        <section className="flex items-center justify-between p-4 text-xl rounded-sm">
+      className="fixed z-50 flex flex-col text-white -translate-x-1/2 -translate-y-1/2 rounded-md top-1/2 left-1/2">
+        <section className="flex items-center justify-between p-4 text-xl bg-black rounded-sm">
           <p className="text-red-500 ">Confirm</p>
           <button className="text-sm font-bold text-black" onClick={handleClose}>X</button>
           
         </section>
         
-        <section className="flex flex-col w-full gap-6 p-4">
+        <section className="flex flex-col w-full gap-6 p-4 bg-black bg-opacity-70 backdrop-blur-md">
           <div className="flex text-red-500 whitespace-pre-wrap">Are you sure you want to delete this mechanic?</div>
 
           <div className="flex flex-col gap-2"> 
