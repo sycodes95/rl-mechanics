@@ -63,7 +63,7 @@ function DeleteMechanic ({ mechanic } : DeleteMechanicProps) {
       {
       mechanic &&
       <div id="delete-mechanic-modal-container" 
-      className="fixed flex flex-col text-white -translate-x-1/2 -translate-y-1/2 bg-black rounded-md top-1/2 left-1/2">
+      className="fixed z-50 flex flex-col text-white -translate-x-1/2 -translate-y-1/2 bg-black rounded-md top-1/2 left-1/2">
         <section className="flex items-center justify-between p-4 text-xl rounded-sm">
           <p className="text-red-500 ">Confirm</p>
           <button className="text-sm font-bold text-black" onClick={handleClose}>X</button>
