@@ -124,7 +124,7 @@ function AddEditMechanic ({ mechanic }: AddEditMechanicProps) {
   },[])
   
   return (
-    <div className="absolute top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+    <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
 
       <div  className="max-h-full gap-4 overflow-y-auto bg-black rounded-md h-3/4 bg-opacity-60 w-96 backdrop-blur-sm mw-480px-w-95pct">
 

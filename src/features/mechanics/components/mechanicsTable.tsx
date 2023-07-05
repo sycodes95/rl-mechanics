@@ -126,6 +126,8 @@ function MechanicsTable () {
     };
   }, []);
 
+  
+
   return(
     <table className="">
       <thead className="border-b border-black border-opacity-25">

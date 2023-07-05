@@ -50,6 +50,7 @@ function Mechanics() {
   const { 
     addMechanicIsOpen, 
     editMechanicIsOpen,
+    deleteMechanicIsOpen,
     filterValues,
     searchValue,
     sortColumn,
@@ -109,6 +110,17 @@ function Mechanics() {
     if(paginationData.totalCount && b > paginationData.totalCount) b = paginationData.totalCount;
     setPaginationShowing({a, b})
   }, [paginationData]);
+
+  useEffect(()=> {
+    console.log();
+    if(deleteMechanicIsOpen.open || editMechanicIsOpen.open || addMechanicIsOpen ) {
+      //deleteMechanic and editMechanic boolean value is tied to open key due requiring mechanic information in the obj
+      // as opposed to addmechanic is open where mechanic info is not needed.
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'visible'
+    }
+  },[deleteMechanicIsOpen, addMechanicIsOpen, editMechanicIsOpen])
 
 
   return (

@@ -56,6 +56,8 @@ function DeleteMechanic ({ mechanic } : DeleteMechanicProps) {
     dispatch(setDeleteMechanicIsOpen({...deleteMechanicIsOpen, open : false}));
   }
 
+  
+
   return(
     <div  className="z-50">
       <div id="delete-mechanic-modal-overlay" className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-25 " onClick={handleClose}></div>
