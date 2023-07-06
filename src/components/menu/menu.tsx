@@ -7,6 +7,7 @@ import getUserFromToken from '../../services/getUserFromToken';
 import ProfileDropMenu from './profileDropMenu';
 import greenRocket from '../../assets/images/green-rocket.png';
 import octane from '../../assets/images/octane-transparent-logo.png'
+import blueOctane from '../../assets/images/blue-octane.png'
 import { user_details } from '../../types/user_details';
 
 
@@ -36,14 +37,14 @@ function Menu() {
   return(
     <div className='z-40 flex items-center justify-center w-full h-16 p-4 shadow-md bg-jet-dark sm:pl-16 sm:pr-16'>
 
-      <div className='flex justify-between w-full max-w-5xl'>
+      <div className='flex justify-between w-full max-w-4xl'>
 
         <section className='flex items-center h-full gap-x-2 w-fit' >
 
-          <Link to='/' className='relative flex items-center w-12 h-full gap-4 text-white transition-all whitespace-nowrap font-tracks text-opacity-30'>
-            <img className='h-12 ml-4 transition-all w-fit duration-5005 hover:rotate-0' src={octane} alt='octane-logo'/>
+          <Link to='/' className='relative flex items-center w-16 h-full gap-4 transition-all whitespace-nowrap font-tracks text-opacity-30'>
+            <img className='w-16 transition-all duration-500' src={blueOctane} alt='octane-logo'/>
             <div className='flex flex-col h-full pt-2 mw-480px-hidden'>
-              <p className='text-opacity-40 font-1vw mw-480px-hidden'>rlm</p>
+              <p className='text-white text-opacity-0 font-1vw mw-480px-hidden font-white-outline'>rlm</p>
             </div>
             
           </Link>

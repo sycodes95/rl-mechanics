@@ -65,7 +65,7 @@ function MechanicsFilters () {
 
   return (
     <div className="flex flex-col justify-center w-full p-2 border-2 border-black border-opacity-25 rounded-lg bg-jet-dark">
-      <section id="filter-selections" className="flex flex-wrap w-full gap-4 mw-480px-flex-col ">
+      <section id="filter-selections" className="flex flex-wrap w-full gap-x-4 gap-y-2 mw-480px-flex-col ">
         {
         user_details &&
         <button id="status-filter" 
@@ -79,7 +79,7 @@ function MechanicsFilters () {
           </div>
           {
           statusFilter &&
-          <ul className="absolute left-0 p-1 mt-1 border-2 border-black border-opacity-25 rounded-lg bg-jet-darker top-full" >
+          <ul className="absolute left-0 p-1 mt-1 border-2 border-black border-opacity-25 rounded-lg bg-jet-darker mw-480px-w-full top-full" >
             
             {
             Object.keys(mechanicsStatusOptions).map((option, index) => (
@@ -196,7 +196,7 @@ function MechanicsFilters () {
       {
       (Object.keys(filterValues).map(value => value).some(value => filterValues[value] != "" && filterValues[value] != undefined) || searchValue) &&
       <section className="flex justify-between pt-2">
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {
           Object.keys(filterValues).map((key, index) => (
             filterValues[key] && 
@@ -234,19 +234,18 @@ function MechanicsFilters () {
           {
           searchValue &&
           <div className="flex items-center p-1 text-xs bg-black rounded-md bg-opacity-40 gap-x-2">
-              
-              <p className="">{searchValue}</p> 
-              <button className="text-gray-600 transition-colors hover:text-gray-400" 
-              onClick={()=> dispatch(clearSearchValue())}>
-                <Icon path={mdiCloseCircle} size={0.6} />
-              </button>
-              
-            </div>
+            <p className="">{searchValue}</p> 
+            <button className="text-gray-600 transition-colors hover:text-gray-400" 
+            onClick={()=> dispatch(clearSearchValue())}>
+              <Icon path={mdiCloseCircle} size={0.6} />
+            </button>
+            
+          </div>
           }
         </div>
         {
         (Object.values(filterValues).some(value => value !== "") || searchValue) &&
-        <button className="flex items-center p-1 text-red-500 transition-colors cursor-pointer hover:text-red-600 gap-x-1" 
+        <button className="flex p-1 text-red-500 transition-colors cursor-pointer hover:text-red-600 gap-x-1" 
         onClick={handleResetFilterValues}>
           <p className="text-xs">Reset</p>
           <Icon path={mdiRotateLeft} size={0.8} />

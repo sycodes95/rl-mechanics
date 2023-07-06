@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { setMechanicsStatus } from "../../features/mechanics/slice/mechanicsSlice";
 import { getMechanicsStatus} from "../../services/getMechanicStatuses";
+import { defaultTitle } from "../../constants/title";
 
 
 type MechanicDetailsType = {
@@ -97,6 +98,16 @@ function MechanicDetails() {
   useEffect(()=> {
     window.scrollTo(0,0)
   },[])
+
+  useEffect(()=> {
+    if(mechanicDetails.mech_name){
+      document.title = mechanicDetails.mech_name
+    }
+
+    return ()=> {
+      document.title = defaultTitle
+    }
+  },[mechanicDetails])
 
   return (
     <div className="flex justify-center w-full "> 
