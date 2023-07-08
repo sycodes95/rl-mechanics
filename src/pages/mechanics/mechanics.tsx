@@ -122,6 +122,8 @@ function Mechanics() {
     }
   },[deleteMechanicIsOpen, addMechanicIsOpen, editMechanicIsOpen])
 
+  
+
 
   return (
     <div className="flex justify-center w-full text-white"> 
