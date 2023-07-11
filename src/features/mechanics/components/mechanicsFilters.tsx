@@ -188,7 +188,7 @@ function MechanicsFilters () {
 
         <div className="flex items-center flex-1 w-full p-1 bg-black rounded-md bg-opacity-30 gap-x-2">
           <Icon className="text-gray-500" path={mdiMagnify} size={0.6} />
-          <input className="text-sm text-white placeholder-gray-600 bg-black bg-opacity-0 outline-none caret-white w-96" 
+          <input className="text-sm text-white placeholder-gray-600 bg-black bg-opacity-0 outline-none  caret-white min-w-max" 
           type="text" value={searchValue} placeholder="Search..." onChange={(e)=> dispatch(setSearchValue(e.target.value))}/>
         </div>
 

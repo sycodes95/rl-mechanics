@@ -36,7 +36,7 @@ function MechanicsTable () {
     gif_url: ""
   })
 
-  const statusButtonRef = useRef<HTMLButtonElement>(null)
+  const statusButtonRef = useRef<HTMLDivElement>(null)
 
   const statusOptionsList = useRef<HTMLUListElement>(null)
 
@@ -65,13 +65,13 @@ function MechanicsTable () {
   }
 
   const mechTableColumns = {
-    mech_status: 'Status',
+    mechanic_status_value: 'Status',
     mech_type: 'Type',
     mech_name: 'Name',
     mech_difficulty: 'Difficulty',
     mech_importance: 'Importance',
-    rating_difficulty: 'Rated Difficulty',
-    rating_importance: 'Rated Importance'
+    // rating_difficulty: 'Rated Difficulty',
+    // rating_importance: 'Rated Importance'
   };
 
   const handleStatusClick = (index: number) => {
@@ -142,7 +142,7 @@ function MechanicsTable () {
           // column !== 'mech_status' &&
           <th className={`text-gray-400 text-xs pr-4 
           cursor-pointer hover:text-gray-600 transition-all 
-          ${column !== 'mech_type' && column !== 'mech_name' && 'min-w-6rem'}
+          ${column !== 'mech_type' && column !== 'mech_name' && column !== 'mech_status' && 'min-w-8rem'}
           ${column === 'mech_name' && 'min-w-16rem'}
           ${column === 'mech_type' && 'min-w-8rem'}
           
@@ -194,7 +194,7 @@ function MechanicsTable () {
             {
             user_details ?
             <div  className="relative h-8 pl-1 overflow-visible">
-              <button  className="relative h-full w-fit"  onClick={()=> handleStatusClick(i)} ref={statusButtonRef}  
+              <button  className="relative h-full w-fit"  onClick={()=> handleStatusClick(i)}   
               >
                 {
                 mechanicsStatus[mech.mech_id] 
@@ -202,9 +202,9 @@ function MechanicsTable () {
                   data-tooltip-content={`
                   ${mechanicsStatusOptions[mechanicsStatus[mech.mech_id]].tooltip}
                   `}
-                  data-tooltip-place="bottom">
+                  data-tooltip-place="bottom" ref={statusButtonRef} >
                     <Icon className={`${ mechanicsStatusOptions[mechanicsStatus[mech.mech_id]].color}`}
-                    path={mechanicsStatusOptions[mechanicsStatus[mech.mech_id]].src} size={0.8} />
+                    path={mechanicsStatusOptions[mechanicsStatus[mech.mech_id]].src} size={0.8}  />
                   </div> 
                 : <div className="text-gray-600" data-tooltip-id="mechanic-status-tooltip" data-tooltip-content={`
                   ${mechanicsStatusOptions[4].tooltip}`} data-tooltip-place="bottom">
@@ -269,8 +269,7 @@ function MechanicsTable () {
             <td className={`${mech.mech_importance && importanceColors[mech.mech_importance]}`}>
               {mechanicsImportanceOptions[mech.mech_importance]}
             </td>
-            <td>N/A</td>
-            <td className="w-20">N/A</td>
+            
           </tr>
         ))
         }

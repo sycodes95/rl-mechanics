@@ -126,6 +126,10 @@ function Mechanics() {
     }
   },[deleteMechanicIsOpen, addMechanicIsOpen, editMechanicIsOpen])
 
+  useEffect(()=> {
+    console.log(paginationData)
+  },[paginationData])
+
   
 
 
@@ -182,6 +186,7 @@ function Mechanics() {
           pageCount={Math.ceil(paginationData.totalCount / paginationData.pageSize)}
           previousLabel="PREV"
           renderOnZeroPageCount={null}
+          forcePage={paginationData.pageNumber}
           />
           }
         </section>
