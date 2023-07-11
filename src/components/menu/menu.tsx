@@ -44,7 +44,7 @@ function Menu() {
           <Link to='/' className='relative flex items-center w-16 h-full gap-4 transition-all whitespace-nowrap font-tracks text-opacity-30'>
             <img className='w-16 transition-all duration-500' src={blueOctane} alt='octane-logo'/>
             <div className='flex flex-col h-full pt-2 mw-480px-hidden'>
-              <p className='text-white text-opacity-0 font-1vw mw-480px-hidden font-white-outline'>rlm</p>
+              <p className='text-white font-1vw mw-480px-hidden '>rlm</p>
             </div>
             
           </Link>

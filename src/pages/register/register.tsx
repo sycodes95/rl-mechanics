@@ -102,7 +102,7 @@ function Register () {
             <ReactSVG className="text-white fill-current "  src={twodown}/>
             
           </div>
-          <div className="p-2 text-xl font-bold text-center text-white text-opacity-0 rounded-md font-tracks font-white-outline">REGISTER</div>
+          <div className="p-2 text-xl font-bold text-center text-white rounded-md font-tracks ">REGISTER</div>
           
           <input className="p-2 text-xs text-white transition-all duration-200 bg-black rounded-md bg-opacity-30 caret-white outline-1 outline outline-gray-800 focus:outline-white" 
           name="user_email" type="text" value={registerationData.user_email} placeholder="EMAIL"

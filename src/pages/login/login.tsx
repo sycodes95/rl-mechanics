@@ -99,7 +99,7 @@ function Login (){
             <ReactSVG className="text-white fill-current "  src={twodown}/>
             
           </div>
-          <div className="p-2 text-xl font-bold text-center text-gray-400 text-opacity-0 rounded-md font-white-outline font-tracks">LOG IN</div>
+          <div className="p-2 text-xl font-bold text-center text-white rounded-md font-tracks">LOG IN</div>
           
           <input className="p-2 text-xs text-white transition-all duration-200 bg-black bg-opacity-25 rounded-md caret-white outline-1 outline outline-gray-800 focus:outline-white" 
           name="user_email" type="text" value={loginData.user_email} placeholder="EMAIL"
