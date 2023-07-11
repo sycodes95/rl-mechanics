@@ -20,11 +20,15 @@ import {
 } from '../../features/mechanics/slice/mechanicsSlice';
 
 import { RootState } from "../../store";
-import octane from "../../assets/images/octane.webp"
+
 import AddEditMechanic from "../../features/mechanics/components/addEditMechanic";
 import { getMechanics } from "../../features/mechanics/services/getMechanics";
 import ReactPaginate from "react-paginate";
 import { getMechanicsStatus } from "../../services/getMechanicStatuses";
+
+
+import octane from "../../assets/images/octane.webp"
+import rlbackground from "../../assets/images/rlbackgroundpink.webp"
 
 
 // import { RootState } from "../../../redux/store";
@@ -129,7 +133,7 @@ function Mechanics() {
     <div className="flex justify-center w-full text-white"> 
       <div className="flex flex-col w-full gap-4 max-w-fit">
         <section className="relative flex overflow-hidden rounded-md h-44">
-          <img className="absolute -translate-y-1/2 opacity-50 pointer-events-none top-1/2" src={octane}/>
+          <img className="absolute -translate-y-1/2 pointer-events-none top-1/2" src={rlbackground}/>
         </section>
         <section className="flex justify-between">
           <div className="text-xl font-bold ">ROCKET LEAGUE MECHANICS LIST</div>
