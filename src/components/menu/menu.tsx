@@ -9,7 +9,7 @@ import greenRocket from '../../assets/images/green-rocket.png';
 import octane from '../../assets/images/octane-transparent-logo.png'
 import blueOctane from '../../assets/images/blue-octane.png'
 import { user_details } from '../../types/user_details';
-
+import Kofi from "../../assets/images/kofi.png"
 
 
 function Menu() {
@@ -56,18 +56,33 @@ function Menu() {
         isLoggedIn ?
 
         <section className='flex items-center justify-end w-full gap-x-4'>
+          <div className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5'>
+            <img className='h-8' src={Kofi} alt='kofi-logo'/>
+            <a className='p-1' href='https://ko-fi.com/rlmechanics' target='_blank'>
+              SUPPORT ME 
+            </a>
+
+          </div>
           
           <ProfileDropMenu/>
            
         </section>
         :
         <section className='flex items-center justify-end w-full gap-x-4'>
-  
-          <Link to='/log-in' className='pt-1 pb-1 pl-2 pr-2 text-xs text-green-400 transition-all duration-200 bg-green-400 bg-opacity-0 border border-green-400 rounded-md font-rajdhani hover:bg-opacity-10'>
+          <div className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5'>
+            <img className='h-8' src={Kofi} alt='kofi-logo'/>
+            <a className='p-1' href='https://ko-fi.com/rlmechanics' target='_blank'>
+              SUPPORT ME 
+            </a>
+
+          </div>
+          
+
+          <Link to='/log-in' className='flex items-center h-8 pt-1 pb-1 pl-2 pr-2 text-xs text-green-400 transition-all duration-200 bg-green-400 bg-opacity-0 border border-green-400 rounded-md font-rajdhani hover:bg-opacity-10'>
             <p>LOG IN</p>
           </Link>
           
-          <Link to='/register' className='pt-1 pb-1 pl-2 pr-2 text-xs text-white transition-all duration-200 bg-white bg-opacity-0 border border-white rounded-md font-rajdhani hover:bg-opacity-10'>
+          <Link to='/register' className='flex items-center h-8 pt-1 pb-1 pl-2 pr-2 text-xs text-white transition-all duration-200 bg-white bg-opacity-0 border border-white rounded-md font-rajdhani hover:bg-opacity-10'>
             <p>REGISTER</p>
           </Link>
 
