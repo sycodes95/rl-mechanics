@@ -218,6 +218,12 @@
   
 }
 
+@media (max-width: 380px) {
+  .mw-380px-hidden{
+    display: none;
+  }
+}
+
 
 /*-----------------------------*/
 @media (max-width: 280px) {

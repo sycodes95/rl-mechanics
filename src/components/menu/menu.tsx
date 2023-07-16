@@ -55,27 +55,25 @@ function Menu() {
 
         isLoggedIn ?
 
-        <section className='flex items-center justify-end w-full gap-x-4'>
-          <div className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5'>
+        <section className='flex items-center justify-end w-full gap-x-3'>
+          
+            
+          <a className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5' href='https://ko-fi.com/rlmechanics' target='_blank'>
             <img className='h-8' src={Kofi} alt='kofi-logo'/>
-            <a className='p-1' href='https://ko-fi.com/rlmechanics' target='_blank'>
-              SUPPORT ME 
-            </a>
+            <p className='p-1 mw-380px-hidden'>SUPPORT ME </p>
+          </a>
 
-          </div>
+          
           
           <ProfileDropMenu/>
            
         </section>
         :
-        <section className='flex items-center justify-end w-full gap-x-4'>
-          <div className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5'>
+        <section className='flex items-center justify-end w-full gap-x-3'>
+          <a className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5' href='https://ko-fi.com/rlmechanics' target='_blank'>
             <img className='h-8' src={Kofi} alt='kofi-logo'/>
-            <a className='p-1' href='https://ko-fi.com/rlmechanics' target='_blank'>
-              SUPPORT ME 
-            </a>
-
-          </div>
+            <p className='p-1 mw-380px-hidden'>SUPPORT ME </p>
+          </a>
           
 
           <Link to='/log-in' className='flex items-center h-8 pt-1 pb-1 pl-2 pr-2 text-xs text-green-400 transition-all duration-200 bg-green-400 bg-opacity-0 border border-green-400 rounded-md font-rajdhani hover:bg-opacity-10'>
