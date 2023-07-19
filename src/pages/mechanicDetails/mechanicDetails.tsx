@@ -15,6 +15,7 @@ import { RootState } from "../../store";
 import { setMechanicsStatus } from "../../features/mechanics/slice/mechanicsSlice";
 import { getMechanicsStatus} from "../../services/getMechanicStatuses";
 import { defaultTitle } from "../../constants/title";
+import Rating from "react-rating";
 
 
 type MechanicDetailsType = {
@@ -108,6 +109,7 @@ function MechanicDetails() {
       document.title = defaultTitle
     }
   },[mechanicDetails])
+
 
   return (
     <div className="flex justify-center w-full "> 
@@ -206,14 +208,24 @@ function MechanicDetails() {
 
               <div className="flex flex-col gap-2 p-2 border-2 border-black border-opacity-25 rounded-lg shadow-md bg-jet-dark">
                 {
-                user_details && mechanicsStatus[mechanicDetails.mech_id] &&
+                user_details &&
                 <div className="flex justify-between w-full gap-2 whitespace-nowrap">
                   <div className="text-gray-500 ">Status</div>
+                  {
+                  mechanicsStatus[mechanicDetails.mech_id] ? 
                   <div className={`flex items-center gap-2 ${mechanicsStatusOptions[mechanicsStatus[mechanicDetails.mech_id]].color}`}>
                     <Icon className={``}
-                      path={mechanicsStatusOptions[mechanicsStatus[mechanicDetails.mech_id]].src} size={0.7} />
+                    path={mechanicsStatusOptions[mechanicsStatus[mechanicDetails.mech_id]].src} size={0.7} />
                     <em>{mechanicsStatusOptions[mechanicsStatus[mechanicDetails.mech_id]].tooltip}</em>
                   </div>
+                  :
+                  <div className={`flex items-center gap-2 ${mechanicsStatusOptions[1].color}`}>
+                    <Icon className={``}
+                    path={mechanicsStatusOptions[1].src} size={0.7} />
+                    <em>{mechanicsStatusOptions[1].tooltip}</em>
+                  </div>
+                  }
+                  
                 </div>
                 }
                 <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
@@ -222,7 +234,17 @@ function MechanicDetails() {
                 </div>
                 <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
                   <p className="text-gray-500">Importance</p>
-                  <p className={`${importanceColors[mechanicDetails?.mech_importance]}`}><em>{mechanicsImportanceOptions[mechanicDetails?.mech_importance]}</em></p>
+                  <p className="text-white">
+                    <Rating
+                    className=""
+                    initialRating={mechanicDetails.mech_importance}
+                    emptySymbol="fa fa-star-o"
+                    fullSymbol="fa fa-star "
+                    readonly
+                    fractions={1}
+                    stop={5}
+                    />
+                  </p>
                 </div>
                 <div className="flex justify-between w-full gap-2 rounded-md whitespace-nowrap">
                   <p className="text-gray-500">Rated Diff.</p>
@@ -234,14 +256,19 @@ function MechanicDetails() {
                 </div>
               </div>
             </div>
+            {
+            mechanicDetails.mech_gif && 
             <div className="flex flex-col gap-2 ">
               <p className="text-xl text-white font-rajdhani">PREVIEW</p>
-
+              
               <div className="relative flex w-full h-64 p-2 border-2 border-black border-opacity-25 rounded-md shadow-md bg-jet-dark backdrop-blur-lg">
                 {/* <img className="z-50" key={mechanicHoverGif.mech_id} src={mechanicHoverGif.gif_url} /> */}
                 <iframe className="h-64 p-2" src={mechanicDetails.mech_gif} allowFullScreen></iframe>
               </div>
+
             </div>
+            }
+            
 
             <div className="flex flex-col w-full gap-2">
               <label className="text-xl text-white font-rajdhani">Training Packs</label>

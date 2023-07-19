@@ -23,6 +23,7 @@ import {
 import { mechanicsDifficultyOptions, mechanicsImportanceOptions, mechanicsStatusOptions } from "../../../constants/options";
 
 import { Tooltip } from "react-tooltip";
+import Rating from "react-rating";
 
 function MechanicsTable () {
 
@@ -266,9 +267,22 @@ function MechanicsTable () {
             <td className={`${mech.mech_difficulty && difficultyColors[mech.mech_difficulty]}`}>
               {mechanicsDifficultyOptions[mech.mech_difficulty]}
             </td>
-            <td className={`${mech.mech_importance && importanceColors[mech.mech_importance]}`}>
-              {mechanicsImportanceOptions[mech.mech_importance]}
+            
+            <td className="text-white">
+              <Rating
+              className=""
+              initialRating={mech.mech_importance}
+              emptySymbol="fa fa-star-o"
+              fullSymbol="fa fa-star "
+              readonly
+              fractions={1}
+              stop={5}
+              />
             </td>
+
+            {/* <td className={`${mech.mech_importance && importanceColors[mech.mech_importance]}`}>
+              {mechanicsImportanceOptions[mech.mech_importance]}
+            </td> */}
             
           </tr>
         ))
