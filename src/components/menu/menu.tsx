@@ -56,14 +56,11 @@ function Menu() {
         isLoggedIn ?
 
         <section className='flex items-center justify-end w-full gap-x-3'>
-          
             
           <a className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5' href='https://ko-fi.com/rlmechanics' target='_blank'>
             <img className='h-8' src={Kofi} alt='kofi-logo'/>
             <p className='p-1 mw-380px-hidden'>SUPPORT ME </p>
           </a>
-
-          
           
           <ProfileDropMenu/>
            

@@ -66,7 +66,7 @@ function Mechanics() {
   
   const [paginationData, setPaginationData] = useState<PaginationData>({
     pageNumber: 0,
-    pageSize: 50,
+    pageSize: 25,
     totalCount: null,
   });
 
@@ -116,7 +116,6 @@ function Mechanics() {
   }, [paginationData]);
 
   useEffect(()=> {
-    console.log();
     if(deleteMechanicIsOpen.open || editMechanicIsOpen.open || addMechanicIsOpen ) {
       //deleteMechanic and editMechanic boolean value is tied to open key due requiring mechanic information in the obj
       // as opposed to addmechanic is open where mechanic info is not needed.
@@ -125,13 +124,6 @@ function Mechanics() {
       document.body.style.overflow = 'visible'
     }
   },[deleteMechanicIsOpen, addMechanicIsOpen, editMechanicIsOpen])
-
-  useEffect(()=> {
-    console.log(paginationData)
-  },[paginationData])
-
-  
-
 
   return (
     <div className="flex justify-center w-full text-white"> 
