@@ -132,7 +132,7 @@ function Mechanics() {
           <img className="absolute -translate-y-1/2 pointer-events-none top-1/2" src={rlbackground}/>
         </section>
         <section className="flex justify-between">
-          <div className="text-xl font-bold ">ROCKET LEAGUE MECHANICS LIST</div>
+          <h1 className="text-xl font-bold text-white">Rocket League Mechanics Database</h1>
             {
             user_details && user_details.user_is_admin && 
             <button

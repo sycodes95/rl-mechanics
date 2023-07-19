@@ -1,2 +1,2 @@
 
-export const defaultTitle = 'RL Mechanics'
+export const defaultTitle = 'Rocket League Mechanics'

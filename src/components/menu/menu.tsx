@@ -42,8 +42,8 @@ function Menu() {
         <section className='flex items-center h-full gap-x-2 w-fit' >
 
           <Link to='/' className='relative flex items-center w-16 h-full gap-4 transition-all whitespace-nowrap font-tracks text-opacity-30'>
-            <img className='w-16 transition-all duration-500' src={blueOctane} alt='octane-logo'/>
-            <div className='flex flex-col h-full pt-2 mw-480px-hidden'>
+            <img className='w-16 transition-all duration-500' src={blueOctane} alt='rocket-league-mechanics-octane-blue'/>
+            <div className='flex h-full pt-2 mw-480px-hidden'>
               <p className='text-white font-1vw mw-480px-hidden '>rlm</p>
             </div>
             
@@ -58,7 +58,7 @@ function Menu() {
         <section className='flex items-center justify-end w-full gap-x-3'>
             
           <a className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5' href='https://ko-fi.com/rlmechanics' target='_blank'>
-            <img className='h-8' src={Kofi} alt='kofi-logo'/>
+            <img className='h-8' src={Kofi} alt='rocket-league-mechanics-kofi-logo'/>
             <p className='p-1 mw-380px-hidden'>SUPPORT ME </p>
           </a>
           
@@ -68,7 +68,7 @@ function Menu() {
         :
         <section className='flex items-center justify-end w-full gap-x-3'>
           <a className='flex items-center h-8 p-1 text-xs text-pink-500 transition-all duration-200 bg-pink-400 border border-pink-500 rounded-md hover:bg-opacity-10 bg-opacity-5' href='https://ko-fi.com/rlmechanics' target='_blank'>
-            <img className='h-8' src={Kofi} alt='kofi-logo'/>
+            <img className='h-8' src={Kofi} alt='rocket-league-mechanics-kofi-logo'/>
             <p className='p-1 mw-380px-hidden'>SUPPORT ME </p>
           </a>
           

@@ -102,7 +102,7 @@ function MechanicDetails() {
 
   useEffect(()=> {
     if(mechanicDetails.mech_name){
-      document.title = mechanicDetails.mech_name
+      document.title = `${mechanicDetails.mech_name} | ${defaultTitle}`
     }
 
     return ()=> {
@@ -116,9 +116,9 @@ function MechanicDetails() {
       <div className="flex flex-col w-full max-w-5xl gap-4 rounded-md ">
 
         <section className="flex justify-between"> 
-          <div className="flex items-end text-4xl font-thin text-white font-rajdhani">
+          <h1 className="flex items-end text-4xl font-thin text-white font-rajdhani">
             {mechanicDetails?.mech_name} 
-          </div>
+          </h1>
           
         </section>
 
